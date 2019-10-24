@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 
-import numpy as np
+# Implements Xiu et. al. (2019):
+# https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3389884
 
 #%%
-def screen_words(doc_term_dict,
+def screen_words(vocab,
+                 doc_term_mat,
                  returns,
                  alpha_plus=0.1,
                  alpha_minus=0.1,
@@ -15,7 +17,7 @@ def screen_words(doc_term_dict,
         Indices of the words' columns in the doc_term matrix
     """
     
-    X_binary = np.where(doc_term_dict['doc_term_mat'] > 0, 1, 0)
+    X_binary = np.where(doc_term_mat > 0, 1, 0)
     y_binary = np.where(returns > 0, 1, 0).reshape(-1,1)
     
     k = np.sum(X_binary, axis=0)
@@ -32,14 +34,14 @@ def screen_words(doc_term_dict,
     return S_hat
     
 #%%
-def learn_sentiment_topics(y, doc_term_dict, S_hat):
+def learn_sentiment_topics(y, doc_term_mat, S_hat):
     if np.ndim(y) != 1:
         raise ValueError('y should be 1d array')
     order = y.argsort()
     ranks = order.argsort()+1
     p_hat = ranks/len(y)
     
-    D_s_hat = doc_term_dict['doc_term_mat'][:, S_hat]
+    D_s_hat = doc_term_mat[:, S_hat]
     s_hat = n.sum(D_s_hat, axis=1)
     
     D_hat = (D_s_hat / s_hat.reshape(-1,1)).T

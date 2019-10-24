@@ -3,21 +3,21 @@
 # Taken largely from this website
 # https://www.kdnuggets.com/2018/08/practitioners-guide-processing-understanding-text-2.html
     
-import spacy
-import nltk
-from nltk.tokenize.toktok import ToktokTokenizer
-import re
-from bs4 import BeautifulSoup
-from contractions import CONTRACTION_MAP
-import unicodedata
-from sklearn.feature_extraction.text import CountVectorizer
+# import spacy
+# import nltk
+# from nltk.tokenize.toktok import ToktokTokenizer
+# import re
+# from bs4 import BeautifulSoup
+# from contractions import CONTRACTION_MAP
+# import unicodedata
+# from sklearn.feature_extraction.text import CountVectorizer
 
-nlp = spacy.load('en_core_web_md', parse = True, tag=True, entity=True)
-#nlp_vec = spacy.load('en_vecs', parse = True, tag=True, entity=True)
-tokenizer = ToktokTokenizer()
-stopword_list = nltk.corpus.stopwords.words('english')
-stopword_list.remove('no')
-stopword_list.remove('not')
+# nlp = spacy.load('en_core_web_md', parse = True, tag=True, entity=True)
+# #nlp_vec = spacy.load('en_vecs', parse = True, tag=True, entity=True)
+# tokenizer = ToktokTokenizer()
+# stopword_list = nltk.corpus.stopwords.words('english')
+# stopword_list.remove('no')
+# stopword_list.remove('not')
 
 #%%
 # from the paper
@@ -154,9 +154,11 @@ def count_words(corpus):
     vectorizer = CountVectorizer(preprocessor=preprocess_text,
                                  tokenizer=custom_tokenizer)
     X = vectorizer.fit_transform(corpus)
-    doc_term_dic = {'vocab': vectorizer.get_feature_names(),
-                    'doc_term_mat': X.toarray()}
-    return doc_term_dic
+    
+    vocab = vectorizer.get_feature_names()
+    doc_term_mat = X.toarray()
+
+    return vocab, doc_term_mat
     
 #%%
 if __name__ == "__main__":
@@ -172,4 +174,4 @@ if __name__ == "__main__":
     continues to expect to generate approximately $30 million in synergies by \
     fiscal 2018.'
     
-    a = count_words([content]) 
+    vocab, doc_term_mat = count_words([content])
