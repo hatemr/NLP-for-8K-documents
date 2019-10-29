@@ -19,7 +19,7 @@ The key step in our strategy is to turn the document-term matrix into a
 lower-dimensional representation. We try a few approaches:
 1. PCA
 2. LDA
-3. SESTM [Ke et. al. 2019](references/Predicting_Returns_with_Text_Data.pdf)
+3. SESTM [(Ke et. al. 2019)](references/Predicting_Returns_with_Text_Data.pdf)
 
 ### LDA for Topic Modeling
 Latent Dirichlet Allocation (LDA) aims to model documents as arising from multiple topics, where a _topic_ is defined to be a distribution over a fixed vocabulary of terms. Each document exhibits these topics with different proportions. The K topics and their relative weights are treated as hidden variables. Given a collection of documents, the _posterior distribution_ of the hidden variables given the observed documents determines a hidden topical decomposition of the collection. 
