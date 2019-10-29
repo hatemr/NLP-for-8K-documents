@@ -12,7 +12,8 @@ This setup assumes you already have conda and git installed.
 ## Data Preparation
 1. Download 8K documents from today's S&P 500 companies for the past 5 years.
 2. Extract the useful text from the html documents.
-3. Clean text:
+3. Clean text: 
+    * From `/ey-nlp` run `python ey_nlp/preprocessing.py`. This creates a copy.
     * remove proper nouns (Apple), make lower case (The -> the), expand contractions (can't -> cannot), remove special characters and digits ('[^a-zA-z0-9\s]'), remove stopwords (a, the), remove html tags (`<p></p>`), remove accented characters, remove newlines ([\r|\n|\r\n]+), remove extra whitespace
 4. Tokenize text:
     * lemmatize, stemmer

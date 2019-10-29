@@ -3,14 +3,16 @@
 # Taken largely from this website
 # https://www.kdnuggets.com/2018/08/practitioners-guide-processing-understanding-text-2.html
 
+import pandas as pd
 import spacy
 import nltk
 from nltk.tokenize.toktok import ToktokTokenizer
 import re
 from bs4 import BeautifulSoup
-from ey_nlp.contractions import CONTRACTION_MAP
+from contractions import CONTRACTION_MAP
 import unicodedata
 from sklearn.feature_extraction.text import CountVectorizer
+import time
 
 nlp = spacy.load('en_core_web_md', parse = True, tag=True, entity=True)
 #nlp_vec = spacy.load('en_vecs', parse = True, tag=True, entity=True)
@@ -181,16 +183,28 @@ def _count_words(corpus):
     
 #%%
 if __name__ == "__main__":
-    content = 'Valley Forge, PA November 6, 2015�AmerisourceBergen Corporation \
-    (NYSE:ABC) today announced that it has completed the acquisition of PharMEDium \
-    Healthcare Holdings, Inc., the privately held leading national provider of \
-    outsourced compounded sterile preparations (CSPs) to acute care hospitals \
-    in the United States, from Clayton, Dubilier & Rice for $2.575 billion in \
-    cash, subject to certain adjustments and on a cash-free, debt-free basis. \
-    As previously disclosed, the Company has included a $0.22 to $0.26 net \
-    contribution from PharMEDium in its expectations for adjusted earnings per \
-    share in fiscal 2016 to be in the range of $5.73 to $5.90. The Company \
-    continues to expect to generate approximately $30 million in synergies by \
-    fiscal 2018.'
+    df = pd.read_csv('data/8ks_with_returns.csv', parse_dates=[1])
     
-    vocab, doc_term_mat = count_words([content])
+    # get text
+    corpus = df.Content.values.tolist()
+    
+    # clean text
+    print('Cleaning text... \nThis could take 30 minutes')
+    
+    t0 = time.time()
+    corpus_cleaned = [preprocess_text(doc) for doc in corpus]
+    
+    # tockenize
+    t0 = time.time()
+    corpus_tokenized = [custom_tokenizer(doc) for doc in corpus_cleaned]
+    print('Took {:.0f} minutes'.format((time.time() - t0)/60))
+
+    df['Content_clean'] = corpus_tokenized
+
+    cols = df.columns.tolist()
+    cols2 = cols[:3] + cols[-1:] + cols[3:-1]
+    df = df[cols2]
+    
+    filename = 'data/8ks_with_returns_cleaned_v2.csv'
+    df.to_csv(filename)
+    print('Saved {}'.format(filename))
