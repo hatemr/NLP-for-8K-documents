@@ -10,7 +10,7 @@ Predicting returns from 8K documents using text analysis and natural language pr
     1. remove proper nouns (Apple)
     2. make lower case (The -> the)
     3. expand contractions (can't -> cannot)
-    4. remove special characters and digits ([^a-zA-z0-9\s])
+    4. remove special characters and digits ('[^a-zA-z0-9\s]')
     5. remove stopwords (a, the)
     6. remove html tags (<p></p>)
     7. remove accented characters
@@ -20,7 +20,7 @@ Predicting returns from 8K documents using text analysis and natural language pr
     1. lemmatize
     2. stemmer
 5. Vectorize to a document-term matrix using `CountVectorizer`.
-    1. All our models require creating the document-term matrix. However, we 
+    * All our models require creating the document-term matrix. However, we 
   might later try models that use another vectorizer (e.g. tf-idf).
   
 ## Modeling
