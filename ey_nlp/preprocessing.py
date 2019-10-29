@@ -2,22 +2,22 @@
 
 # Taken largely from this website
 # https://www.kdnuggets.com/2018/08/practitioners-guide-processing-understanding-text-2.html
-    
-# import spacy
-# import nltk
-# from nltk.tokenize.toktok import ToktokTokenizer
-# import re
-# from bs4 import BeautifulSoup
-# from contractions import CONTRACTION_MAP
-# import unicodedata
-# from sklearn.feature_extraction.text import CountVectorizer
 
-# nlp = spacy.load('en_core_web_md', parse = True, tag=True, entity=True)
-# #nlp_vec = spacy.load('en_vecs', parse = True, tag=True, entity=True)
-# tokenizer = ToktokTokenizer()
-# stopword_list = nltk.corpus.stopwords.words('english')
-# stopword_list.remove('no')
-# stopword_list.remove('not')
+import spacy
+import nltk
+from nltk.tokenize.toktok import ToktokTokenizer
+import re
+from bs4 import BeautifulSoup
+from ey_nlp.contractions import CONTRACTION_MAP
+import unicodedata
+from sklearn.feature_extraction.text import CountVectorizer
+
+nlp = spacy.load('en_core_web_md', parse = True, tag=True, entity=True)
+#nlp_vec = spacy.load('en_vecs', parse = True, tag=True, entity=True)
+tokenizer = ToktokTokenizer()
+stopword_list = nltk.corpus.stopwords.words('english')
+stopword_list.remove('no')
+stopword_list.remove('not')
 
 #%%
 # from the paper
@@ -102,6 +102,9 @@ def preprocess_text(doc,
                     stopword_removal=True,
                     html_stripping=True,
                     accented_char_removal=True):
+    """
+    doc: string
+    """
     
     # remove proper nouns
     if proper_noun_removal:
@@ -133,8 +136,8 @@ def preprocess_text(doc,
 
 #%%
 def custom_tokenizer(doc,
-                      stemmer=True,
-                      text_lemmatization=True):
+                     stemmer=True,
+                     text_lemmatization=True):
     # stemmer
     if stemmer:
         doc = simple_stemmer(doc)
@@ -144,9 +147,25 @@ def custom_tokenizer(doc,
     return doc.split()
 
 #%%
-def count_words(corpus):
-    # makes document-term matrix
-    # from: https://scikit-learn.org/stable/modules/feature_extraction.html#customizing-the-vectorizer-classes
+def clean_text(doc):
+    """
+    Clean and tockenize data
+    """
+    doc_clean = preprocess_text(doc)
+    doc_clean = custom_tokenizer(doc_clean)
+    return doc_clean
+
+#%%
+def _count_words(corpus):
+    '''
+    Makes document-term matrix
+    
+    corpus: list of strings
+    
+    reference: https://scikit-learn.org/stable/modules/feature_extraction.html#customizing-the-vectorizer-classes
+    '''
+    
+    
     
     if type(corpus) != list:
         raise TypeError('corpus should be list or nltk corpus')

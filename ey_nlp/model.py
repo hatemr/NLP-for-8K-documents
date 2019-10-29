@@ -9,7 +9,7 @@ def screen_words(vocab,
                  returns,
                  alpha_plus=0.1,
                  alpha_minus=0.1,
-                 kappa):
+                 kappa=0.5):
     """
     Screens for sentiment-charged words. Gives a wordlist S_hat.
     
