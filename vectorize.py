@@ -40,6 +40,9 @@ df = df[cols2]
 #%%
 df.to_csv('data/8ks_with_returns_cleaned.csv')
 
+
+
+
 #%%
 vectorizer = CountVectorizer()
 X = vectorizer.fit_transform(corpus)

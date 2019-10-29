@@ -3,6 +3,11 @@ Predicting returns from 8K documents using text analysis and natural language pr
 
 ![strategy](images/strategy_overview.png)
 
+## Setup
+1. git clone `https://github.com/hatemr/NLP-for-8K-documents.git`
+2. At the terminal, create the conda environment by running `conda env create -f environment.yml`
+3. Activate the environment: `conda activate ey-nlp`
+
 ## Data Preparation
 1. Download 8K documents from today's S&P 500 companies for the past 5 years.
 2. Extract the useful text from the html documents.
