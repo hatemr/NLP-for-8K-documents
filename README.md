@@ -12,7 +12,7 @@ Predicting returns from 8K documents using text analysis and natural language pr
     3. expand contractions (can't -> cannot)
     4. remove special characters and digits ('[^a-zA-z0-9\s]')
     5. remove stopwords (a, the)
-    6. remove html tags (<p></p>)
+    6. remove html tags (`<p></p>`)
     7. remove accented characters
     8. remove newlines ([\r|\n|\r\n]+)
     9. remove extra whitespace
