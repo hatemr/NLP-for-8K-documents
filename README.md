@@ -7,15 +7,15 @@ Predicting returns from 8K documents using text analysis and natural language pr
 1. Download 8K documents from today's S&P 500 companies for the past 5 years.
 2. Extract the useful text from the html documents.
 3. Clean text.
-  * remove proper nouns (Apple)
-  * make lower case (The -> the)
-  * expand contractions (can't -> cannot)
-  * remove special characters and digits ([^a-zA-z0-9\s])
-  * remove stopwords (a, the)
-  * remove html tags (<p></p>)
-  * remove accented characters
-  * remove newlines ([\r|\n|\r\n]+)
-  * remove extra whitespace
+    1. remove proper nouns (Apple)
+    2. make lower case (The -> the)
+    3. expand contractions (can't -> cannot)
+    4. remove special characters and digits ([^a-zA-z0-9\s])
+    5. remove stopwords (a, the)
+    6. remove html tags (<p></p>)
+    7. remove accented characters
+    8. remove newlines ([\r|\n|\r\n]+)
+    9. remove extra whitespace
 4. Tokenize text
   * lemmatize
   * stemmer
