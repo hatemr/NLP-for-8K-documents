@@ -17,10 +17,10 @@ Predicting returns from 8K documents using text analysis and natural language pr
     8. remove newlines ([\r|\n|\r\n]+)
     9. remove extra whitespace
 4. Tokenize text
-  * lemmatize
-  * stemmer
+    1. lemmatize
+    2. stemmer
 5. Vectorize to a document-term matrix using `CountVectorizer`.
-  * All our models require creating the document-term matrix. However, we 
+    1. All our models require creating the document-term matrix. However, we 
   might later try models that use another vectorizer (e.g. tf-idf).
   
 ## Modeling
@@ -34,5 +34,5 @@ I replicated the paper. Need data to estimate on. Also, need a strategy to use t
 Latent Dirichlet Allocation (LDA) aims to model documents as arising from multiple topics, where a _topic_ is defined to be a distribution over a fixed vocabulary of terms. Each document exhibits these topics with different proportions. The K topics and their relative weights are treated as hidden variables. Given a collection of documents, the _posterior distribution_ of the hidden variables given the observed documents determines a hidden topical decomposition of the collection. 
 
 ### Resources
-* [TOPIC MODELS](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.186.4283&rep=rep1&type=pdf)
+* [Topic Models](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.186.4283&rep=rep1&type=pdf)
 * [Hierarchical Dirichlet Processes](https://www.stat.berkeley.edu/~aldous/206-Exch/Papers/hierarchical_dirichlet.pdf)
