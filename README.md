@@ -10,7 +10,7 @@ This setup assumes you already have __conda__ and __git__ installed.
 3. Activate the environment: `conda activate ey-nlp`
 
 ## Results
-Let's show the most interesting part first.
+Let's show the most interesting part first. This plot compares cross-validation AUC for two methods of dimensionality reduction: the SVD (PCA) and LDA. The two are close, and both very close to random guessing (0.5).
 
 ![results1](images/results1.png)
 
