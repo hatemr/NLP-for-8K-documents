@@ -12,7 +12,7 @@ This setup assumes you already have __conda__ and __git__ installed.
 ## Results
 Let's show the most interesting part first.
 
-![results1](images/results.png)
+![results1](images/results1.png)
 
 ## Data Preparation
 1. Download 8K documents from today's S&P 500 companies for the past 5 years.
