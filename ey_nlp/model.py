@@ -2,6 +2,7 @@
 
 # Implements Xiu et. al. (2019):
 # https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3389884
+import numpy as np
 
 #%%
 def screen_words(vocab,
@@ -42,7 +43,7 @@ def learn_sentiment_topics(y, doc_term_mat, S_hat):
     p_hat = ranks/len(y)
     
     D_s_hat = doc_term_mat[:, S_hat]
-    s_hat = n.sum(D_s_hat, axis=1)
+    s_hat = np.sum(D_s_hat, axis=1)
     
     D_hat = (D_s_hat / s_hat.reshape(-1,1)).T
     W_hat = np.stack((p_hat, 1-p_hat))

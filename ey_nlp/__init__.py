@@ -1,8 +1,6 @@
 import numpy as np
 import spacy
-print('importing nltkl')
 import nltk
-print('done')
 from nltk.tokenize.toktok import ToktokTokenizer
 import re
 from bs4 import BeautifulSoup
@@ -19,4 +17,4 @@ stopword_list.remove('not')
 
 #import ey_nlp.preprocessing
 
-from . import preprocessing, model
+from . import preprocessing, model, build_model
