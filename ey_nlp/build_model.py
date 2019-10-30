@@ -60,17 +60,18 @@ def make_model(corpus, y, step, parameters):
 #        ('norm', Normalizer(copy=False)),
 #        ('clf', SGDClassifier(loss='log', tol=1e-3))])
     
-    params1 = {'vec__min_df': (0., 0.1),
-               'clf__alpha': (0.00001, 0.000001)}
+    params1 = {'vec__min_df': (0., 0.1)} #,
+               #'clf__alpha': (0.00001, 0.000001)}
     
     params = {**params1, **parameters}
         
-    tscv = TimeSeriesSplit(n_splits=3)
+    tscv = TimeSeriesSplit(n_splits=2)
     
     grid_search = GridSearchCV(estimator = pipeline,
                                param_grid = params,
                                scoring = 'roc_auc',
-                               cv = tscv)
+                               cv = tscv,
+                               verbose=4)
     
     t0 = time.time()
     print("Performing grid search. ~5 min")
@@ -101,15 +102,15 @@ def make_all_models():
     
     # LDA
     step_lda = [('lda', LatentDirichletAllocation())]
-    parameters_lda = {'lda__n_components': (5, 10)}
+    parameters_lda = {'lda__n_components': (5,10)}
     
     # SESTM
     step_sestm = []
     parameters_sestm = {}
     
-    models = [(step_pca, parameters_pca), 
-              (step_lda, parameters_lda),
-              (step_sestm, parameters_sestm)]
+    models = [#(step_pca, parameters_pca), 
+              (step_lda, parameters_lda)] #,
+              #(step_sestm, parameters_sestm)]
 
     for model in models:
         print('Starting {}'.format(model[0][0][0]))
