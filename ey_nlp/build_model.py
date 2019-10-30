@@ -1,4 +1,4 @@
-lo# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 
 import pandas as pd
 #import imp
@@ -93,7 +93,17 @@ def make_all_models():
     
     # extract list of documents (strings)
     corpus = df.Content.values.tolist()
-    y = (df['1-day'] > 0).astype(int).values
+    d = df['1-day'].values
+    
+    y_up = 2*(d >= 0.01).astype(int)
+    y_mid = 1*((d<0.01)&(d>-0.01)).astype(int)
+    y_down = 0*(d <= -0.01).astype(int)
+    
+    y = y_up + y_mid + y_down
+    
+    y_up = (df['1-day'] > 0.01).astype(int).values
+    y_mid = (df['1-day'] > 0.01).astype(int).values
+    y_down = (df['1-day'] > 0.01).astype(int).values
     
     # PCA
     step_pca = [('svd', TruncatedSVD()),
@@ -121,3 +131,4 @@ def make_all_models():
 #%%
 if __name__ == "__main__":
     make_all_models()
+    
