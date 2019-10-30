@@ -9,6 +9,11 @@ This setup assumes you already have __conda__ and __git__ installed.
 2. Create the conda environment by running `conda env create -f environment.yml`
 3. Activate the environment: `conda activate ey-nlp`
 
+## Results
+Let's show the most interesting part first.
+
+![results1](images/results.png)
+
 ## Data Preparation
 1. Download 8K documents from today's S&P 500 companies for the past 5 years.
 2. Extract the useful text from the html documents.

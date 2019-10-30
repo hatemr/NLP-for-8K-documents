@@ -27,6 +27,8 @@ d = {'DR_method': ['svd', 'lda'], 'CV_AUC': [lda.best_score_, svd.best_score_]}
 df = pd.DataFrame(data=d)
 
 ax = df.plot.bar(x='DR_method', y='CV_AUC', rot=0)
+plt.savefig('images/results1.png')
+
 #%%
 plt.xlabel('DR_method')
 plt.ylabel('CV_AUC')
