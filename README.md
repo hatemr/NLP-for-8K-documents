@@ -4,9 +4,9 @@ Predicting returns from 8K documents using text analysis and natural language pr
 ![strategy](images/strategy_overview.png)
 
 ## Setup
-This setup assumes you already have __conda__ and __git__ installed.
-1. Clone this repo at your terminal by running `git clone https://github.com/hatemr/NLP-for-8K-documents.git`
-2. Create the conda environment by running `conda env create -f environment.yml`
+This setup assumes you already have `conda` and `git` installed.
+1. Clone this repo at your terminal: `git clone https://github.com/hatemr/NLP-for-8K-documents.git`
+2. Create the conda environment: `conda env create -f environment.yml`
 3. Activate the environment: `conda activate ey-nlp`
 
 ## Results
