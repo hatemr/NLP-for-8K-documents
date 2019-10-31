@@ -67,7 +67,7 @@ def grid_search_func(corpus, y, pipeline, param_grid):
 
 #%%
 def make_all_models():
-    df = pd.read_csv('data/8ks_with_returns_cleaned.csv', parse_dates=[1])
+    df = pd.read_csv('data/data.csv', parse_dates=['Date'])
     
     # extract list of documents (strings)
     corpus = df.Content.values.tolist()
@@ -78,10 +78,6 @@ def make_all_models():
     y_down = 0*(d <= -0.01).astype(int)
     
     y = y_up + y_mid + y_down
-    
-    y_up = (df['1-day'] > 0.01).astype(int).values
-    y_mid = (df['1-day'] > 0.01).astype(int).values
-    y_down = (df['1-day'] > 0.01).astype(int).values
     
     # PCA, logreg
     step_pca_lr = Pipeline([('vec', CountVectorizer()),

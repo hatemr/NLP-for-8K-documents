@@ -128,7 +128,7 @@ class SentimentExtractionViaScreeningAndTopicModeling():
         
         return O_hat
 
-    def _log_likelihood(self, s_hat, d, p, O_hat, lamb):
+    def _log_likelihood(self, p, s_hat, d, O_hat, lamb):
         assert type(s_hat)==int or type(s_hat)==float
         assert d.shape[0]==O_hat.shape[0]
         assert O_hat.shape[1]==2
@@ -143,7 +143,17 @@ class SentimentExtractionViaScreeningAndTopicModeling():
         # x0 = np.array([0.5])
         # res = minimize(rosen, x0, method='nelder-mead',
         # options={'xtol': 1e-8, 'disp': True})
-        return 1 # TODO
+        f = lambda p: self._log_likelihood(p, s_hat, d, O_hat, lamb)
+        
+        bnds = (0,1)
+        
+        result = minimize(fun=self._log_likelihood,
+                          x0=0.5, 
+                          args=(s_hat, d, O_hat, lamb),
+                          method='SLSQP',
+                          bounds = bnds)
+        
+        return result # TODO
 
 
     def fit(self, X, y=None):

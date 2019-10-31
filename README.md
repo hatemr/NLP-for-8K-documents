@@ -27,11 +27,11 @@ Let's show the most interesting part first. This plot compares cross-validation 
   might later try models that use another vectorizer (e.g. tf-idf).
   
 ## Modeling
-The key step in our strategy is to turn the document-term matrix into a
-lower-dimensional representation. We try a few approaches:
-1. PCA
-2. LDA
-3. SESTM [(Ke et. al. 2019)](references/Predicting_Returns_with_Text_Data.pdf)
+Our strategy varies along a few dimensions.
+
+1. __Horizon__: 1, 2, 3, 4, 10, 20, 30
+2. __Model__: logistic regression, random forests, gradient boosting
+3. __Dimensionality reduction__: PCA, LDA, HLDA, SESTM [(Ke et. al. 2019)](references/Predicting_Returns_with_Text_Data.pdf)
 
 ### LDA for Topic Modeling
 Latent Dirichlet Allocation (LDA) aims to model documents as arising from multiple topics, where a _topic_ is defined to be a distribution over a fixed vocabulary of terms. Each document exhibits these topics with different proportions. The K topics and their relative weights are treated as hidden variables. Given a collection of documents, the _posterior distribution_ of the hidden variables given the observed documents determines a hidden topical decomposition of the collection.
