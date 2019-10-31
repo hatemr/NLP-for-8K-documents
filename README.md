@@ -29,7 +29,7 @@ Let's show the most interesting part first. This plot compares cross-validation 
 ## Modeling
 Our strategy varies along a few dimensions.
 
-1. __Horizon__: 1, 2, 3, 4, 10, 20, 30
+1. __Horizon__: 1, 2, 3, 4, 5, 10, 20, 30
 2. __Model__: logistic regression, random forests, gradient boosting
 3. __Dimensionality reduction__: PCA, LDA, HLDA, SESTM [(Ke et. al. 2019)](references/Predicting_Returns_with_Text_Data.pdf)
 
