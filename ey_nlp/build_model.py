@@ -71,13 +71,7 @@ def make_all_models():
     
     # extract list of documents (strings)
     corpus = df.Content.values.tolist()
-    d = df['1-day'].fillna(0).values
-    
-    y_up = 2*(d >= 0.01).astype(int)
-    y_mid = 1*((d<0.01)&(d>-0.01)).astype(int)
-    y_down = 0*(d <= -0.01).astype(int)
-    
-    y = y_up + y_mid + y_down
+    y = df['1-day'].fillna(0).values
     
     # PCA, logreg
     step_pca_lr = Pipeline([('vec', CountVectorizer()),
