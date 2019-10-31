@@ -3,16 +3,16 @@ Predicting returns from 8K documents using text analysis and natural language pr
 
 ![strategy](images/strategy_overview.png)
 
+## Results
+Let's show the most interesting part first. This plot compares cross-validation AUC for two methods of dimensionality reduction: the SVD (PCA) and LDA. The two are close, and both very close to random guessing (0.5).
+
+![results1](images/results1.png)
+
 ## Setup
 This setup assumes you already have `conda` and `git` installed.
 1. Clone this repo at your terminal: `git clone https://github.com/hatemr/NLP-for-8K-documents.git`
 2. Create the conda environment: `conda env create -f environment.yml`
 3. Activate the environment: `conda activate ey-nlp`
-
-## Results
-Let's show the most interesting part first. This plot compares cross-validation AUC for two methods of dimensionality reduction: the SVD (PCA) and LDA. The two are close, and both very close to random guessing (0.5).
-
-![results1](images/results1.png)
 
 ## Data Preparation
 1. Download 8K documents from today's S&P 500 companies for the past 5 years.
