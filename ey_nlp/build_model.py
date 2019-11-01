@@ -10,11 +10,15 @@ from sklearn.decomposition import LatentDirichletAllocation
 from sklearn.model_selection import GridSearchCV
 from sklearn.pipeline import Pipeline
 from sklearn.decomposition import TruncatedSVD
-from sklearn.preprocessing import Normalizer
+from sklearn.preprocessing import Normalizer, StandardScaler
 from sklearn.linear_model import SGDClassifier
 from sklearn.model_selection import TimeSeriesSplit
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.impute import SimpleImputer
+from sklearn.compose import ColumnTransformer
 
+import warnings
+warnings.simplefilter(action='ignore', category=FutureWarning)
 #import ey_nlp
 #imp.reload(ey_nlp)
 
@@ -42,44 +46,45 @@ def save_model(model, filename = 'models/logreg.pickle'):
               your current working directory to /EY-NLP')
 
 #%%
-def grid_search_func(corpus, y, pipeline, param_grid):
+def grid_search_func(X, y, pipeline, param_grid):
     '''
     Fit the GridSearchCV
     '''
     
-    assert type(pipeline)==list
     assert type(param_grid)==dict
 
     tscv = TimeSeriesSplit(n_splits=3)
     
     grid_search = GridSearchCV(estimator = pipeline,
                                param_grid = param_grid,
-                               scoring = 'roc_auc',
+                               scoring = 'f1_micro',
                                cv = tscv,
                                verbose=2)
     
     t0 = time.time()
-    print("Performing grid search. ~5 min")
-    grid_search.fit(corpus, y)
+    print("Performing grid search. This could take a while")
+    grid_search.fit(X, y)
     print('Done fitting in {:.2f} minutes'.format((time.time()-t0)/60))
         
     return grid_search
 
 #%%
 def make_all_models():
-    df = pd.read_csv('data/data.csv', parse_dates=['Date'])
+    """Perform grid search on all combinations
+    """
     
-    # extract list of documents (strings)
-    corpus = df.Content.values.tolist()
-    y = df['1-day'].fillna(0).values
+    data = pd.read_csv('data/data.csv', parse_dates=['Date'])
+    y = data['ret_1-day'].fillna(0)
     
+    
+    '''
     # PCA, logreg
     step_pca_lr = Pipeline([('vec', CountVectorizer()),
                    ('svd', TruncatedSVD()),
                    ('norm', Normalizer(copy=False)),
                    ('clf', SGDClassifier(loss='log', tol=1e-3))])
     parameters_pca_lr = {'vec__min_df': (0., 0.1),
-                         'svd__n_components': (5, 20, 100),
+                         'svd__n_components': (20, 50, 100),
                          'clf__alpha': (0.00001, 0.000001)}
     
     # PCA, random forests
@@ -97,28 +102,54 @@ def make_all_models():
     parameters_lda_lr = {'vec__min_df': (0., 0.1),
                          'lda__n_components': (5,10),
                          'clf__alpha': (0.00001, 0.000001)}
-
-    # LDA, random forests
+    
     step_lda_rf = Pipeline([('vec', CountVectorizer()),
                             ('lda', LatentDirichletAllocation()),
                             ('clf', RandomForestClassifier(random_state=0))])
-    parameters_lda_rf = {'vec__min_df': (0., 0.1),
-                         'lda__n_components': (5,10),
-                         'clf__n_estimators': (100, 150)}
+    parameters_lda_rf = {#'vec__min_df': (0., 0.1),
+                         'lda__n_components': [5,10],
+                         'clf__n_estimators': [100, 200],
+                         'clf__max_depth': [2,4],
+                         'clf__max_features': [2,'auto']}
     
     # SESTM, logreg
     step_sestm_lr = Pipeline([('vec', CountVectorizer()),
                               ('clf', SGDClassifier(loss='log', tol=1e-3))])
     parameters_sestm_lr = {'vec__min_df': (0., 0.1),
                            'clf__alpha': (0.00001, 0.000001)}
+
+    '''
     
-    models = [('pca_lr', step_pca_lr, parameters_pca_lr), 
-              ('lda_lr', step_lda_lr, parameters_lda_lr),
-              ('sestm_lr', step_sestm_lr, parameters_sestm_lr)]
+    # LDA, random forests
+    text_features = ['Content_clean']
+    text_transformer = Pipeline(steps = [('vec', CountVectorizer()),
+                                        ('lda', LatentDirichletAllocation())])
+    numeric_features = [''] #['mkt_ret']
+    numeric_transformer = Pipeline(steps=[('imputer', SimpleImputer(strategy='constant', fill_value=0.)),
+                                          ('scaler', StandardScaler())])
+    
+    # combine features preprocessing
+    preprocessor = ColumnTransformer(transformers=[('text', text_transformer, text_features),
+                                                   ('num', numeric_transformer, numeric_features)])
+    # add classifier
+    clf = Pipeline(steps=[('preprocessor', preprocessor),
+                          ('classifier', RandomForestClassifier(random_state=0))])
+    # param grid
+    param_grid = {'preprocessor__text__lda__n_components': (0., 0.1),
+                  'classifier__n_estimators': [100, 200],
+                  'classifier__max_depth': [2,4],
+                  'classifier__max_features': [2,'auto']}
+
+    
+    models = [('lda_rf', clf, param_grid)]
+              #('pca_lr', step_pca_lr, parameters_pca_lr), 
+              #('lda_rf', step_lda_rf, parameters_lda_rf),
+              #('sestm_lr', step_sestm_lr, parameters_sestm_lr)]
 
     for model in models:
         print('Starting {}'.format(model[0]))
-        gs = grid_search_func(corpus, y, pipeline=model[1], param_grid=model[2])
+        
+        gs = grid_search_func(data, y, pipeline=model[1], param_grid=model[2])
         
         # save model. Use pickle + dictionaries
         model_name = model[0]
@@ -127,9 +158,9 @@ def make_all_models():
         filename = "models/" + model_name + ".pickle"
         save_model(model = model, filename = filename)
         
-        print('Finished {}'.format(model[0]))
-        
+        print('Finished {}'.format(model_name))
+
 #%%
 if __name__ == "__main__":
-    make_all_models()
+    pipeline = make_all_models()
     

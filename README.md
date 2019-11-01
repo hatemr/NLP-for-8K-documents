@@ -25,13 +25,20 @@ This setup assumes you already have `conda` and `git` installed.
 5. Vectorize to a document-term matrix using `CountVectorizer`.
     * All our models require creating the document-term matrix. However, we 
   might later try models that use another vectorizer (e.g. tf-idf).
+
+Train/test split on September 1, 2018:
+|       | n_samples |
+|-------|-----------|
+| train | 14799     |
+| test  | 4284      |
   
 ## Modeling
 Our strategy varies along a few dimensions.
 
-1. __Horizon__: 1, 2, 3, 4, 5, 10, 20, 30
-2. __Model__: logistic regression, random forests, gradient boosting
-3. __Dimensionality reduction__: PCA, LDA, HLDA, SESTM [(Ke et. al. 2019)](references/Predicting_Returns_with_Text_Data.pdf)
+1. __Document-term matrix: CountVectorizer, tf-idf
+2. __Dimensionality reduction__: PCA, LDA, HLDA, SESTM [(Ke et. al. 2019)](references/Predicting_Returns_with_Text_Data.pdf)
+3. __Horizon__: 1, 2, 3, 5, 10, 20, 30
+4. __Model__: logistic regression, random forests, gradient boosting
 
 ### LDA for Topic Modeling
 Latent Dirichlet Allocation (LDA) aims to model documents as arising from multiple topics, where a _topic_ is defined to be a distribution over a fixed vocabulary of terms. Each document exhibits these topics with different proportions. The K topics and their relative weights are treated as hidden variables. Given a collection of documents, the _posterior distribution_ of the hidden variables given the observed documents determines a hidden topical decomposition of the collection.

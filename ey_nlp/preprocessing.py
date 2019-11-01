@@ -9,11 +9,12 @@ import nltk
 from nltk.tokenize.toktok import ToktokTokenizer
 import re
 from bs4 import BeautifulSoup
-from ey_nlp.contractions import CONTRACTION_MAP
+from contractions import CONTRACTION_MAP
 import unicodedata
 from sklearn.feature_extraction.text import CountVectorizer
 import time
 
+#%%
 nlp = spacy.load('en_core_web_md', parse = True, tag=True, entity=True)
 #nlp_vec = spacy.load('en_vecs', parse = True, tag=True, entity=True)
 tokenizer = ToktokTokenizer()
@@ -151,11 +152,13 @@ def custom_tokenizer(doc,
 #%%
 def clean_text(doc):
     """
-    Clean and tockenize data
+    Clean then tockenize data
     """
     doc_clean = preprocess_text(doc)
     doc_clean = custom_tokenizer(doc_clean)
-    return doc_clean
+    
+    doc_as_string = ' '.join(doc_clean)
+    return doc_as_string
 
 #%%
 def _count_words(corpus):
@@ -182,8 +185,28 @@ def _count_words(corpus):
     return vocab, doc_term_mat
     
 #%%
+def discretize_target(df):
+    """Turn target into 3 classes: -.01 to 0.01, above, and below
+    """
+    
+    for col in ['1-day', '2-day', '3-day', '5-day', '10-day', '20-day', '30-day']:
+        d = df[col].fillna(0).values
+        
+        new_column_name = 'ret_' + col
+        
+        y_up = 2*(d >= 0.01).astype(int)
+        y_mid = 1*((d<0.01)&(d>-0.01)).astype(int)
+        y_down = 0*(d <= -0.01).astype(int)
+        
+        y = y_up + y_mid + y_down
+        
+        df[new_column_name] = y
+
+    return df
+
+#%%
 if __name__ == "__main__":
-    df = pd.read_csv('data/8ks_with_returns.csv', parse_dates=[1])
+    df = pd.read_csv('data/8ks_with_returns.csv', parse_dates=['Date'], index_col=False)
     
     # get text
     corpus = df.Content.values.tolist()
@@ -192,19 +215,32 @@ if __name__ == "__main__":
     print('Cleaning text... \nThis could take 30 minutes')
     
     t0 = time.time()
-    corpus_cleaned = [preprocess_text(doc) for doc in corpus]
+    corpus_cleaned = [clean_text(doc) for doc in corpus]
+    print('Done in {:.0f} minutes'.format((time.time() - t0)/60))
     
-    # tockenize
-    t0 = time.time()
-    corpus_tokenized = [custom_tokenizer(doc) for doc in corpus_cleaned]
-    print('Took {:.0f} minutes'.format((time.time() - t0)/60))
+    df['Content_clean'] = corpus_cleaned
 
-    df['Content_clean'] = corpus_tokenized
-
-    cols = df.columns.tolist()
-    cols2 = cols[:3] + cols[-1:] + cols[3:-1]
-    df = df[cols2]
+    # to put cleaned content next to original
+    cols = ['Ticker', 'Date', 'Content', 'Content_clean', 'Close', '1-day', '2-day', '3-day', '5-day', '10-day', '20-day', '30-day']
+    df = df[cols]
     
-    filename = 'data/8ks_with_returns_cleaned_v2.csv'
-    df.to_csv(filename)
+    df1 = discretize_target(df)
+    
+    # split to train and test
+    df2 = df1.sort_values(by=['Date','Ticker']).set_index('Date')
+    df2['month'] = df2.index.month
+    df2['year'] = df2.index.year
+    
+    cutoff_date = pd.Timestamp(year=2018, month=9, day=1, hour=0)
+    print('Train-test split on {}'.format(cutoff_date))
+    train = df2.loc[df2.index <= cutoff_date].reset_index().drop(columns=['month', 'year'])
+    test = df2.loc[df2.index > cutoff_date].reset_index().drop(columns=['month', 'year'])
+    
+    # save
+    filename = 'data/train.csv'
+    train.to_csv(filename, index=False)
+    print('Saved {}'.format(filename))
+    
+    filename = 'data/test.csv'
+    test.to_csv(filename, index=False)
     print('Saved {}'.format(filename))

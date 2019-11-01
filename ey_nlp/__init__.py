@@ -4,7 +4,7 @@ import nltk
 from nltk.tokenize.toktok import ToktokTokenizer
 import re
 from bs4 import BeautifulSoup
-from ey_nlp.contractions import CONTRACTION_MAP
+from .contractions import CONTRACTION_MAP
 import unicodedata
 from sklearn.feature_extraction.text import CountVectorizer
 
@@ -17,4 +17,4 @@ stopword_list.remove('not')
 
 #import ey_nlp.preprocessing
 
-from . import preprocessing, model, build_model
+from . import preprocessing, build_model
