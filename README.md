@@ -32,7 +32,7 @@ Train/test split on September 1, 2018:
 | train | 14799     |
 | test  | 4284      |
   
-| Dataset       | Second Header |
+| Dataset       | n_samples     |
 | ------------- | ------------- |
 | Content Cell  | Content Cell  |
 | Content Cell  | Content Cell  |
@@ -40,7 +40,7 @@ Train/test split on September 1, 2018:
 ## Modeling
 Our strategy varies along a few dimensions.
 
-1. __Document-term matrix: CountVectorizer, tf-idf
+1. __Document-term matrix__: CountVectorizer, tf-idf
 2. __Dimensionality reduction__: PCA, LDA, HLDA, SESTM [(Ke et. al. 2019)](references/Predicting_Returns_with_Text_Data.pdf)
 3. __Horizon__: 1, 2, 3, 5, 10, 20, 30
 4. __Model__: logistic regression, random forests, gradient boosting
