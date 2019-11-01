@@ -35,7 +35,7 @@ Train/test split on September 1, 2018:
 | Dataset       | n_samples     |
 | ------------- | ------------- |
 | train         | 14799         |
-| test          | Content Cell  |
+| test          | 4284          |
   
 ## Modeling
 Our strategy varies along a few dimensions.
