@@ -34,7 +34,7 @@ Train/test split on September 1, 2018:
   
 | Dataset       | n_samples     |
 | ------------- | ------------- |
-| Content Cell  | Content Cell  |
+| train         | Content Cell  |
 | Content Cell  | Content Cell  |
   
 ## Modeling
