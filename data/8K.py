@@ -1,4 +1,6 @@
 ## Reference: https://community.mis.temple.edu/zuyinzheng/pythonworkshop/
+# Author: Shuning Miao
+
 import os
 import re
 import csv
