@@ -219,6 +219,7 @@ if __name__ == "__main__":
     print('Done in {:.0f} minutes'.format((time.time() - t0)/60))
     
     df['Content_clean'] = corpus_cleaned
+    df['Content_clean'] = df['Content_clean'].fillna('')
 
     # to put cleaned content next to original
     cols = ['Ticker', 'Date', 'Content', 'Content_clean', 'Close', '1-day', '2-day', '3-day', '5-day', '10-day', '20-day', '30-day']

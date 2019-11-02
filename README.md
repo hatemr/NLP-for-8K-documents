@@ -28,7 +28,7 @@ This setup assumes you already have `conda` and `git` installed.
 
 Train/test split on September 1, 2018:
   
-| Dataset       | n_samples     |
+| dataset       | n_samples     |
 | ------------- | ------------- |
 | train         | 14799         |
 | test          | 4284          |
