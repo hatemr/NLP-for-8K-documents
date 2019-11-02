@@ -39,9 +39,12 @@ data['y_pred_0'] = y_pred[:,0]
 data['y_pred_1'] = y_pred[:,1]
 data['y_pred_2'] = y_pred[:,2]
 
-data.to_csv('data/for_max/predictions.csv', index=False)
 #%%
-data2 = pd.read_csv('data/predictions.csv', parse_dates=['Date'])
+data1 = data.iloc[:, [0,1,2,19,20,21]]
+
+data1.to_csv('data/for_max/data.csv', index=False)
+#%%
+data2 = pd.read_csv('data/for_max/data.csv', parse_dates=['Date'])
 
 #%%
 plt.xlabel('DR_method')

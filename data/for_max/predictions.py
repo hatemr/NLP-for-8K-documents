@@ -10,4 +10,4 @@ data = pd.read_csv('data.csv', parse_dates=['Date'])
 # 1: between -0.01 and 0.01
 # 2: > 0.01
 
-data2.iloc[:, -3:].head()
+data2.head()
