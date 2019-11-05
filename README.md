@@ -8,12 +8,12 @@ Let's show the most interesting part first. This plot compares cross-validation 
 
 ![results1](images/results1.png)
 
-| dimensionality redudction    | normalization | clf_name               | f1_weighted |
-| ---------------------------- | ------------- | ---------------------- | ----------- |
-| LatentDirichletAllocation    |               | RandomForestClassifier | 0.337532    |
-|                              |               | SGDClassifier          | 0.404128    |
-| TruncatedSVD                 | Normalizer    | RandomForestClassifier | 0.333562    |
-|                              |               | SGDClassifier          | 0.405563    |
+| dimensionality redudction    | clf_name               | f1_weighted |
+| ---------------------------- | ---------------------- | ----------- |
+| LatentDirichletAllocation    | RandomForestClassifier | 0.337532    |
+|                              | SGDClassifier          | 0.404128    |
+| TruncatedSVD                 | RandomForestClassifier | 0.333562    |
+|                              | SGDClassifier          | 0.405563    |
 
 ## Setup
 This setup assumes you already have `conda` and `git` installed.
