@@ -221,4 +221,5 @@ if __name__ == "__main__":
     grid_search = pipeline = make_all_models()
 
 #%%
-print(time.time())
+d = grid_search.cv_results_
+results = pd.DataFrame(data=d)
