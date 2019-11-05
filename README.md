@@ -4,7 +4,7 @@ Predicting returns from 8K documents using text analysis and natural language pr
 ![strategy](images/strategy_overview.png)
 
 ## Results
-Let's show the most interesting part first. This plot compares cross-validation AUC for two methods of dimensionality reduction: the SVD (PCA) and LDA. The two are close, and both very close to random guessing (0.5).
+Let's show the most interesting part first, the results.
 
 ![results1](images/results1.png)
 

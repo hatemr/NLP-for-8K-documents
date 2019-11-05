@@ -155,11 +155,9 @@ def make_all_models():
         }
     ]
 
-    #tscv = TimeSeriesSplit(n_splits=2)
-    
+    # predefined split lets us use one validation set (instead of multiple in cv)
     test_fold = np.zeros(y.shape)
     test_fold[0:9947] = -1
-    # predefined split lets us use one validation set (instead of multiple in cv)
     ps = PredefinedSplit(test_fold=test_fold)
     
     grid_search = GridSearchCV(estimator = pipeline,
@@ -181,7 +179,8 @@ def make_all_models():
     save_model(model = model, filename = filename)
     
     return grid_search
-    
+
+#%%
     '''
     #('lda_rf_2', text_transformer, param_grid_lda_rf)
 
@@ -221,20 +220,26 @@ if __name__ == "__main__":
     grid_search = pipeline = make_all_models()
 
 #%%
-d = grid_search.cv_results_
-results = pd.DataFrame(data=d)
-#%%
-# 
-dim_red_name = [r.__class__.__name__ for r in  grid_search.cv_results_['param_dim_red']]
-norm_name = ['' if r.__class__.__name__!='Normalizer' else r.__class__.__name__ for r in  grid_search.cv_results_['param_norm']]
-clf_name = ['SGDClassifier' if r.__class__.__name__=='MaskedConstant' else r.__class__.__name__ for r in  grid_search.cv_results_['param_clf']]
+def make_results_dataframe(grid_search):
+    '''Find best model class in the grid_search
+    '''
+    
+    d = grid_search.cv_results_
+    results = pd.DataFrame(data=d)
 
-results['dim_red_name'] = dim_red_name
-results['norm_name'] = norm_name
-results['clf_name'] = clf_name
-
-#%%
-results.groupby(['dim_red_name', 'norm_name', 'clf_name']).max().loc[:,'mean_test_score']
+    # for groupby later
+    dim_red_name = [r.__class__.__name__ for r in  grid_search.cv_results_['param_dim_red']]
+    norm_name = ['' if r.__class__.__name__!='Normalizer' else r.__class__.__name__ for r in  grid_search.cv_results_['param_norm']]
+    clf_name = ['SGDClassifier' if r.__class__.__name__=='MaskedConstant' else r.__class__.__name__ for r in  grid_search.cv_results_['param_clf']]
+    
+    results['dim_red_name'] = dim_red_name
+    results['norm_name'] = norm_name
+    results['clf_name'] = clf_name
+    
+    # find max within model class
+    results.groupby(['dim_red_name', 'norm_name', 'clf_name']).max().loc[:,'mean_test_score']
+    
+    results.to_csv('data/results1.csv', index=False)
 
 #%%
 
