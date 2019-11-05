@@ -28,10 +28,12 @@ This setup assumes you already have `conda` and `git` installed.
 
 Train/test split on September 1, 2018:
   
-| dataset       | n_samples     |
-| ------------- | ------------- |
-| train         | 14799         |
-| test          | 4284          |
+| dataset       | dates             | n_samples     | indices     |
+| ------------- | ----------------- | ------------- | ----------- |
+| train         | 1/2/15 - 7/31/17  | 9947 (52%)    | 0:9947      |
+| validate      | 7/31/17 - 8/31/18 | 4852 (25%)    | 9947:14799  |
+| test          | 9/1/18 - 10/25/19 | 4284 (23%)    | 14799:19083 |
+| total         | 1/2/15 - 10/25/19 | 19083 (100%)  | 0:19083     |
   
 ## Modeling
 Our strategy varies along a few dimensions.
@@ -47,6 +49,13 @@ Latent Dirichlet Allocation (LDA) aims to model documents as arising from multip
 ![latent dirichlet allocation](images/lda.png)
 
 * LDA in sklearn: [here](https://scikit-learn.org/stable/modules/decomposition.html#latent-dirichlet-allocation-lda)
+
+## Scoring metric: `f1_weighted`
+We use the scoring metric `f1_weighted` from `sklearn`. `f1_weighted` computes
+the f1 score for each class of the target variable, then takes the weighted 
+mean over classes. The weight is the number of true instances of the class. This
+helps account for class imbalance by giving greater weight to higher-frequency
+classes.
 
 ### Resources
 * [Topic Models (Blei and Lafferty)](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.186.4283&rep=rep1&type=pdf)

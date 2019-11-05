@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import numpy as np
 import pandas as pd
 #import imp
 import pickle
@@ -7,15 +8,16 @@ import time
 import os
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.decomposition import LatentDirichletAllocation
-from sklearn.model_selection import GridSearchCV
+from sklearn.model_selection import GridSearchCV, PredefinedSplit
 from sklearn.pipeline import Pipeline
 from sklearn.decomposition import TruncatedSVD
-from sklearn.preprocessing import Normalizer, StandardScaler
+from sklearn.preprocessing import Normalizer
 from sklearn.linear_model import SGDClassifier
 from sklearn.model_selection import TimeSeriesSplit
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.impute import SimpleImputer
+#from sklearn.impute import SimpleImputer
 from sklearn.compose import ColumnTransformer
+from sklearn.preprocessing import FunctionTransformer
 
 from gensim.test.utils import common_dictionary, common_corpus
 from gensim.sklearn_api import HdpTransformer
@@ -60,7 +62,7 @@ def grid_search_func(X, y, pipeline, param_grid):
     
     grid_search = GridSearchCV(estimator = pipeline,
                                param_grid = param_grid,
-                               scoring = 'f1_micro',
+                               scoring = 'f1_weighted',
                                cv = tscv,
                                verbose=2)
     
@@ -80,41 +82,8 @@ def make_all_models():
     X = data['Content_clean'].fillna('').values
     y = data['ret_1-day'].fillna(1).values
     
+    
     '''
-    # PCA, logreg
-    step_pca_lr = Pipeline([('vec', CountVectorizer()),
-                   ('svd', TruncatedSVD()),
-                   ('norm', Normalizer(copy=False)),
-                   ('clf', SGDClassifier(loss='log', tol=1e-3))])
-    parameters_pca_lr = {'vec__min_df': (0., 0.1),
-                         'svd__n_components': (20, 50, 100),
-                         'clf__alpha': (0.00001, 0.000001)}
-    
-    # PCA, random forests
-    step_pca_rf = Pipeline([('vec', CountVectorizer()),('svd', TruncatedSVD()),
-                            ('norm', Normalizer(copy=False)),
-                            ('clf', RandomForestClassifier(random_state=0))])
-    parameters_pca_rf = {'vec__min_df': (0., 0.1),
-                         'svd__n_components': (5, 20, 100),
-                         'clf__n_estimators': (100, 150)}
-    
-    # LDA, logreg
-    step_lda_lr = Pipeline([('vec', CountVectorizer(max_features=10000)),
-                            ('lda', LatentDirichletAllocation()),
-                            ('clf', SGDClassifier(loss='log', tol=1e-3))])
-    parameters_lda_lr = {'vec__min_df': (0., 0.1),
-                         'lda__n_components': (5,10),
-                         'clf__alpha': (0.00001, 0.000001)}
-    
-    step_lda_rf = Pipeline([('vec', CountVectorizer()),
-                            ('lda', LatentDirichletAllocation()),
-                            ('clf', RandomForestClassifier(random_state=0))])
-    parameters_lda_rf = {#'vec__min_df': (0., 0.1),
-                         'lda__n_components': [5,10],
-                         'clf__n_estimators': [100, 200],
-                         'clf__max_depth': [2,4],
-                         'clf__max_features': [2,'auto']}
-    
     # SESTM, logreg
     step_sestm_lr = Pipeline([('vec', CountVectorizer()),
                               ('clf', SGDClassifier(loss='log', tol=1e-3))])
@@ -122,11 +91,19 @@ def make_all_models():
                            'clf__alpha': (0.00001, 0.000001)}
     
     #HLDA
-    text_transformer = Pipeline(steps = [('vec', CountVectorizer()),
-                                         ('hlda', HdpTransformer(id2word=common_dictionary) )])
+    pipeline_pca_hlda = Pipeline([('vec', CountVectorizer()),
+                                  ('hlda', HdpTransformer(id2word=common_dictionary))])
 
+    param_grid_hlda_rf = {'vec__min_df': [0., 0.1],
+                          'lda__n_components': [5,10],
+                          'clf__n_estimators': [100, 200],
+                          'clf__max_depth': [2,4],
+                          'clf__max_features': [2,'auto']}
+    
+    
     '''
     
+    '''
     # LDA, random forests
     text_features = ['Content_clean']
     text_transformer = Pipeline(
@@ -147,16 +124,6 @@ def make_all_models():
     clf = Pipeline(steps=[('preprocessor', preprocessor),
                           ('classifier', RandomForestClassifier(random_state=0))])
 
-    
-    
-    #pipeline = Pipeline(steps=[('vec', CountVectorizer()),
-    #                           ('clf', RandomForestClassifier(random_state=0))])
-    #X = data.Content_clean.values
-    #pipeline.fit(X, y)
-    #print('hiiii')
-    #vectorizer = CountVectorizer()
-    #X = vectorizer.fit_transform(data)
-    
     # param grid
 #    param_grid = {#'preprocessor__text__lda__n_components': [5,20],
 #                  #'classifier__n_estimators': [100,200],
@@ -164,16 +131,79 @@ def make_all_models():
 #                  'classifier__max_features': [2,'auto']}
 
     param_grid_lda_rf = {'vec__max_features': [5000, 10000],
-                         'lda__n_components': [5,10],
-                         #'clf__n_estimators': [100, 200],
-                         #'clf__max_depth': [2,4],
-                         'clf__max_features': [2,'auto']}
+                         'lda__n_components': [5, 10],
+                         'clf__n_estimators': [100, 200],
+                         'clf__max_depth': [2,4],
+                         'clf__max_features': ['auto']} #2
 
+    '''
     
-    models = [('lda_rf', text_transformer, param_grid_lda_rf)]
-              #('pca_lr', step_pca_lr, parameters_pca_lr), 
-              #('lda_rf', step_lda_rf, parameters_lda_rf),
-              #('sestm_lr', step_sestm_lr, parameters_sestm_lr)]
+    pipeline = Pipeline([('vec', CountVectorizer()),
+                     ('dim_red', FunctionTransformer(validate=True)),
+                     ('norm', FunctionTransformer(validate=True)),
+                     ('clf', SGDClassifier(loss='log', tol=1e-3))]
+    )
+    parameters = [
+        {
+            'vec__min_df': [0., 0.01],
+            'dim_red': [TruncatedSVD()],
+            'dim_red__n_components': [20, 50, 100],
+            'norm': [Normalizer(copy=False)],
+            'clf__alpha': [0.0001, 0.00001, 0.000001]
+        }, {
+             'vec__min_df': [0., 0.01],
+             'dim_red': [TruncatedSVD()],
+             'dim_red__n_components': [20, 50, 100],
+             'norm': [Normalizer(copy=False)],
+             'clf': [RandomForestClassifier(random_state=0)],
+             'clf__n_estimators': [100, 200],
+             'clf__max_depth': [2,4],
+             'clf__max_features': [2,'auto']
+        }, {
+             'vec__min_df': [0., 0.01],
+             'dim_red': [LatentDirichletAllocation()],
+             'dim_red__n_components': [5, 10],
+             'clf__alpha': [0.0001, 0.00001, 0.000001]
+        }, {
+             'vec__min_df': [0., 0.01],
+             'dim_red': [LatentDirichletAllocation()],
+             'dim_red__n_components': [5, 10],
+             'clf': [RandomForestClassifier(random_state=0)],
+             'clf__n_estimators': [100, 200],
+             'clf__max_depth': [2,4],
+             'clf__max_features': [2,'auto']
+        }
+    ]
+
+    #tscv = TimeSeriesSplit(n_splits=2)
+    
+    test_fold = np.zeros(y.shape)
+    test_fold[0:9947] = -1  
+    ps = PredefinedSplit(test_fold=test_fold)
+    
+    grid_search = GridSearchCV(estimator = pipeline,
+                               param_grid = parameters,
+                               scoring = 'f1_weighted',
+                               cv = ps,
+                               verbose=2)
+    
+    t0 = time.time()
+    print("Performing grid search. This could take a while")
+    grid_search.fit(X, y)
+    print('Done fitting in {:.2f} minutes'.format((time.time()-t0)/60))
+    
+    return grid_search
+    
+    '''
+    #('lda_rf_2', text_transformer, param_grid_lda_rf)
+
+    models = [#('pca_lr', pipeline_pca_lr, param_grid_pca_lr), 
+              #('pca_rf', pipeline_pca_rf, param_grid_pca_rf)#,
+              #('lda_lr', pipeline_lda_lr, param_grid_lda_lr)#,
+              ('lda_rf', pipeline_lda_rf, param_grid_lda_rf)]
+
+    model_names = []
+    best_score = []
 
     for model in models:
         print('Starting {}'.format(model[0]))
@@ -188,7 +218,16 @@ def make_all_models():
         save_model(model = model, filename = filename)
         
         print('Finished {}'.format(model_name))
+        
+        model_names.append(model_name)
+        best_score.append(gs.best_score_)
+        print('Best score: {}'.format(gs.best_score_))
+        
+    d = {'model': model_name, 'best_f1_weighted':best_score}
+    results = pd.DataFrame(data=d)
+    return results
+    '''
 
 #%%
 if __name__ == "__main__":
-    pipeline = make_all_models()
+    grid_search = pipeline = make_all_models()
