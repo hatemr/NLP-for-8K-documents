@@ -26,7 +26,7 @@ This setup assumes you already have `conda` and `git` installed.
     * All our models require creating the document-term matrix. However, we 
   might later try models that use another vectorizer (e.g. tf-idf).
 
-Train/test split on September 1, 2018:
+## Data Splitting
   
 | dataset       | dates             | n_samples     | indices     |
 | ------------- | ----------------- | ------------- | ----------- |
@@ -43,19 +43,24 @@ Our strategy varies along a few dimensions.
 3. __Horizon__: 1, 2, 3, 5, 10, 20, 30
 4. __Model__: logistic regression, random forests, gradient boosting
 
+## Scoring metric: f1_weighted
+We use the scoring metric `f1_weighted` from `sklearn` on the validation set for 
+model selection. `f1_weighted` computes
+the f1 score for each class of the target variable, then takes the weighted 
+mean over classes. The weight is the number of true instances of the class. This
+helps account for class imbalance by giving greater weight to higher-frequency
+classes.
+
+One idea is to change the scoring metric to our own PnL calculation. However,
+we seek to compare different NLP techniques with each other, not create a 
+realistic investment stategy. Therefore, we stick with _f1_weighted_.
+
 ### LDA for Topic Modeling
 Latent Dirichlet Allocation (LDA) aims to model documents as arising from multiple topics, where a _topic_ is defined to be a distribution over a fixed vocabulary of terms. Each document exhibits these topics with different proportions. The K topics and their relative weights are treated as hidden variables. Given a collection of documents, the _posterior distribution_ of the hidden variables given the observed documents determines a hidden topical decomposition of the collection.
 
 ![latent dirichlet allocation](images/lda.png)
 
 * LDA in sklearn: [here](https://scikit-learn.org/stable/modules/decomposition.html#latent-dirichlet-allocation-lda)
-
-## Scoring metric: `f1_weighted`
-We use the scoring metric `f1_weighted` from `sklearn`. `f1_weighted` computes
-the f1 score for each class of the target variable, then takes the weighted 
-mean over classes. The weight is the number of true instances of the class. This
-helps account for class imbalance by giving greater weight to higher-frequency
-classes.
 
 ### Resources
 * [Topic Models (Blei and Lafferty)](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.186.4283&rep=rep1&type=pdf)

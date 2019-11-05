@@ -84,26 +84,6 @@ def make_all_models():
     
     
     '''
-    # SESTM, logreg
-    step_sestm_lr = Pipeline([('vec', CountVectorizer()),
-                              ('clf', SGDClassifier(loss='log', tol=1e-3))])
-    parameters_sestm_lr = {'vec__min_df': (0., 0.1),
-                           'clf__alpha': (0.00001, 0.000001)}
-    
-    #HLDA
-    pipeline_pca_hlda = Pipeline([('vec', CountVectorizer()),
-                                  ('hlda', HdpTransformer(id2word=common_dictionary))])
-
-    param_grid_hlda_rf = {'vec__min_df': [0., 0.1],
-                          'lda__n_components': [5,10],
-                          'clf__n_estimators': [100, 200],
-                          'clf__max_depth': [2,4],
-                          'clf__max_features': [2,'auto']}
-    
-    
-    '''
-    
-    '''
     # LDA, random forests
     text_features = ['Content_clean']
     text_transformer = Pipeline(
@@ -178,7 +158,8 @@ def make_all_models():
     #tscv = TimeSeriesSplit(n_splits=2)
     
     test_fold = np.zeros(y.shape)
-    test_fold[0:9947] = -1  
+    test_fold[0:9947] = -1
+    # predefined split lets us use one validation set (instead of multiple in cv)
     ps = PredefinedSplit(test_fold=test_fold)
     
     grid_search = GridSearchCV(estimator = pipeline,
@@ -191,6 +172,13 @@ def make_all_models():
     print("Performing grid search. This could take a while")
     grid_search.fit(X, y)
     print('Done fitting in {:.2f} minutes'.format((time.time()-t0)/60))
+    
+    # save model. Use pickle + dictionaries
+    model_name = 'grid_search'
+    model = {model_name: grid_search}
+    
+    filename = "models/" + model_name + ".pickle"
+    save_model(model = model, filename = filename)
     
     return grid_search
     
@@ -231,3 +219,6 @@ def make_all_models():
 #%%
 if __name__ == "__main__":
     grid_search = pipeline = make_all_models()
+
+#%%
+print(time.time())
