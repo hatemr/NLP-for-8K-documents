@@ -6,7 +6,7 @@ Predicting returns from 8K documents using text analysis and natural language pr
 ## Results
 Let's show the most interesting part first, the results.
 
-| dimensionality redudction    | clf_name               | f1_weighted |
+| dimensionality redudction    | classifier             | f1_weighted |
 | ---------------------------- | ---------------------- | ----------- |
 | LatentDirichletAllocation    | RandomForestClassifier | 0.337532    |
 |                              | SGDClassifier          | 0.404128    |
