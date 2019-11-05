@@ -223,3 +223,61 @@ if __name__ == "__main__":
 #%%
 d = grid_search.cv_results_
 results = pd.DataFrame(data=d)
+#%%
+# 
+dim_red_name = [r.__class__.__name__ for r in  grid_search.cv_results_['param_dim_red']]
+norm_name = ['' if r.__class__.__name__!='Normalizer' else r.__class__.__name__ for r in  grid_search.cv_results_['param_norm']]
+clf_name = ['SGDClassifier' if r.__class__.__name__=='MaskedConstant' else r.__class__.__name__ for r in  grid_search.cv_results_['param_clf']]
+
+results['dim_red_name'] = dim_red_name
+results['norm_name'] = norm_name
+results['clf_name'] = clf_name
+
+#%%
+results.groupby(['dim_red_name', 'norm_name', 'clf_name']).max().loc[:,'mean_test_score']
+
+#%%
+
+def get_lda_topics():
+    '''Creates files in /topics folder for Chelsea (11/5/19)
+    '''
+    
+    data = pd.read_csv('data/train.csv', parse_dates=['Date'])
+    X = data['Content_clean'].fillna('').values
+    
+    vectorizer = CountVectorizer(max_features=10000)
+    vectorizer.fit(X)
+    X1 = vectorizer.transform(X)
+    
+    lda = LatentDirichletAllocation(n_components=10)
+    lda.fit(X1)
+    X2 = lda.transform(X1)
+    
+    topic_vectors = lda.components_
+    vocab = vectorizer.get_feature_names()
+    vocab = np.array(vocab)
+    
+    df = pd.DataFrame(topic_vectors.T)
+    df['vocab'] = vocab
+    
+    df.to_csv('topics/topic_vectors.csv', index=False)
+
+    data2 = data.loc[:,['Date', 'Ticker', 'Content', 'Content_clean']]
+    
+    data3 = data2.join(pd.DataFrame(
+        {
+            'topic_1': X2[:,0],
+            'topic_2': X2[:,1],
+            'topic_3': X2[:,2],
+            'topic_4': X2[:,3],
+            'topic_5': X2[:,4],
+            'topic_6': X2[:,5],
+            'topic_7': X2[:,6],
+            'topic_8': X2[:,7],
+            'topic_9': X2[:,8],
+            'topic_10': X2[:,9],
+        }, index=data2.index
+    ))
+    data3.to_csv('topics/topics.csv', index=False)
+    
+#%%

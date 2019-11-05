@@ -8,6 +8,13 @@ Let's show the most interesting part first. This plot compares cross-validation 
 
 ![results1](images/results1.png)
 
+| dim_red_name               | norm_name  | clf_name               | f1_weighted |         |
+| -------------------------- | ---------- | ---------------------- | ---------   |
+| LatentDirichletAllocation  |            | RandomForestClassifier | 0.337532    |
+|                            |            | SGDClassifier          | 0.404128    |
+| TruncatedSVD               | Normalizer | RandomForestClassifier | 0.333562    |
+|                            |            | SGDClassifier          | 0.405563    |
+
 ## Setup
 This setup assumes you already have `conda` and `git` installed.
 1. Clone this repo at your terminal: `git clone https://github.com/hatemr/NLP-for-8K-documents.git`
