@@ -53,3 +53,27 @@ plt.bar(df.DR_method, df.CV_AUC, width=0.5);
 
 for i, v in enumerate(df.CV_AUC.values):
     ax.text(v + .0, i + .0, str(v), color='red', fontweight='bold')
+    
+#%%
+# make test predictions for Max (11/6/19)
+pickle_in = open("models/grid_search.pickle","rb")
+file = pickle.load(pickle_in)
+pickle_in.close()
+
+grid_search = file['grid_search']
+
+#%%
+test = pd.read_csv('data/test.csv', parse_dates=['Date'])
+
+#%%
+X_test = test['Content_clean'].fillna('').values
+y_pred = grid_search.predict_proba(X_test)
+
+#%%
+y_test = test.loc[:,['Date','Ticker']]
+y_test['y_pred_0'] = y_pred[:,0]
+y_test['y_pred_1'] = y_pred[:,1]
+y_test['y_pred_2'] = y_pred[:,2]
+
+#%%
+y_test.to_csv('data/y_pred_oos.csv', index=False)
