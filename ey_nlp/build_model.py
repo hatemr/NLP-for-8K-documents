@@ -26,6 +26,8 @@ from gensim.sklearn_api import HdpTransformer
 
 import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
+warnings.simplefilter("ignore", category=PendingDeprecationWarning)
+warnings.filterwarnings('always')
 #import ey_nlp
 #imp.reload(ey_nlp)
 
@@ -67,15 +69,24 @@ def make_all_models(horizon='ret_1-day'):
     #y = data['ret_1-day'].fillna(1).values
     y = data[horizon]
     
-    def dense_identity(X): return X.todense()
+    def dense_identity(X): 
+        return X.todense()
+    
+    def drop_column(X):
+        ones = np.ones(X.shape[0])
+        return ones[:, np.newaxis]
+    
     
 #    text_features = ['Content_clean']
     text_transformer = Pipeline(
             steps = [#('text_imp', SimpleImputer(strategy='constant', fill_value='')),
                      ('vec', CountVectorizer()),
                      ('dim_red', FunctionTransformer(func=dense_identity, validate=True, accept_sparse=True)),
-                     ('norm', FunctionTransformer(func=dense_identity, validate=True, accept_sparse=True))])
-    
+                     ('norm', FunctionTransformer(func=dense_identity, validate=True, accept_sparse=True)),
+                     ('rem_col', FunctionTransformer(func=None, validate=True, accept_sparse=True))
+                     ])
+
+
     numeric_features = ['sentiment'] #['mkt_ret']
     numeric_transformer = Pipeline(
             steps=[('num_imp', SimpleImputer(strategy='constant', fill_value=0.)),
@@ -92,37 +103,41 @@ def make_all_models(horizon='ret_1-day'):
     
     parameters = [
         {
-            'preprocessor__text__vec': [CountVectorizer(), TfidfVectorizer()], #HdpTransformer(id2word=common_dictionary)
+            'preprocessor__text__rem_col__func': [drop_column, None],
+            'preprocessor__text__vec': [CountVectorizer(), TfidfVectorizer()],
             'preprocessor__text__vec__min_df': [0., 0.01],
             'preprocessor__text__dim_red': [TruncatedSVD()],
             'preprocessor__text__dim_red__n_components': [20, 50, 100],
             'preprocessor__text__norm': [Normalizer(copy=False)],
             'clf__alpha': [0.0001, 0.00001, 0.000001]
         }, {
-             'preprocessor__text__vec': [CountVectorizer(), TfidfVectorizer()], #, HdpTransformer(id2word=common_dictionary)],
-             'preprocessor__text__vec__min_df': [0., 0.01],
-             'preprocessor__text__dim_red': [TruncatedSVD()],
-             'preprocessor__text__dim_red__n_components': [20, 50, 100],
-             'preprocessor__text__norm': [Normalizer(copy=False)],
-             'clf': [RandomForestClassifier(random_state=0)],
-             'clf__n_estimators': [100, 200, 500],
-             'clf__max_depth': [2,4,10],
-             'clf__max_features': [2,'auto']
+            'preprocessor__text__rem_col__func': [drop_column, None],
+            'preprocessor__text__vec': [CountVectorizer(), TfidfVectorizer()],
+            'preprocessor__text__vec__min_df': [0., 0.01],
+            'preprocessor__text__dim_red': [TruncatedSVD()],
+            'preprocessor__text__dim_red__n_components': [20, 50, 100],
+            'preprocessor__text__norm': [Normalizer(copy=False)],
+            'clf': [RandomForestClassifier(random_state=0)],
+            'clf__n_estimators': [100, 200, 500],
+            'clf__max_depth': [2,4,10],
+            'clf__max_features': [2,'auto']
         }, {
-             'preprocessor__text__vec': [CountVectorizer(), TfidfVectorizer()], #, HdpTransformer(id2word=common_dictionary)],
-             'preprocessor__text__vec__min_df': [0., 0.01],
-             'preprocessor__text__dim_red': [LatentDirichletAllocation()],
-             'preprocessor__text__dim_red__n_components': [5, 10],
-             'clf__alpha': [0.0001, 0.00001, 0.000001]
+            'preprocessor__text__rem_col__func': [drop_column, None],                
+            'preprocessor__text__vec': [CountVectorizer(), TfidfVectorizer()],
+            'preprocessor__text__vec__min_df': [0., 0.01],
+            'preprocessor__text__dim_red': [LatentDirichletAllocation()],
+            'preprocessor__text__dim_red__n_components': [5, 10],
+            'clf__alpha': [0.0001, 0.00001, 0.000001]
         }, {
-             'preprocessor__text__vec': [CountVectorizer(), TfidfVectorizer()], #, HdpTransformer(id2word=common_dictionary)],
-             'preprocessor__text__vec__min_df': [0., 0.01],
-             'preprocessor__text__dim_red': [LatentDirichletAllocation()],
-             'preprocessor__text__dim_red__n_components': [5, 10],
-             'clf': [RandomForestClassifier(random_state=0)],
-             'clf__n_estimators': [100, 200, 500],
-             'clf__max_depth': [2,4,10],
-             'clf__max_features': [2,'auto']
+            'preprocessor__text__rem_col__func': [drop_column, None],
+            'preprocessor__text__vec': [CountVectorizer(), TfidfVectorizer()],
+            'preprocessor__text__vec__min_df': [0., 0.01],
+            'preprocessor__text__dim_red': [LatentDirichletAllocation()],
+            'preprocessor__text__dim_red__n_components': [5, 10],
+            'clf': [RandomForestClassifier(random_state=0)],
+            'clf__n_estimators': [100, 200, 500],
+            'clf__max_depth': [2,4,10],
+            'clf__max_features': [2,'auto']
         }
     ]
     
