@@ -164,7 +164,7 @@ for train_index, test_index in ps.split():
    
 #%%
 data = pd.DataFrame(data={'text_feat':['This is my first sentence. I hope you like it','Here is my second sentence. It is pretty similar.'], 
-                          'numeric_feat':[1,2], 
+                          'numeric_feat':[1,0.8], 
                           'target':[3,4]})
 X = data.loc[:,['text_feat', 'numeric_feat']]
 y = data.loc[:,'target']
@@ -178,21 +178,22 @@ text_transformer = Pipeline(
         steps = [('vec', CountVectorizer())])#,
                  #('to_dense', FunctionTransformer(func=dense_identity, validate=True, accept_sparse=True))])
 
-#numeric_features = ['numeric_feat'] #['mkt_ret']
-#numeric_transformer = Pipeline(
-#        steps=[('imputer', SimpleImputer(strategy='constant', fill_value=0.)),
-#               ('scaler', StandardScaler())])
+numeric_features = ['numeric_feat'] #['mkt_ret']
+numeric_transformer = Pipeline(
+        steps=[('imputer', SimpleImputer(strategy='constant', fill_value=0.)),
+               ('scaler', StandardScaler())])
 
 # combine features preprocessing
 preprocessor = ColumnTransformer(
-        transformers=[('text', text_transformer, text_features)])
+        transformers=[('text', text_transformer, 'text_feat'),
+                      ('num', numeric_transformer, numeric_features)])
 
 pipeline = Pipeline(steps=[('preprocessor', preprocessor)])
 
-X1 = pipeline.fit_transform(X, y)
+X1 = pipeline.fit_transform(X)
 print('Expected (2, 13), got', X1.shape)
 
-X2 = text_transformer.fit_transform(X['text_feat'], y)
+X2 = text_transformer.fit_transform(X['text_feat'])
 print('Single pipeline works as expected:', X2.shape)
 
 #%%
@@ -207,14 +208,14 @@ text_transformer = Pipeline(
         steps = [('vec', CountVectorizer())])
 
 preprocessor = ColumnTransformer(
-        transformers=[('text', text_transformer, text_features)])
+        transformers=[('text', text_transformer, 'text_feat')])
 
 pipeline = Pipeline(steps=[('preprocessor', preprocessor)])
 
 # single pipeline works as expected
-X_expected = text_transformer.fit_transform(X['text_feat'], y)
+X_expected = text_transformer.fit_transform(X['text_feat'])
 
-X_test = pipeline.fit_transform(X, y)
+X_test = pipeline.fit_transform(X)
 print('Expected:')
 print(X_expected.toarray())
 print('Got:')

@@ -53,129 +53,86 @@ def save_model(model, filename = 'models/logreg.pickle'):
               your current working directory to /EY-NLP')
 
 #%%
-def grid_search_func(X, y, pipeline, param_grid):
-    '''
-    Fit the GridSearchCV
-    '''
-    
-    assert type(param_grid)==dict
-
-    tscv = TimeSeriesSplit(n_splits=3)
-    
-    grid_search = GridSearchCV(estimator = pipeline,
-                               param_grid = param_grid,
-                               scoring = 'f1_weighted',
-                               cv = tscv,
-                               verbose=2)
-    
-    t0 = time.time()
-    print("Performing grid search. This could take a while")
-    grid_search.fit(X, y)
-    print('Done fitting in {:.2f} minutes'.format((time.time()-t0)/60))
-        
-    return grid_search
-
-#%%
-def make_all_models():
+def make_all_models(horizon='ret_1-day'):
     """Perform grid search on all combinations
     """
     
     data = pd.read_csv('data/train.csv', parse_dates=['Date'])
     data['Content_clean'] = data['Content_clean'].fillna('')
-    data['sentiment'] = data['sentiment'].fillna(0)
-    data['ret_1-day'] = data['ret_1-day'].fillna(1)
-    
+    #data['sentiment'] = data['sentiment'].fillna(0)
+    data[horizon] = data[horizon].fillna(1)
     
     X = data.loc[:,['Date','Ticker','Content_clean','sentiment']]
     #X = data['Content_clean'].fillna('').values
     #y = data['ret_1-day'].fillna(1).values
-    y = data['ret_1-day']
+    y = data[horizon]
     
-    def dense_identity(X):
-        return X.todense()
+    def dense_identity(X): return X.todense()
     
-    text_features = ['Content_clean']
+#    text_features = ['Content_clean']
     text_transformer = Pipeline(
-            steps = [('vec', CountVectorizer()),
-                     ('dim_red', FunctionTransformer(func=dense_identity, validate=True, accept_sparse=True))])
+            steps = [#('text_imp', SimpleImputer(strategy='constant', fill_value='')),
+                     ('vec', CountVectorizer()),
+                     ('dim_red', FunctionTransformer(func=dense_identity, validate=True, accept_sparse=True)),
+                     ('norm', FunctionTransformer(func=dense_identity, validate=True, accept_sparse=True))])
     
     numeric_features = ['sentiment'] #['mkt_ret']
     numeric_transformer = Pipeline(
-            steps=[('imputer', SimpleImputer(strategy='constant', fill_value=0.)),
+            steps=[('num_imp', SimpleImputer(strategy='constant', fill_value=0.)),
                    ('scaler', StandardScaler())])
     
     # combine features preprocessing
     preprocessor = ColumnTransformer(
-            transformers=[('text', text_transformer, text_features)])#,
-                          #('num', numeric_transformer, numeric_features)])
+            transformers=[('text', text_transformer, 'Content_clean'),
+                          ('num', numeric_transformer, numeric_features)])
     # add classifier
-    clf = Pipeline(steps=[('preprocessor', preprocessor)])#,
-                          #('classifier', RandomForestClassifier(random_state=0))])
+    clf = Pipeline(steps=[('preprocessor', preprocessor),
+                          ('clf', SGDClassifier(loss='log', tol=1e-3))])
 
-    print('fitting')
-    X1 = clf.fit_transform(X, y)
-    print('done')
-    return X1
-    # param grid
-#    param_grid = {#'preprocessor__text__lda__n_components': [5,20],
-#                  #'classifier__n_estimators': [100,200],
-#                  #'classifier__max_depth': [2,4],
-#                  'classifier__max_features': [2,'auto']}
-
-#    param_grid_lda_rf = {'vec__max_features': [5000, 10000],
-#                         'lda__n_components': [5, 10],
-#                         'clf__n_estimators': [100, 200],
-#                         'clf__max_depth': [2,4],
-#                         'clf__max_features': ['auto']} #2
-
-    '''    
-    pipeline = Pipeline([('vec', CountVectorizer()),
-                     ('dim_red', FunctionTransformer(validate=True)),
-                     ('norm', FunctionTransformer(validate=True)),
-                     ('clf', SGDClassifier(loss='log', tol=1e-3))]
-    )
+    
     parameters = [
         {
-            'vec': [CountVectorizer(), TfidfVectorizer()], #HdpTransformer(id2word=common_dictionary)
-            'vec__min_df': [0., 0.01],
-            'dim_red': [TruncatedSVD()],
-            'dim_red__n_components': [20, 50, 100],
-            'norm': [Normalizer(copy=False)],
+            'preprocessor__text__vec': [CountVectorizer(), TfidfVectorizer()], #HdpTransformer(id2word=common_dictionary)
+            'preprocessor__text__vec__min_df': [0., 0.01],
+            'preprocessor__text__dim_red': [TruncatedSVD()],
+            'preprocessor__text__dim_red__n_components': [20, 50, 100],
+            'preprocessor__text__norm': [Normalizer(copy=False)],
             'clf__alpha': [0.0001, 0.00001, 0.000001]
         }, {
-             'vec': [CountVectorizer(), TfidfVectorizer()], #, HdpTransformer(id2word=common_dictionary)],
-             'vec__min_df': [0., 0.01],
-             'dim_red': [TruncatedSVD()],
-             'dim_red__n_components': [20, 50, 100],
-             'norm': [Normalizer(copy=False)],
+             'preprocessor__text__vec': [CountVectorizer(), TfidfVectorizer()], #, HdpTransformer(id2word=common_dictionary)],
+             'preprocessor__text__vec__min_df': [0., 0.01],
+             'preprocessor__text__dim_red': [TruncatedSVD()],
+             'preprocessor__text__dim_red__n_components': [20, 50, 100],
+             'preprocessor__text__norm': [Normalizer(copy=False)],
              'clf': [RandomForestClassifier(random_state=0)],
              'clf__n_estimators': [100, 200, 500],
              'clf__max_depth': [2,4,10],
              'clf__max_features': [2,'auto']
         }, {
-             'vec': [CountVectorizer(), TfidfVectorizer()], #, HdpTransformer(id2word=common_dictionary)],
-             'vec__min_df': [0., 0.01],
-             'dim_red': [LatentDirichletAllocation()],
-             'dim_red__n_components': [5, 10],
+             'preprocessor__text__vec': [CountVectorizer(), TfidfVectorizer()], #, HdpTransformer(id2word=common_dictionary)],
+             'preprocessor__text__vec__min_df': [0., 0.01],
+             'preprocessor__text__dim_red': [LatentDirichletAllocation()],
+             'preprocessor__text__dim_red__n_components': [5, 10],
              'clf__alpha': [0.0001, 0.00001, 0.000001]
         }, {
-             'vec': [CountVectorizer(), TfidfVectorizer()], #, HdpTransformer(id2word=common_dictionary)],
-             'vec__min_df': [0., 0.01],
-             'dim_red': [LatentDirichletAllocation()],
-             'dim_red__n_components': [5, 10],
+             'preprocessor__text__vec': [CountVectorizer(), TfidfVectorizer()], #, HdpTransformer(id2word=common_dictionary)],
+             'preprocessor__text__vec__min_df': [0., 0.01],
+             'preprocessor__text__dim_red': [LatentDirichletAllocation()],
+             'preprocessor__text__dim_red__n_components': [5, 10],
              'clf': [RandomForestClassifier(random_state=0)],
              'clf__n_estimators': [100, 200, 500],
              'clf__max_depth': [2,4,10],
              'clf__max_features': [2,'auto']
         }
     ]
-
+    
+    
     # predefined split lets us use one validation set (instead of multiple in cv)
     test_fold = np.zeros(y.shape)
     test_fold[0:9947] = -1
     ps = PredefinedSplit(test_fold=test_fold)
     
-    grid_search = GridSearchCV(estimator = pipeline,
+    grid_search = GridSearchCV(estimator = clf,
                                param_grid = parameters,
                                scoring = 'f1_weighted',
                                cv = ps,
@@ -187,54 +144,28 @@ def make_all_models():
     print('Done fitting in {:.2f} minutes'.format((time.time()-t0)/60))
     
     # save model. Use pickle + dictionaries
-    model_name = 'grid_search'
-    model = {model_name: grid_search}
+    model_name = 'grid_search_' + horizon
     
     filename = "models/" + model_name + ".pickle"
-    save_model(model = model, filename = filename)
+    save_model(model = grid_search, filename = filename)
     
     return grid_search
-    '''
-
-#%%
-    '''
-    #('lda_rf_2', text_transformer, param_grid_lda_rf)
-
-    models = [#('pca_lr', pipeline_pca_lr, param_grid_pca_lr), 
-              #('pca_rf', pipeline_pca_rf, param_grid_pca_rf)#,
-              #('lda_lr', pipeline_lda_lr, param_grid_lda_lr)#,
-              ('lda_rf', pipeline_lda_rf, param_grid_lda_rf)]
-
-    model_names = []
-    best_score = []
-
-    for model in models:
-        print('Starting {}'.format(model[0]))
-        
-        gs = grid_search_func(X, y, pipeline=model[1], param_grid=model[2])
-        
-        # save model. Use pickle + dictionaries
-        model_name = model[0]
-        model = {model_name: gs}
-        
-        filename = "models/" + model_name + ".pickle"
-        save_model(model = model, filename = filename)
-        
-        print('Finished {}'.format(model_name))
-        
-        model_names.append(model_name)
-        best_score.append(gs.best_score_)
-        print('Best score: {}'.format(gs.best_score_))
-        
-    d = {'model': model_name, 'best_f1_weighted':best_score}
-    results = pd.DataFrame(data=d)
-    return results
-    '''
 
 #%%
 if __name__ == "__main__":
-    output = pipeline = make_all_models()
-    print(output.shape)
+    
+    for h in ['1-day', '2-day', '3-day', '5-day', '10-day', '20-day', '30-day']:
+        horizon = 'ret_' + h
+        print('starting', horizon)
+        grid_search = make_all_models(horizon='ret_1-day')
+        print('done', horizon)
+
+#%%
+
+
+
+
+
 
 #%%
 def make_results_dataframe(grid_search):
@@ -259,7 +190,6 @@ def make_results_dataframe(grid_search):
     results.to_csv('data/results1.csv', index=False)
 
 #%%
-
 def get_lda_topics():
     '''Creates files in /topics folder for Chelsea (11/5/19)
     '''
