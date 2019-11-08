@@ -2,22 +2,24 @@
 
 import numpy as np
 import pandas as pd
+import scipy
 #import imp
 import pickle
 import time
 import os
-from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from sklearn.decomposition import LatentDirichletAllocation
 from sklearn.model_selection import GridSearchCV, PredefinedSplit
 from sklearn.pipeline import Pipeline
 from sklearn.decomposition import TruncatedSVD
-from sklearn.preprocessing import Normalizer
+from sklearn.preprocessing import Normalizer, StandardScaler
 from sklearn.linear_model import SGDClassifier
 from sklearn.model_selection import TimeSeriesSplit
 from sklearn.ensemble import RandomForestClassifier
-#from sklearn.impute import SimpleImputer
+from sklearn.impute import SimpleImputer
 from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import FunctionTransformer
+from sklearn.base import TransformerMixin
 
 from gensim.test.utils import common_dictionary, common_corpus
 from gensim.sklearn_api import HdpTransformer
@@ -79,45 +81,54 @@ def make_all_models():
     """
     
     data = pd.read_csv('data/train.csv', parse_dates=['Date'])
-    X = data['Content_clean'].fillna('').values
-    y = data['ret_1-day'].fillna(1).values
+    data['Content_clean'] = data['Content_clean'].fillna('')
+    data['sentiment'] = data['sentiment'].fillna(0)
+    data['ret_1-day'] = data['ret_1-day'].fillna(1)
     
     
-    '''
-    # LDA, random forests
+    X = data.loc[:,['Date','Ticker','Content_clean','sentiment']]
+    #X = data['Content_clean'].fillna('').values
+    #y = data['ret_1-day'].fillna(1).values
+    y = data['ret_1-day']
+    
+    def dense_identity(X):
+        return X.todense()
+    
     text_features = ['Content_clean']
     text_transformer = Pipeline(
             steps = [('vec', CountVectorizer()),
-                     ('lda', LatentDirichletAllocation()),
-                     ('clf', RandomForestClassifier(random_state=0))])
+                     ('dim_red', FunctionTransformer(func=dense_identity, validate=True, accept_sparse=True))])
     
-#    numeric_features = ['2-day'] #['mkt_ret']
-#    numeric_transformer = Pipeline(
-#            steps=[('imputer', SimpleImputer(strategy='constant', fill_value=0.)),
-#                   ('scaler', StandardScaler())])
+    numeric_features = ['sentiment'] #['mkt_ret']
+    numeric_transformer = Pipeline(
+            steps=[('imputer', SimpleImputer(strategy='constant', fill_value=0.)),
+                   ('scaler', StandardScaler())])
     
     # combine features preprocessing
     preprocessor = ColumnTransformer(
             transformers=[('text', text_transformer, text_features)])#,
                           #('num', numeric_transformer, numeric_features)])
     # add classifier
-    clf = Pipeline(steps=[('preprocessor', preprocessor),
-                          ('classifier', RandomForestClassifier(random_state=0))])
+    clf = Pipeline(steps=[('preprocessor', preprocessor)])#,
+                          #('classifier', RandomForestClassifier(random_state=0))])
 
+    print('fitting')
+    X1 = clf.fit_transform(X, y)
+    print('done')
+    return X1
     # param grid
 #    param_grid = {#'preprocessor__text__lda__n_components': [5,20],
 #                  #'classifier__n_estimators': [100,200],
 #                  #'classifier__max_depth': [2,4],
 #                  'classifier__max_features': [2,'auto']}
 
-    param_grid_lda_rf = {'vec__max_features': [5000, 10000],
-                         'lda__n_components': [5, 10],
-                         'clf__n_estimators': [100, 200],
-                         'clf__max_depth': [2,4],
-                         'clf__max_features': ['auto']} #2
+#    param_grid_lda_rf = {'vec__max_features': [5000, 10000],
+#                         'lda__n_components': [5, 10],
+#                         'clf__n_estimators': [100, 200],
+#                         'clf__max_depth': [2,4],
+#                         'clf__max_features': ['auto']} #2
 
-    '''
-    
+    '''    
     pipeline = Pipeline([('vec', CountVectorizer()),
                      ('dim_red', FunctionTransformer(validate=True)),
                      ('norm', FunctionTransformer(validate=True)),
@@ -125,32 +136,36 @@ def make_all_models():
     )
     parameters = [
         {
+            'vec': [CountVectorizer(), TfidfVectorizer()], #HdpTransformer(id2word=common_dictionary)
             'vec__min_df': [0., 0.01],
             'dim_red': [TruncatedSVD()],
             'dim_red__n_components': [20, 50, 100],
             'norm': [Normalizer(copy=False)],
             'clf__alpha': [0.0001, 0.00001, 0.000001]
         }, {
+             'vec': [CountVectorizer(), TfidfVectorizer()], #, HdpTransformer(id2word=common_dictionary)],
              'vec__min_df': [0., 0.01],
              'dim_red': [TruncatedSVD()],
              'dim_red__n_components': [20, 50, 100],
              'norm': [Normalizer(copy=False)],
              'clf': [RandomForestClassifier(random_state=0)],
-             'clf__n_estimators': [100, 200],
-             'clf__max_depth': [2,4],
+             'clf__n_estimators': [100, 200, 500],
+             'clf__max_depth': [2,4,10],
              'clf__max_features': [2,'auto']
         }, {
+             'vec': [CountVectorizer(), TfidfVectorizer()], #, HdpTransformer(id2word=common_dictionary)],
              'vec__min_df': [0., 0.01],
              'dim_red': [LatentDirichletAllocation()],
              'dim_red__n_components': [5, 10],
              'clf__alpha': [0.0001, 0.00001, 0.000001]
         }, {
+             'vec': [CountVectorizer(), TfidfVectorizer()], #, HdpTransformer(id2word=common_dictionary)],
              'vec__min_df': [0., 0.01],
              'dim_red': [LatentDirichletAllocation()],
              'dim_red__n_components': [5, 10],
              'clf': [RandomForestClassifier(random_state=0)],
-             'clf__n_estimators': [100, 200],
-             'clf__max_depth': [2,4],
+             'clf__n_estimators': [100, 200, 500],
+             'clf__max_depth': [2,4,10],
              'clf__max_features': [2,'auto']
         }
     ]
@@ -179,6 +194,7 @@ def make_all_models():
     save_model(model = model, filename = filename)
     
     return grid_search
+    '''
 
 #%%
     '''
@@ -217,7 +233,8 @@ def make_all_models():
 
 #%%
 if __name__ == "__main__":
-    grid_search = pipeline = make_all_models()
+    output = pipeline = make_all_models()
+    print(output.shape)
 
 #%%
 def make_results_dataframe(grid_search):

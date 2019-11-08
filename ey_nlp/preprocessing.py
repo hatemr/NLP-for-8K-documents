@@ -189,6 +189,8 @@ def discretize_target(df):
     """Turn target into 3 classes: -.01 to 0.01, above, and below
     """
     
+    df1 = df.copy()
+    
     for col in ['1-day', '2-day', '3-day', '5-day', '10-day', '20-day', '30-day']:
         d = df[col].fillna(0).values
         
@@ -200,13 +202,21 @@ def discretize_target(df):
         
         y = y_up + y_mid + y_down
         
-        df[new_column_name] = y
+        df1.loc[:, new_column_name] = y
 
-    return df
+    return df1
 
 #%%
 if __name__ == "__main__":
     df = pd.read_csv('data/8ks_with_returns.csv', parse_dates=['Date'], index_col=False)
+    
+    # add sentiment
+    df1 = pd.read_csv('data/8ks_return_sentiment.csv', parse_dates=['Date'], index_col=False)
+    df2 = df1.loc[:,['Ticker', 'Date', 'sentiment']].drop_duplicates(subset=['Ticker','Date'])
+    df3 = df.merge(df2, how='left', on=['Ticker', 'Date'])
+    
+    del df
+    df = df3
     
     # get text
     corpus = df.Content.values.tolist()
@@ -218,19 +228,19 @@ if __name__ == "__main__":
     corpus_cleaned = [clean_text(doc) for doc in corpus]
     print('Done in {:.0f} minutes'.format((time.time() - t0)/60))
     
-    df['Content_clean'] = corpus_cleaned
-    df['Content_clean'] = df['Content_clean'].fillna('')
+    df.loc[:,'Content_clean'] = corpus_cleaned
+    df.loc[:,'Content_clean'] = df.loc[:,'Content_clean'].fillna('')
 
     # to put cleaned content next to original
-    cols = ['Ticker', 'Date', 'Content', 'Content_clean', 'Close', '1-day', '2-day', '3-day', '5-day', '10-day', '20-day', '30-day']
+    cols = ['Ticker', 'Date', 'Content', 'Content_clean', 'Close', '1-day', '2-day', '3-day', '5-day', '10-day', '20-day', '30-day', 'sentiment']
     df = df[cols]
-    
+   
     df1 = discretize_target(df)
     
     # split to train and test
-    df2 = df1.sort_values(by=['Date','Ticker']).set_index('Date')
-    df2['month'] = df2.index.month
-    df2['year'] = df2.index.year
+    df2 = df1.sort_values(by=['Date','Ticker']).set_index('Date')   
+    df2.loc[:,'month'] = df2.index.month
+    df2.loc[:,'year'] = df2.index.year
     
     cutoff_date = pd.Timestamp(year=2018, month=9, day=1, hour=0)
     print('Train-test split on {}'.format(cutoff_date))

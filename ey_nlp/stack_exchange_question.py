@@ -7,15 +7,35 @@ Created on Mon Nov  4 09:17:13 2019
 """
 
 import numpy as np
-from sklearn.feature_extraction.text import CountVectorizer
+import pandas as pd
+import scipy
+#import imp
+import pickle
+import time
+import os
+from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
+from sklearn.decomposition import LatentDirichletAllocation
+from sklearn.model_selection import GridSearchCV, PredefinedSplit
 from sklearn.pipeline import Pipeline
-from sklearn.decomposition import TruncatedSVD, LatentDirichletAllocation
+from sklearn.decomposition import TruncatedSVD
+from sklearn.preprocessing import Normalizer, StandardScaler
 from sklearn.linear_model import SGDClassifier
-from sklearn.model_selection import GridSearchCV
+from sklearn.model_selection import TimeSeriesSplit
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.preprocessing import Normalizer
+from sklearn.impute import SimpleImputer
+from sklearn.compose import ColumnTransformer
+from sklearn.preprocessing import FunctionTransformer
+from sklearn.base import TransformerMixin
 
+from gensim.test.utils import common_dictionary, common_corpus
+from gensim.sklearn_api import HdpTransformer
 
+import warnings
+warnings.simplefilter(action='ignore', category=FutureWarning)
+#import ey_nlp
+#imp.reload(ey_nlp)
+
+#%%
 corpus = [
     'This is the first document.',
     'This document is the second document.',
@@ -142,3 +162,62 @@ for train_index, test_index in ps.split():
    X_train, X_test = X[train_index], X[test_index]
    y_train, y_test = y[train_index], y[test_index]
    
+#%%
+data = pd.DataFrame(data={'text_feat':['This is my first sentence. I hope you like it','Here is my second sentence. It is pretty similar.'], 
+                          'numeric_feat':[1,2], 
+                          'target':[3,4]})
+X = data.loc[:,['text_feat', 'numeric_feat']]
+y = data.loc[:,'target']
+   
+
+#def dense_identity(X):
+#    return X.todense()
+    
+text_features = ['text_feat']
+text_transformer = Pipeline(
+        steps = [('vec', CountVectorizer())])#,
+                 #('to_dense', FunctionTransformer(func=dense_identity, validate=True, accept_sparse=True))])
+
+#numeric_features = ['numeric_feat'] #['mkt_ret']
+#numeric_transformer = Pipeline(
+#        steps=[('imputer', SimpleImputer(strategy='constant', fill_value=0.)),
+#               ('scaler', StandardScaler())])
+
+# combine features preprocessing
+preprocessor = ColumnTransformer(
+        transformers=[('text', text_transformer, text_features)])
+
+pipeline = Pipeline(steps=[('preprocessor', preprocessor)])
+
+X1 = pipeline.fit_transform(X, y)
+print('Expected (2, 13), got', X1.shape)
+
+X2 = text_transformer.fit_transform(X['text_feat'], y)
+print('Single pipeline works as expected:', X2.shape)
+
+#%%
+data = pd.DataFrame(data={'text_feat':['This is my first sentence.','This is my second.'], 
+                          'numeric_feat':[1,2], 
+                          'target':[3,4]})
+X = data.loc[:,['text_feat', 'numeric_feat']]
+y = data.loc[:,'target']
+    
+text_features = ['text_feat']
+text_transformer = Pipeline(
+        steps = [('vec', CountVectorizer())])
+
+preprocessor = ColumnTransformer(
+        transformers=[('text', text_transformer, text_features)])
+
+pipeline = Pipeline(steps=[('preprocessor', preprocessor)])
+
+# single pipeline works as expected
+X_expected = text_transformer.fit_transform(X['text_feat'], y)
+
+X_test = pipeline.fit_transform(X, y)
+print('Expected:')
+print(X_expected.toarray())
+print('Got:')
+print(X_test)
+
+#%%

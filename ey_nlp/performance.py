@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
 import pickle
+import numpy as np
+import numpy.random._pickle
 import pandas as pd
 import matplotlib.pyplot as plt
 
