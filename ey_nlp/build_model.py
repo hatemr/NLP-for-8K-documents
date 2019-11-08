@@ -190,6 +190,9 @@ def make_results_dataframe(grid_search):
     results.to_csv('data/results1.csv', index=False)
 
 #%%
+
+
+#%%
 def get_lda_topics():
     '''Creates files in /topics folder for Chelsea (11/5/19)
     '''
