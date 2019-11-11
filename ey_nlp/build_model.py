@@ -7,6 +7,8 @@ import scipy
 import pickle
 import time
 import os
+from IPython import embed
+
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from sklearn.decomposition import LatentDirichletAllocation
 from sklearn.model_selection import GridSearchCV, PredefinedSplit
@@ -43,7 +45,7 @@ def save_model(model, filename = 'models/logreg.pickle'):
     Save model if it doesn't exists yet
     '''
     if in_right_directory():
-        if os.path.exists(filename):
+        if os.path.exists(filename): #False
             print('File {} already exists. Not saved'.format(filename))
         else:
             file = open(filename, 'wb')
@@ -53,6 +55,16 @@ def save_model(model, filename = 'models/logreg.pickle'):
     else:
         print('To save the result in right directory, set \
               your current working directory to /EY-NLP')
+
+def dense_identity(X):
+    try:
+        return X.todense()
+    except:
+        return X
+
+def drop_column(X):
+    ones = np.ones(X.shape[0])
+    return ones[:, np.newaxis]
 
 #%%
 def make_all_models(horizon='ret_1-day'):
@@ -69,12 +81,7 @@ def make_all_models(horizon='ret_1-day'):
     #y = data['ret_1-day'].fillna(1).values
     y = data[horizon]
     
-    def dense_identity(X): 
-        return X.todense()
-    
-    def drop_column(X):
-        ones = np.ones(X.shape[0])
-        return ones[:, np.newaxis]
+    # user defined functions
     
     
 #    text_features = ['Content_clean']
@@ -107,36 +114,36 @@ def make_all_models(horizon='ret_1-day'):
             'preprocessor__text__vec': [CountVectorizer(), TfidfVectorizer()],
             'preprocessor__text__vec__min_df': [0., 0.01],
             'preprocessor__text__dim_red': [TruncatedSVD()],
-            'preprocessor__text__dim_red__n_components': [20, 50, 100],
+            'preprocessor__text__dim_red__n_components': [20, 50],
             'preprocessor__text__norm': [Normalizer(copy=False)],
-            'clf__alpha': [0.0001, 0.00001, 0.000001]
+            'clf__alpha': [0.00001, 0.000001]
         }, {
             'preprocessor__text__rem_col__func': [drop_column, None],
             'preprocessor__text__vec': [CountVectorizer(), TfidfVectorizer()],
             'preprocessor__text__vec__min_df': [0., 0.01],
             'preprocessor__text__dim_red': [TruncatedSVD()],
-            'preprocessor__text__dim_red__n_components': [20, 50, 100],
+            'preprocessor__text__dim_red__n_components': [20, 50],
             'preprocessor__text__norm': [Normalizer(copy=False)],
             'clf': [RandomForestClassifier(random_state=0)],
-            'clf__n_estimators': [100, 200, 500],
-            'clf__max_depth': [2,4,10],
+            'clf__n_estimators': [100, 200],
+            'clf__max_depth': [4,10],
             'clf__max_features': [2,'auto']
         }, {
             'preprocessor__text__rem_col__func': [drop_column, None],                
             'preprocessor__text__vec': [CountVectorizer(), TfidfVectorizer()],
             'preprocessor__text__vec__min_df': [0., 0.01],
             'preprocessor__text__dim_red': [LatentDirichletAllocation()],
-            'preprocessor__text__dim_red__n_components': [5, 10],
-            'clf__alpha': [0.0001, 0.00001, 0.000001]
+            'preprocessor__text__dim_red__n_components': [2, 5],
+            'clf__alpha': [0.00001, 0.000001]
         }, {
             'preprocessor__text__rem_col__func': [drop_column, None],
             'preprocessor__text__vec': [CountVectorizer(), TfidfVectorizer()],
             'preprocessor__text__vec__min_df': [0., 0.01],
             'preprocessor__text__dim_red': [LatentDirichletAllocation()],
-            'preprocessor__text__dim_red__n_components': [5, 10],
+            'preprocessor__text__dim_red__n_components': [2, 5],
             'clf': [RandomForestClassifier(random_state=0)],
-            'clf__n_estimators': [100, 200, 500],
-            'clf__max_depth': [2,4,10],
+            'clf__n_estimators': [100, 200],
+            'clf__max_depth': [4,10],
             'clf__max_features': [2,'auto']
         }
     ]
@@ -169,10 +176,12 @@ def make_all_models(horizon='ret_1-day'):
 #%%
 if __name__ == "__main__":
     
-    for h in ['1-day', '2-day', '3-day', '5-day', '10-day', '20-day', '30-day']:
+    for h in ['1-day']:#, '2-day', '3-day', '5-day', '10-day', '20-day', '30-day']:
         horizon = 'ret_' + h
         print('starting', horizon)
         grid_search = make_all_models(horizon='ret_1-day')
+        print(type(grid_search))
+        embed()
         print('done', horizon)
 
 #%%
@@ -203,9 +212,6 @@ def make_results_dataframe(grid_search):
     results.groupby(['dim_red_name', 'norm_name', 'clf_name']).max().loc[:,'mean_test_score']
     
     results.to_csv('data/results1.csv', index=False)
-
-#%%
-
 
 #%%
 def get_lda_topics():
@@ -249,5 +255,3 @@ def get_lda_topics():
         }, index=data2.index
     ))
     data3.to_csv('topics/topics.csv', index=False)
-    
-#%%
