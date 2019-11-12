@@ -7,7 +7,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 #%%
-pickle_in = open("models/grid_search_ret_1-day.pickle","rb")
+pickle_in = open("data/alpha_returns.pickle","rb")
 grid_search = pickle.load(pickle_in)
 pickle_in.close()
 

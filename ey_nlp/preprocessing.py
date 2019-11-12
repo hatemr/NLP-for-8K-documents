@@ -13,6 +13,10 @@ from contractions import CONTRACTION_MAP
 import unicodedata
 from sklearn.feature_extraction.text import CountVectorizer
 import time
+from IPython import embed
+#import ipdb
+import time
+import pickle
 
 #%%
 nlp = spacy.load('en_core_web_md', parse = True, tag=True, entity=True)
@@ -97,7 +101,7 @@ def simple_stemmer(text):
 
 #%%
 def preprocess_text(doc,
-                    proper_noun_removal=True,
+                    proper_noun_removal=False,
                     lower_the_case=True,
                     contraction_expansion=True,
                     special_char_removal=True,
@@ -185,7 +189,7 @@ def _count_words(corpus):
     return vocab, doc_term_mat
     
 #%%
-def discretize_target(df):
+def discretize_target(df, prefix='ret'):
     """Turn target into 3 classes: -.01 to 0.01, above, and below
     """
     
@@ -194,7 +198,7 @@ def discretize_target(df):
     for col in ['1-day', '2-day', '3-day', '5-day', '10-day', '20-day', '30-day']:
         d = df[col].fillna(0).values
         
-        new_column_name = 'ret_' + col
+        new_column_name = prefix + '_' + col
         
         y_up = 2*(d >= 0.01).astype(int)
         y_mid = 1*((d<0.01)&(d>-0.01)).astype(int)
@@ -225,7 +229,7 @@ if __name__ == "__main__":
     print('Cleaning text... \nThis could take 30 minutes')
     
     t0 = time.time()
-    corpus_cleaned = [clean_text(doc) for doc in corpus]
+    corpus_cleaned = [clean_text(doc) for doc in corpus] #clean_text(doc)
     print('Done in {:.0f} minutes'.format((time.time() - t0)/60))
     
     df.loc[:,'Content_clean'] = corpus_cleaned
@@ -235,10 +239,27 @@ if __name__ == "__main__":
     cols = ['Ticker', 'Date', 'Content', 'Content_clean', 'Close', '1-day', '2-day', '3-day', '5-day', '10-day', '20-day', '30-day', 'sentiment']
     df = df[cols]
    
-    df1 = discretize_target(df)
+    # tack on alphas
+    pickle_in = open("data/alpha_returns.pickle","rb")
+    alpha = pickle.load(pickle_in)
+    pickle_in.close()
+    
+    # make datetime
+    alpha['Date'] = pd.to_datetime(alpha['Date'])
+    
+    # discretize alphas
+    alpha_disc = discretize_target(alpha, prefix='alpha')
+    alpha_disc = alpha_disc.drop(columns=['Content', 'Close'])
+    
+    # discretize raw returns
+    df1 = discretize_target(df, prefix='ret')
+    
+    # merge alpha with raw returns
+    df1_1 = df1.merge(alpha_disc, how='left', on=['Ticker', 'Date'], suffixes=('_raw','_alpha_raw'))
+    df1_2 = df1_1.drop_duplicates(subset=['Date','Ticker'])
     
     # split to train and test
-    df2 = df1.sort_values(by=['Date','Ticker']).set_index('Date')   
+    df2 = df1_2.sort_values(by=['Date','Ticker']).set_index('Date')   
     df2.loc[:,'month'] = df2.index.month
     df2.loc[:,'year'] = df2.index.year
     
