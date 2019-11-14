@@ -68,6 +68,7 @@ results['clf'] = clf_name
 results1 = results.loc[:,['rank_test_score',
        'dim_red', 'rem_col', 'vect', 'clf','split0_test_score']]
 
+
 #%%
 # adding 8Ks helps!
 dim_red = ['TruncatedSVD', 'LatentDirichletAllocation'][0]
@@ -80,6 +81,10 @@ group_by = ['dim_red', 'rem_col', 'vect','clf'][1]
 # 2-by-2
 results1.loc[(results1.vect==vect)]\
              .groupby(['rem_col', 'dim_red','clf']).max().iloc[:,[-1]]
+
+results1\
+             .groupby(['rem_col', 'vect','clf']).max().iloc[:,[-1]]
+
              
 #%%
 dim_red = ['TruncatedSVD', 'LatentDirichletAllocation'][0]
