@@ -75,25 +75,16 @@ Latent Dirichlet Allocation (LDA) aims to model documents as arising from multip
 
 ![latent dirichlet allocation](images/lda.png)
 ## LDA Topic Explanation
-* Topic 1: structuring change in the company’s management level: appointment of new CEO/ change in the committee 
-
-* Topic 2: new financial statement: assessment about tax/new acquisition
-
-* Topic 3: recent press release about operations and financial statement
-
-* Topic 4: expectations about earnings in the upcoming quarters
-
-* Topic 5: recent earnings of the company and acquisition/ collaboration agenda.
-
-* Topic 6: board of director member change
-
-* Topic 7: vote for shareholders and appointment of public audit company
-
-* Topic 8: amendment of agreement(all different agreement)
-
-* Topic 9: realease Results of Operations and Financial Condition
-
-* Topic 10: regulation FD disclosure and struction change of orginization
+* __Topic 1__: structuring change in the company’s management level: appointment of new CEO/ change in the committee
+* __Topic 2__: new financial statement: assessment about tax/new acquisition
+* __Topic 3__: recent press release about operations and financial statement
+* __Topic 4__: expectations about earnings in the upcoming quarters
+* __Topic 5__: recent earnings of the company and acquisition/ collaboration agenda.
+* __Topic 6__: board of director member change
+* __Topic 7__: vote for shareholders and appointment of public audit company
+* __Topic 8__: amendment of agreement(all different agreement)
+* __Topic 9__: realease Results of Operations and Financial Condition
+* __Topic 10__: regulation FD disclosure and struction change of orginization
 
 We classified all documents into different topics based on its highest probability across all topics. And by the similarity of its different text informatio, we extracted and summarized above as the explanation for each topic. 
 (All topics are sentimental-neutral)

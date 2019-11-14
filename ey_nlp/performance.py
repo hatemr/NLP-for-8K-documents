@@ -83,9 +83,12 @@ results1.loc[(results1.vect==vect)]\
              .groupby(['rem_col', 'dim_red','clf']).max().iloc[:,[-1]]
 
 results1\
-             .groupby(['rem_col', 'vect','clf']).max().iloc[:,[-1]]
+             .groupby(['rem_col', 'vect','dim_red','clf']).max().iloc[:,[-1]]
 
-             
+#%%
+results[['param_preprocessor__text__dim_red__n_components', 'split0_test_score']] == 0.469760 
+
+
 #%%
 dim_red = ['TruncatedSVD', 'LatentDirichletAllocation'][0]
 rem_col = ['drop_column', 'use_text_col'][0]
