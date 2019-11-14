@@ -65,9 +65,22 @@ results['rem_col'] = rem_col_name
 results['vect'] = vect
 results['clf'] = clf_name
 
-results1 = results.loc[:,['split0_test_score', 'rank_test_score',
-       'dim_red', 'rem_col', 'vect', 'clf']]
+results1 = results.loc[:,['rank_test_score',
+       'dim_red', 'rem_col', 'vect', 'clf','split0_test_score']]
 
+#%%
+# adding 8Ks helps!
+dim_red = ['TruncatedSVD', 'LatentDirichletAllocation'][0]
+rem_col = ['drop_column', 'use_text_col'][0]
+vect = ['CountVectorizer', 'TfidfVectorizer'][1]
+clf = ['SGDClassifier', 'RandomForestClassifier'][1]
+
+group_by = ['dim_red', 'rem_col', 'vect','clf'][1]
+
+# 2-by-2
+results1.loc[(results1.vect==vect)]\
+             .groupby(['rem_col', 'dim_red','clf']).max().iloc[:,[-1]]
+             
 #%%
 dim_red = ['TruncatedSVD', 'LatentDirichletAllocation'][0]
 rem_col = ['drop_column', 'use_text_col'][0]
@@ -77,7 +90,7 @@ clf = ['SGDClassifier', 'RandomForestClassifier'][0]
 group_by = ['dim_red', 'rem_col', 'vect','clf'][1]
 
 # adding text improves performance
-results1.loc[(results1.dim_red==dim_red) & (results1.vect==vect) & (results1.clf==clf)].groupby(group_by).max().iloc[:,[0]]
+results1.loc[(results1.dim_red==dim_red) & (results1.vect==vect) & (results1.clf==clf)].groupby(group_by).max().iloc[:,[-1]]
 
 #%%
 dim_red = ['TruncatedSVD', 'LatentDirichletAllocation'][1]
@@ -88,21 +101,51 @@ clf = ['SGDClassifier', 'RandomForestClassifier'][0]
 group_by = ['dim_red', 'rem_col', 'vect','clf'][1]
 
 # but not as much with LDA
-results1.loc[(results1.dim_red==dim_red) & (results1.vect==vect) & (results1.clf==clf)].groupby(group_by).max().iloc[:,[0,1]]
+results1.loc[(results1.dim_red==dim_red) & (results1.vect==vect) & (results1.clf==clf)].groupby(group_by).max().iloc[:,[-1]]
 
 #%%
-dim_red = ['TruncatedSVD', 'LatentDirichletAllocation'][1]
-rem_col = ['drop_column', 'use_text_col'][0]
+dim_red = ['TruncatedSVD', 'LatentDirichletAllocation'][0]
+#rem_col = ['drop_column', 'use_text_col'][0]
 vect = ['CountVectorizer', 'TfidfVectorizer'][0]
-clf = ['SGDClassifier', 'RandomForestClassifier'][0]
+clf = ['SGDClassifier', 'RandomForestClassifier'][1]
 
 group_by = ['dim_red', 'rem_col', 'vect','clf'][1]
 
-# but not as much with LDA
-results1.loc[(results1.dim_red==dim_red) & (results1.vect==vect) & (results1.clf==clf)].groupby(group_by).max().iloc[:,[0,1]]
+# random forests now: adding text still helps
+results1.loc[(results1.dim_red==dim_red) & (results1.vect==vect) & (results1.clf==clf)].groupby(group_by).max().iloc[:,[-1]]
+
+#%%
+# compare classifiers
+dim_red = ['TruncatedSVD', 'LatentDirichletAllocation'][0]
+rem_col = ['drop_column', 'use_text_col'][0]
+vect = ['CountVectorizer', 'TfidfVectorizer'][0]
+clf = ['SGDClassifier', 'RandomForestClassifier'][1]
+
+group_by = ['dim_red', 'rem_col', 'vect','clf'][1]
+
+# random forests now: adding text still helps
+results1.loc[(results1.rem_col==rem_col) \
+             & (results1.vect==vect) \
+             ]\
+             .groupby(['dim_red', 'clf']).max().iloc[:,[-1]]
+
+#%%
+# compare classifiers AND dimensionality reduction
+dim_red = ['TruncatedSVD', 'LatentDirichletAllocation'][0]
+rem_col = ['drop_column', 'use_text_col'][0]
+vect = ['CountVectorizer', 'TfidfVectorizer'][1]
+clf = ['SGDClassifier', 'RandomForestClassifier'][1]
+
+group_by = ['dim_red', 'rem_col', 'vect','clf'][1]
+
+# 2-by-2
+results1.loc[(results1.rem_col==rem_col) \
+             & (results1.vect==vect)]\
+             .groupby(['dim_red', 'clf']).max().iloc[:,[-1]]
+             
 
 
-
+             
 #%%
 data = pd.read_csv('data/test.csv', parse_dates=['Date'])
 
