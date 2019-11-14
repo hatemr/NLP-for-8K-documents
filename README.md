@@ -14,13 +14,6 @@ returns (not alphas), using
 | TruncatedSVD                 | RandomForestClassifier | 0.333562    |
 |                              | SGDClassifier          | 0.405563    |
 
-| dimensionality redudction    | classifier             | f1_weighted |
-| ---------------------------- | ---------------------- | ----------- |
-| LatentDirichletAllocation    | RandomForestClassifier | 0.337532    |
-|                              | SGDClassifier          | 0.404128    |
-| TruncatedSVD                 | RandomForestClassifier | 0.333562    |
-|                              | SGDClassifier          | 0.405563    |
-
 We try a few models:
 1. document-term matrix: CountVectorizer (bag-of-words) vs. Tf-idf
 2. dimensionality reduction: PCA vs. LDA
