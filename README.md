@@ -61,6 +61,8 @@ $$
 \]
 $$
 
+<img src="https://latex.codecogs.com/gif.latex?O_t=\text { Onset event at time bin } t " /> 
+
 Started out suing the raw returns $r_c$ as the 
 
 ## Data Splitting
