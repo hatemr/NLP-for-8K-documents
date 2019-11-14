@@ -4,7 +4,7 @@ import nltk
 from nltk.tokenize.toktok import ToktokTokenizer
 import re
 from bs4 import BeautifulSoup
-from contractions import CONTRACTION_MAP
+from ey_nlp.contractions import CONTRACTION_MAP
 import unicodedata
 from sklearn.feature_extraction.text import CountVectorizer
 

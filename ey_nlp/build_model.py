@@ -67,19 +67,19 @@ def drop_column(X):
     return ones[:, np.newaxis]
 
 #%%
-def make_all_models(horizon='ret_1-day'):
+def make_all_models(target='ret_1-day'):
     """Perform grid search on all combinations
     """
     
     data = pd.read_csv('data/train.csv', parse_dates=['Date'])
     data['Content_clean'] = data['Content_clean'].fillna('')
     #data['sentiment'] = data['sentiment'].fillna(0)
-    data[horizon] = data[horizon].fillna(1)
+    data[target] = data[target].fillna(1)
     
     X = data.loc[:,['Date','Ticker','Content_clean','sentiment']]
     #X = data['Content_clean'].fillna('').values
     #y = data['ret_1-day'].fillna(1).values
-    y = data[horizon]
+    y = data[target]
     
     # user defined functions
     
@@ -158,7 +158,8 @@ def make_all_models(horizon='ret_1-day'):
                                param_grid = parameters,
                                scoring = 'f1_weighted',
                                cv = ps,
-                               verbose=2)
+                               verbose=2,
+                               n_jobs=-1)
     
     t0 = time.time()
     print("Performing grid search. This could take a while")
@@ -166,7 +167,7 @@ def make_all_models(horizon='ret_1-day'):
     print('Done fitting in {:.2f} minutes'.format((time.time()-t0)/60))
     
     # save model. Use pickle + dictionaries
-    model_name = 'grid_search_' + horizon
+    model_name = 'grid_search_' + horizon + '_v2'
     
     filename = "models/" + model_name + ".pickle"
     save_model(model = grid_search, filename = filename)
@@ -179,11 +180,10 @@ if __name__ == "__main__":
     for h in ['1-day']:#, '2-day', '3-day', '5-day', '10-day', '20-day', '30-day']:
         horizon = 'ret_' + h
         print('starting', horizon)
-        grid_search = make_all_models(horizon='ret_1-day')
-        print(type(grid_search))
-        embed()
+        grid_search = make_all_models(target='alpha_1-day')
         print('done', horizon)
-
+        embed()
+        print('done')
 #%%
 
 
@@ -198,6 +198,7 @@ def make_results_dataframe(grid_search):
     
     d = grid_search.cv_results_
     results = pd.DataFrame(data=d)
+    results = results.drop(columns=['mean_fit_time', 'std_fit_time', 'mean_score_time', 'std_score_time', 'params', 'mean_test_score', 'std_test_score'])
 
     # for groupby later
     dim_red_name = [r.__class__.__name__ for r in  grid_search.cv_results_['param_dim_red']]
@@ -211,7 +212,7 @@ def make_results_dataframe(grid_search):
     # find max within model class
     results.groupby(['dim_red_name', 'norm_name', 'clf_name']).max().loc[:,'mean_test_score']
     
-    results.to_csv('data/results1.csv', index=False)
+    results.to_csv('data/results2.csv', index=False)
 
 #%%
 def get_lda_topics():

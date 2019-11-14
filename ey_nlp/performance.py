@@ -2,14 +2,62 @@
 
 import pickle
 import numpy as np
-import numpy.random._pickle
+import numpy.random
 import pandas as pd
 import matplotlib.pyplot as plt
+from IPython import embed
+
+import scipy
+#import imp
+import time
+import os
+from IPython import embed
+
+from ey_nlp.utils import dense_identity, drop_column
+
+from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
+from sklearn.decomposition import LatentDirichletAllocation
+from sklearn.model_selection import GridSearchCV, PredefinedSplit
+from sklearn.pipeline import Pipeline
+from sklearn.decomposition import TruncatedSVD
+from sklearn.preprocessing import Normalizer, StandardScaler
+from sklearn.linear_model import SGDClassifier
+from sklearn.model_selection import TimeSeriesSplit
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.impute import SimpleImputer
+from sklearn.compose import ColumnTransformer
+from sklearn.preprocessing import FunctionTransformer
+from sklearn.base import TransformerMixin
+
+from gensim.test.utils import common_dictionary, common_corpus
+from gensim.sklearn_api import HdpTransformer
+
+#import warnings
+#warnings.simplefilter(action='ignore', category=FutureWarning)
+#warnings.simplefilter("ignore", category=PendingDeprecationWarning)
+#warnings.filterwarnings('always')
 
 #%%
-pickle_in = open("data/alpha_returns.pickle","rb")
+# read in data
+pickle_in = open("models/grid_search_ret_1-day_v2.pickle","rb")
 grid_search = pickle.load(pickle_in)
 pickle_in.close()
+
+d = grid_search.cv_results_
+results = pd.DataFrame(data=d)
+results = results.drop(columns=['mean_fit_time', 'std_fit_time', 'mean_score_time', 'std_score_time', 'params', 'mean_test_score', 'std_test_score'])
+
+embed()
+#%%
+
+
+#%%
+data = pd.read_csv('data/test.csv', parse_dates=['Date'])
+
+X_test = data
+embed()
+#%%
+
 
 #%%
 pickle_in = open("models/svd.pickle","rb")
