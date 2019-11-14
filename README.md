@@ -43,29 +43,18 @@ This setup assumes you already have `conda` and `git` installed.
 
 ## Target Variable
 Our target variable is each companies' daily alpha, computed using the market
-return:
+return. The market correlation, beta, is computed using the prior XXX weeks 
+returns of the company. The alphas are discretized to obtain a multiclass 
+classification problem: less than -0.01 is 0, -0.01 to 0.01 is 1, and greater
+than 0.01 is 2. 
 
-$$ r_c = \alpha + \beta r_m $$
-$$ \alpha =  r_c - \beta r_m $$
+We also tried this approach applied to raw returns, instead of alpha. However,
+swithced to alpha so our strategy would be independent of the overall market
+performance.
 
-where $\beta$ is computed using the prior XXX weeks returns of the company. The
-alphas are discretized to obtain a multiclass classification problem:
-
-$$
-\[
-    f(x)= 
-\begin{cases}
-    \frac{x^2-x}{x},& \text{if } x\geq 1\\
-    0,              & \text{otherwise}
-\end{cases}
-\]
-$$
-
-<img src="https://latex.codecogs.com/gif.latex?O_t=\text { Onset event at time bin } t " /> 
-
-<img src="https://render.githubusercontent.com/render/math?math=r_c = \alpha \+ \beta r_m">
-
-Started out suing the raw returns $r_c$ as the 
+We also tried using a binary classification where we split returns at 0, but we
+decided that predicting _large_ movements was more likely to give a profitable
+strategy.
 
 ## Data Splitting
   
