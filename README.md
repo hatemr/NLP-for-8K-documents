@@ -41,6 +41,28 @@ This setup assumes you already have `conda` and `git` installed.
     * All our models require creating the document-term matrix. However, we 
   might later try models that use another vectorizer (e.g. tf-idf).
 
+## Target Variable
+Our target variable is each companies' daily alpha, computed using the market
+return:
+
+$$ r_c = \alpha + \beta r_m $$
+$$ \alpha =  r_c - \beta r_m $$
+
+where $\beta$ is computed using the prior XXX weeks returns of the company. The
+alphas are discretized to obtain a multiclass classification problem:
+
+$$
+\[
+    f(x)= 
+\begin{cases}
+    \frac{x^2-x}{x},& \text{if } x\geq 1\\
+    0,              & \text{otherwise}
+\end{cases}
+\]
+$$
+
+Started out suing the raw returns $r_c$ as the 
+
 ## Data Splitting
   
 | dataset       | dates             | n_samples     | indices     |
@@ -60,7 +82,8 @@ Our strategy varies along a few dimensions.
 
 ## Scoring metric: f1_weighted
 We use the scoring metric `f1_weighted` from `sklearn` on the validation set for 
-model selection. `f1_weighted` computes
+model selection. I chose this metric because it seemed the simplest and most
+common metric available in sklearn for the multiclass setting. `f1_weighted` computes
 the f1 score for each class of the target variable, then takes the weighted 
 mean over classes. The weight is the number of true instances of the class. This
 helps account for class imbalance by giving greater weight to higher-frequency
