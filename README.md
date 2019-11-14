@@ -63,6 +63,8 @@ $$
 
 <img src="https://latex.codecogs.com/gif.latex?O_t=\text { Onset event at time bin } t " /> 
 
+<img src="https://render.githubusercontent.com/render/math?math=e^{i \pi} = -1">
+
 Started out suing the raw returns $r_c$ as the 
 
 ## Data Splitting
