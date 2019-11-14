@@ -63,7 +63,7 @@ $$
 
 <img src="https://latex.codecogs.com/gif.latex?O_t=\text { Onset event at time bin } t " /> 
 
-<img src="https://render.githubusercontent.com/render/math?math=r_c = \alpha + \beta r_m">
+<img src="https://render.githubusercontent.com/render/math?math=r_c = \alpha \+ \beta r_m">
 
 Started out suing the raw returns $r_c$ as the 
 
