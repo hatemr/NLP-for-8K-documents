@@ -201,12 +201,14 @@ def make_results_dataframe(grid_search):
     results = results.drop(columns=['mean_fit_time', 'std_fit_time', 'mean_score_time', 'std_score_time', 'params', 'mean_test_score', 'std_test_score'])
 
     # for groupby later
-    dim_red_name = [r.__class__.__name__ for r in  grid_search.cv_results_['param_dim_red']]
-    norm_name = ['' if r.__class__.__name__!='Normalizer' else r.__class__.__name__ for r in  grid_search.cv_results_['param_norm']]
+    dim_red_name = [r.__class__.__name__ for r in  grid_search.cv_results_['param_preprocessor__text__dim_red']]
+    norm_name = ['' if r.__class__.__name__!='Normalizer' else r.__class__.__name__ for r in  grid_search.cv_results_['param_preprocessor__text__norm']]
+    rem_col_name = ['' if r.__class__.__name__!='drop_column' else r.__name__ for r in  grid_search.cv_results_['param_preprocessor__text__rem_col__func']]
     clf_name = ['SGDClassifier' if r.__class__.__name__=='MaskedConstant' else r.__class__.__name__ for r in  grid_search.cv_results_['param_clf']]
     
     results['dim_red_name'] = dim_red_name
     results['norm_name'] = norm_name
+    results['rem_col_name'] = rem_col_name
     results['clf_name'] = clf_name
     
     # find max within model class

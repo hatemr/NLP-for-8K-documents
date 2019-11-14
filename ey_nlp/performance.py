@@ -32,10 +32,11 @@ from sklearn.base import TransformerMixin
 from gensim.test.utils import common_dictionary, common_corpus
 from gensim.sklearn_api import HdpTransformer
 
-#import warnings
-#warnings.simplefilter(action='ignore', category=FutureWarning)
-#warnings.simplefilter("ignore", category=PendingDeprecationWarning)
-#warnings.filterwarnings('always')
+import warnings
+warnings.simplefilter(action='ignore', category=FutureWarning)
+warnings.simplefilter("ignore", category=PendingDeprecationWarning)
+warnings.simplefilter("ignore", category=DeprecationWarning)
+warnings.filterwarnings('always')
 
 #%%
 # read in data
@@ -47,8 +48,59 @@ d = grid_search.cv_results_
 results = pd.DataFrame(data=d)
 results = results.drop(columns=['mean_fit_time', 'std_fit_time', 'mean_score_time', 'std_score_time', 'params', 'mean_test_score', 'std_test_score'])
 
-embed()
+d = grid_search.cv_results_
+results = pd.DataFrame(data=d)
+results = results.drop(columns=['mean_fit_time', 'std_fit_time', 'mean_score_time', 'std_score_time', 'params', 'mean_test_score', 'std_test_score'])
+
+# for groupby later
+dim_red_name = [r.__class__.__name__ for r in  grid_search.cv_results_['param_preprocessor__text__dim_red']]
+#norm_name = ['' if r.__class__.__name__!='Normalizer' else r.__class__.__name__ for r in  grid_search.cv_results_['param_preprocessor__text__norm']]
+rem_col_name = ['use_text_col' if not r else r.__name__ for r in  grid_search.cv_results_['param_preprocessor__text__rem_col__func']]
+vect = [r.__class__.__name__ for r in  grid_search.cv_results_['param_preprocessor__text__vec']]
+clf_name = ['SGDClassifier' if r.__class__.__name__=='MaskedConstant' else r.__class__.__name__ for r in  grid_search.cv_results_['param_clf']]
+
+results['dim_red'] = dim_red_name
+#results['norm'] = norm_name
+results['rem_col'] = rem_col_name
+results['vect'] = vect
+results['clf'] = clf_name
+
+results1 = results.loc[:,['split0_test_score', 'rank_test_score',
+       'dim_red', 'rem_col', 'vect', 'clf']]
+
 #%%
+dim_red = ['TruncatedSVD', 'LatentDirichletAllocation'][0]
+rem_col = ['drop_column', 'use_text_col'][0]
+vect = ['CountVectorizer', 'TfidfVectorizer'][0]
+clf = ['SGDClassifier', 'RandomForestClassifier'][0]
+
+group_by = ['dim_red', 'rem_col', 'vect','clf'][1]
+
+# adding text improves performance
+results1.loc[(results1.dim_red==dim_red) & (results1.vect==vect) & (results1.clf==clf)].groupby(group_by).max().iloc[:,[0]]
+
+#%%
+dim_red = ['TruncatedSVD', 'LatentDirichletAllocation'][1]
+rem_col = ['drop_column', 'use_text_col'][0]
+vect = ['CountVectorizer', 'TfidfVectorizer'][0]
+clf = ['SGDClassifier', 'RandomForestClassifier'][0]
+
+group_by = ['dim_red', 'rem_col', 'vect','clf'][1]
+
+# but not as much with LDA
+results1.loc[(results1.dim_red==dim_red) & (results1.vect==vect) & (results1.clf==clf)].groupby(group_by).max().iloc[:,[0,1]]
+
+#%%
+dim_red = ['TruncatedSVD', 'LatentDirichletAllocation'][1]
+rem_col = ['drop_column', 'use_text_col'][0]
+vect = ['CountVectorizer', 'TfidfVectorizer'][0]
+clf = ['SGDClassifier', 'RandomForestClassifier'][0]
+
+group_by = ['dim_red', 'rem_col', 'vect','clf'][1]
+
+# but not as much with LDA
+results1.loc[(results1.dim_red==dim_red) & (results1.vect==vect) & (results1.clf==clf)].groupby(group_by).max().iloc[:,[0,1]]
+
 
 
 #%%

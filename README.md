@@ -4,7 +4,8 @@ Predicting returns from 8K documents using text analysis and natural language pr
 ![strategy](images/strategy_overview.png)
 
 ## Results
-Let's show the most interesting part first, the results.
+Let's show the most interesting part first, the results. These are run on raw
+returns (not alphas), using 
 
 | dimensionality redudction    | classifier             | f1_weighted |
 | ---------------------------- | ---------------------- | ----------- |
@@ -12,6 +13,22 @@ Let's show the most interesting part first, the results.
 |                              | SGDClassifier          | 0.404128    |
 | TruncatedSVD                 | RandomForestClassifier | 0.333562    |
 |                              | SGDClassifier          | 0.405563    |
+
+| dimensionality redudction    | classifier             | f1_weighted |
+| ---------------------------- | ---------------------- | ----------- |
+| LatentDirichletAllocation    | RandomForestClassifier | 0.337532    |
+|                              | SGDClassifier          | 0.404128    |
+| TruncatedSVD                 | RandomForestClassifier | 0.333562    |
+|                              | SGDClassifier          | 0.405563    |
+
+We try a few models:
+1. document-term matrix: CountVectorizer (bag-of-words) vs. Tf-idf
+2. dimensionality reduction: PCA vs. LDA
+3. input variables: sentiment score (Quandl) vs. sentiment + 8K text
+4. Classifier: logistic regression vs. random forests
+
+Let's just over to the results.
+
 
 ## Setup
 This setup assumes you already have `conda` and `git` installed.
