@@ -77,7 +77,7 @@ df_lines = df2 = pd.DataFrame([['---',]*len(res1.columns)], columns=res1.columns
 df3 = pd.concat([df_lines, res1])
 
 # save as markdown
-df3.to_csv("res1.md", sep="|", index=False)
+df3.to_csv("res_ml_models.md", sep="|", index=False)
 
 #%%
 results[['param_preprocessor__text__dim_red__n_components', 'split0_test_score']] == 0.469760 

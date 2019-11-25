@@ -29,7 +29,15 @@ use_text_col|CountVectorizer|LatentDirichletAllocation|RandomForestClassifier|0.
 |||TruncatedSVD|RandomForestClassifier|0.429
 ||||SGDClassifier|0.47
 
+These results select the model with the maximum score (`f1_weighted`) over the 
+hyperparameter grid, using a `pandas` `groupby`. The hyperparameter grid can 
+be found [here](ey_nlp/build_model_ml_models.py). This table can be found in 
+`data/res_ml_models.md` and was created by running 
+`python ey_nlp/performance_ml_models.py`.
 
+Some patterns emerge:
+1. Logistic regression clearly outperforms random forests.
+2. 
 
 Let's show the most interesting part first, the results. These are run on raw
 returns (not alphas), using 
