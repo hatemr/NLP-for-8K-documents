@@ -202,18 +202,21 @@ def bert_segment(tokenized_text):
     return segment2
 
 #%%
-def create_bert_features(raw_text):
+def create_bert_features(raw_text, tokenizer, model):
     """
     Creates BERT features for one 8K
     
     raw_text: string
+    tokenizer: BertTokenizer.from_pretrained('bert-base-uncased')
+    model: BertModel.from_pretrained('bert-base-uncased')
+    
     """
     # Load pre-trained model tokenizer (vocabulary)
     text_preprocessed = bert_preprocess(raw_text)
     
     # tokenize
-    tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
-    tokenized_text = tokenizer.tokenize(text_preprocessed)
+    #tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
+    tokenized_text = tokenizer.tokenize(text_preprocessed)[:512]
     
     # Convert token to vocabulary indices
     indexed_tokens = tokenizer.convert_tokens_to_ids(tokenized_text)
@@ -226,7 +229,7 @@ def create_bert_features(raw_text):
     segments_tensors = torch.tensor([segments_ids])
     
     # Load pre-trained model (weights)
-    model = BertModel.from_pretrained('bert-base-uncased')
+    #model = BertModel.from_pretrained('bert-base-uncased')
     
     # Set the model in evaluation mode to deactivate the DropOut modules
     # This is IMPORTANT to have reproducible results during evaluation!
@@ -255,8 +258,26 @@ def add_bert_features(X):
     """Create BERT features
     """
     
+    # tokenize
+    tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
+
+    # Load pre-trained model (weights)
+    model = BertModel.from_pretrained('bert-base-uncased')
+
     text1 = [remove_extra_newlines(text) for text in X.Content.values]
-    feat = [create_bert_features(raw_text) for raw_text in text1]
+    feat = len(text1)*['placeholder']
+    t0 = time.time()
+    for i, raw_text in enumerate(text1):
+        feat[i] = create_bert_features(raw_text, tokenizer, model)
+        if i==0: continue
+        if i % 100 == 0:
+            t_now = time.time() - t0
+            i_per_sec = i/t_now
+            i_left = len(text1) - i
+            time_left = round((i_left / i_per_sec)/60, 2)
+            print('Done feature {} of {}, or {}. Time so far: {} min. Time left: {} min'.format(i, len(text1), round(i/len(text1), 4), round(t_now/60, 2), time_left))
+    #feat = [create_bert_features(raw_text, tokenizer, model) for raw_text in text1]
+    
     X1 = np.array(feat)
     cols = ['bert_' + str(i) for i in range(X1.shape[1])]
     X2 = pd.DataFrame(X1, columns=cols)
@@ -264,8 +285,8 @@ def add_bert_features(X):
     
     return X3
 
-
 #%%
+# DEPRECATED
 def _count_words(corpus):
     '''
     Makes document-term matrix
@@ -294,7 +315,7 @@ def discretize_target(df, prefix='ret'):
     
     df1 = df.copy()
     
-    for col in ['1-day', '2-day', '3-day', '5-day', '10-day', '20-day', '30-day']:
+    for col in ['1-day']: #, '2-day', '3-day', '5-day', '10-day', '20-day', '30-day']:
         d = df[col].fillna(0).values
         
         new_column_name = prefix + '_' + col
@@ -319,29 +340,30 @@ if __name__ == "__main__":
     df3 = df.merge(df2, how='left', on=['Ticker', 'Date'])
     
     del df
-    df = df3
+    df = df3.copy()  # for debugging
     
     # get text
     corpus = df.Content.values.tolist()
     
     # clean text
     print('Cleaning text... \nThis could take 30 minutes')
-    
     t0 = time.time()
     corpus_cleaned = [clean_text(doc) for doc in corpus] #clean_text(doc)
     #corpus_cleaned = [bert_clean_text(doc) for doc in corpus] #clean_text(doc)
     print('Done in {:.0f} minutes'.format((time.time() - t0)/60))
     
+    # add clean text
     df.loc[:,'Content_clean'] = corpus_cleaned
     df.loc[:,'Content_clean'] = df.loc[:,'Content_clean'].fillna('')
 
-    # to put cleaned content next to original
-    cols = ['Ticker', 'Date', 'Content', 'Content_clean', 'Close', '1-day', '2-day', '3-day', '5-day', '10-day', '20-day', '30-day', 'sentiment']
+    # to put cleaned content next to original. Use only 1-day to simplify.
+    cols = ['Ticker', 'Date', 'Content', 'Content_clean', 'Close', '1-day'] #, '2-day', '3-day', '5-day', '10-day', '20-day', '30-day', 'sentiment']
     df = df[cols]
    
-    print('adding BERT features. It will take a while...')
+    # add bert features
+    print('Adding BERT features. It will take a while...')
     t0 = time.time()
-    df3 = add_bert_features(df)
+    df4 = add_bert_features(df)
     print('Done in {:.0f} minutes'.format((time.time() - t0)/60))
     
     # tack on alphas
@@ -357,7 +379,7 @@ if __name__ == "__main__":
     alpha_disc = alpha_disc.drop(columns=['Content', 'Close'])
     
     # discretize raw returns
-    df1 = discretize_target(df3, prefix='ret')
+    df1 = discretize_target(df4, prefix='ret')
     
     # merge alpha with raw returns
     df1_1 = df1.merge(alpha_disc, how='left', on=['Ticker', 'Date'], suffixes=('_raw','_alpha_raw'))
@@ -374,11 +396,11 @@ if __name__ == "__main__":
     test = df2.loc[df2.index > cutoff_date].reset_index().drop(columns=['month', 'year'])
     
     # save
-    filename = 'data/train2.csv'
+    filename = 'data/train_bert.csv'
     train.to_csv(filename, index=False)
     print('Saved {}'.format(filename))
     
-    filename = 'data/test2.csv'
+    filename = 'data/test_bert.csv'
     test.to_csv(filename, index=False)
     print('Saved {}'.format(filename))
 

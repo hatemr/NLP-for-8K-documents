@@ -59,11 +59,19 @@ This setup assumes you already have `conda` and `git` installed.
 ## Data Preparation
 1. Download 8K documents from today's S&P 500 companies for the past 5 years.
 2. Extract the useful text from the html documents.
-3. Clean text: 
+3. For models using the document-term matrix (CountVectorizer or TfidfVectorizer),
+the 8K text needs preprocessing:
     * From `/ey-nlp` run `python ey_nlp/preprocessing.py`. This creates a copy.
     * remove proper nouns (Apple), make lower case (The -> the), expand contractions (can't -> cannot), remove special characters and digits ('[^a-zA-z0-9\s]'), remove stopwords (a, the), remove html tags (`<p></p>`), remove accented characters, remove newlines ([\r|\n|\r\n]+), remove extra whitespace
-4. Tokenize text:
-    * lemmatize, stemmer
+    * Tokenize text:
+      *lemmatize, stemmer
+
+Now the text is ready to be turned into the document-term matrix.
+
+For BERT 
+
+
+Now the text is ready to 
 5. Vectorize to a document-term matrix using `CountVectorizer`.
     * All our models require creating the document-term matrix. However, we 
   might later try models that use another vectorizer (e.g. tf-idf).
@@ -96,9 +104,11 @@ strategy.
 Our strategy varies along a few dimensions.
 
 1. __Document-term matrix__: CountVectorizer, tf-idf
-2. __Dimensionality reduction__: PCA, LDA, HLDA, SESTM [(Ke et. al. 2019)](references/Predicting_Returns_with_Text_Data.pdf)
-3. __Horizon__: 1, 2, 3, 5, 10, 20, 30
-4. __Model__: logistic regression, random forests, gradient boosting
+2. __Dimensionality reduction__: PCA, LDA (HLDA was considered but discarded in
+ the interest of time. We considered SESTM [(Ke et. al. 2019)](references/Predicting_Returns_with_Text_Data.pdf)
+ but did not try it because the model needs news article data, not 8Ks.
+3. __Horizon__: 1 (we have more but did not try them: 2, 3, 5, 10, 20, 30 days)
+4. __Model__: logistic regression, random forests
 
 ## Scoring metric: f1_weighted
 We use the scoring metric `f1_weighted` from `sklearn` on the validation set for 
