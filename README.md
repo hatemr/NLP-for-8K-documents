@@ -13,21 +13,21 @@ We try a few models/combinations:
 rem_col|vect|dim_red|clf|split0_test_score
 ---|---|---|---|---
 drop_column|CountVectorizer|LatentDirichletAllocation|RandomForestClassifier|0.383
-|||LatentDirichletAllocation|SGDClassifier|0.416
+||||SGDClassifier|0.416
 |||TruncatedSVD|RandomForestClassifier|0.383
-|||TruncatedSVD|SGDClassifier|0.408
+||||SGDClassifier|0.408
 ||TfidfVectorizer|LatentDirichletAllocation|RandomForestClassifier|0.383
-|||LatentDirichletAllocation|SGDClassifier|0.411
+||||SGDClassifier|0.411
 |||TruncatedSVD|RandomForestClassifier|0.383
-|||TruncatedSVD|SGDClassifier|0.41
+||||SGDClassifier|0.41
 use_text_col|CountVectorizer|LatentDirichletAllocation|RandomForestClassifier|0.412
-|||LatentDirichletAllocation|SGDClassifier|0.418
+||||SGDClassifier|0.418
 |||TruncatedSVD|RandomForestClassifier|0.424
-|||TruncatedSVD|SGDClassifier|0.479
+||||SGDClassifier|0.479
 ||TfidfVectorizer|LatentDirichletAllocation|RandomForestClassifier|0.42
-|||LatentDirichletAllocation|SGDClassifier|0.438
+||||SGDClassifier|0.438
 |||TruncatedSVD|RandomForestClassifier|0.429
-|||TruncatedSVD|SGDClassifier|0.47
+||||SGDClassifier|0.47
 
 
 
