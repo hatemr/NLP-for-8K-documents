@@ -41,19 +41,14 @@ performance over using the FinSent sentiment score only.
 2. Logistic regression clearly outperforms random forests.
 3. CounterVectorizer and TfidfVectorier are mixed; neither consistently
 outperforms the other.
-4. PCA outperforms LDA when the text data is used, which is the important case.
+4. PCA outperforms LDA when the text data is used, which is the important case 
+(LDA is obviously not performed when there is no text input).
+
+Next, we simplify the model bases on the best-performing choices from above,
+and add in a new set of features that are the non-fine-tuned BERT embeddings.
 
 
 
-Let's show the most interesting part first, the results. These are run on raw
-returns (not alphas), using 
-
-| dimensionality redudction    | classifier             | f1_weighted |
-| ---------------------------- | ---------------------- | ----------- |
-| LatentDirichletAllocation    | RandomForestClassifier | 0.337532    |
-|                              | SGDClassifier          | 0.404128    |
-| TruncatedSVD                 | RandomForestClassifier | 0.333562    |
-|                              | SGDClassifier          | 0.405563    |
 
 ## Setup
 This setup assumes you already have `conda` and `git` installed.

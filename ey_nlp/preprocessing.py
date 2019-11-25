@@ -4,6 +4,7 @@
 # https://www.kdnuggets.com/2018/08/practitioners-guide-processing-understanding-text-2.html
 
 from __future__ import unicode_literals, print_function
+import numpy as np
 import pandas as pd
 import spacy
 import nltk
@@ -11,7 +12,7 @@ import torch
 from nltk.tokenize.toktok import ToktokTokenizer
 import re
 from bs4 import BeautifulSoup
-from ey_nlp.contractions import CONTRACTION_MAP
+from contractions import CONTRACTION_MAP
 import unicodedata
 from sklearn.feature_extraction.text import CountVectorizer
 import time
@@ -250,6 +251,21 @@ def create_bert_features(raw_text):
     return sentence_embedding
 
 #%%
+def add_bert_features(X):
+    """Create BERT features
+    """
+    
+    text1 = [remove_extra_newlines(text) for text in X.Content.values]
+    feat = [create_bert_features(raw_text) for raw_text in text1]
+    X1 = np.array(feat)
+    cols = ['bert_' + str(i) for i in range(X1.shape[1])]
+    X2 = pd.DataFrame(X1, columns=cols)
+    X3 = pd.concat([X, X2], axis=1)
+    
+    return X3
+
+
+#%%
 def _count_words(corpus):
     '''
     Makes document-term matrix
@@ -312,8 +328,8 @@ if __name__ == "__main__":
     print('Cleaning text... \nThis could take 30 minutes')
     
     t0 = time.time()
-    #corpus_cleaned = [clean_text(doc) for doc in corpus] #clean_text(doc)
-    corpus_cleaned = [bert_clean_text(doc) for doc in corpus] #clean_text(doc)
+    corpus_cleaned = [clean_text(doc) for doc in corpus] #clean_text(doc)
+    #corpus_cleaned = [bert_clean_text(doc) for doc in corpus] #clean_text(doc)
     print('Done in {:.0f} minutes'.format((time.time() - t0)/60))
     
     df.loc[:,'Content_clean'] = corpus_cleaned
@@ -323,12 +339,17 @@ if __name__ == "__main__":
     cols = ['Ticker', 'Date', 'Content', 'Content_clean', 'Close', '1-day', '2-day', '3-day', '5-day', '10-day', '20-day', '30-day', 'sentiment']
     df = df[cols]
    
+    print('adding BERT features. It will take a while...')
+    t0 = time.time()
+    df3 = add_bert_features(df)
+    print('Done in {:.0f} minutes'.format((time.time() - t0)/60))
+    
     # tack on alphas
     pickle_in = open("data/alpha_returns.pickle","rb")
     alpha = pickle.load(pickle_in)
     pickle_in.close()
     
-    # make datetime
+    # make datetime on alphas
     alpha['Date'] = pd.to_datetime(alpha['Date'])
     
     # discretize alphas
@@ -336,7 +357,7 @@ if __name__ == "__main__":
     alpha_disc = alpha_disc.drop(columns=['Content', 'Close'])
     
     # discretize raw returns
-    df1 = discretize_target(df, prefix='ret')
+    df1 = discretize_target(df3, prefix='ret')
     
     # merge alpha with raw returns
     df1_1 = df1.merge(alpha_disc, how='left', on=['Ticker', 'Date'], suffixes=('_raw','_alpha_raw'))
@@ -353,14 +374,12 @@ if __name__ == "__main__":
     test = df2.loc[df2.index > cutoff_date].reset_index().drop(columns=['month', 'year'])
     
     # save
-    filename = 'data/train.csv'
+    filename = 'data/train2.csv'
     train.to_csv(filename, index=False)
     print('Saved {}'.format(filename))
     
-    filename = 'data/test.csv'
+    filename = 'data/test2.csv'
     test.to_csv(filename, index=False)
     print('Saved {}'.format(filename))
 
 #%%
-    
-    

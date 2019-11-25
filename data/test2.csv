@@ -1,0 +1,661 @@
+Date,Ticker,Content,Content_clean,Close,1-day_raw,2-day_raw,3-day_raw,5-day_raw,10-day_raw,20-day_raw,30-day_raw,sentiment,bert_0,bert_1,bert_2,bert_3,bert_4,bert_5,bert_6,bert_7,bert_8,bert_9,bert_10,bert_11,bert_12,bert_13,bert_14,bert_15,bert_16,bert_17,bert_18,bert_19,bert_20,bert_21,bert_22,bert_23,bert_24,bert_25,bert_26,bert_27,bert_28,bert_29,bert_30,bert_31,bert_32,bert_33,bert_34,bert_35,bert_36,bert_37,bert_38,bert_39,bert_40,bert_41,bert_42,bert_43,bert_44,bert_45,bert_46,bert_47,bert_48,bert_49,bert_50,bert_51,bert_52,bert_53,bert_54,bert_55,bert_56,bert_57,bert_58,bert_59,bert_60,bert_61,bert_62,bert_63,bert_64,bert_65,bert_66,bert_67,bert_68,bert_69,bert_70,bert_71,bert_72,bert_73,bert_74,bert_75,bert_76,bert_77,bert_78,bert_79,bert_80,bert_81,bert_82,bert_83,bert_84,bert_85,bert_86,bert_87,bert_88,bert_89,bert_90,bert_91,bert_92,bert_93,bert_94,bert_95,bert_96,bert_97,bert_98,bert_99,bert_100,bert_101,bert_102,bert_103,bert_104,bert_105,bert_106,bert_107,bert_108,bert_109,bert_110,bert_111,bert_112,bert_113,bert_114,bert_115,bert_116,bert_117,bert_118,bert_119,bert_120,bert_121,bert_122,bert_123,bert_124,bert_125,bert_126,bert_127,bert_128,bert_129,bert_130,bert_131,bert_132,bert_133,bert_134,bert_135,bert_136,bert_137,bert_138,bert_139,bert_140,bert_141,bert_142,bert_143,bert_144,bert_145,bert_146,bert_147,bert_148,bert_149,bert_150,bert_151,bert_152,bert_153,bert_154,bert_155,bert_156,bert_157,bert_158,bert_159,bert_160,bert_161,bert_162,bert_163,bert_164,bert_165,bert_166,bert_167,bert_168,bert_169,bert_170,bert_171,bert_172,bert_173,bert_174,bert_175,bert_176,bert_177,bert_178,bert_179,bert_180,bert_181,bert_182,bert_183,bert_184,bert_185,bert_186,bert_187,bert_188,bert_189,bert_190,bert_191,bert_192,bert_193,bert_194,bert_195,bert_196,bert_197,bert_198,bert_199,bert_200,bert_201,bert_202,bert_203,bert_204,bert_205,bert_206,bert_207,bert_208,bert_209,bert_210,bert_211,bert_212,bert_213,bert_214,bert_215,bert_216,bert_217,bert_218,bert_219,bert_220,bert_221,bert_222,bert_223,bert_224,bert_225,bert_226,bert_227,bert_228,bert_229,bert_230,bert_231,bert_232,bert_233,bert_234,bert_235,bert_236,bert_237,bert_238,bert_239,bert_240,bert_241,bert_242,bert_243,bert_244,bert_245,bert_246,bert_247,bert_248,bert_249,bert_250,bert_251,bert_252,bert_253,bert_254,bert_255,bert_256,bert_257,bert_258,bert_259,bert_260,bert_261,bert_262,bert_263,bert_264,bert_265,bert_266,bert_267,bert_268,bert_269,bert_270,bert_271,bert_272,bert_273,bert_274,bert_275,bert_276,bert_277,bert_278,bert_279,bert_280,bert_281,bert_282,bert_283,bert_284,bert_285,bert_286,bert_287,bert_288,bert_289,bert_290,bert_291,bert_292,bert_293,bert_294,bert_295,bert_296,bert_297,bert_298,bert_299,bert_300,bert_301,bert_302,bert_303,bert_304,bert_305,bert_306,bert_307,bert_308,bert_309,bert_310,bert_311,bert_312,bert_313,bert_314,bert_315,bert_316,bert_317,bert_318,bert_319,bert_320,bert_321,bert_322,bert_323,bert_324,bert_325,bert_326,bert_327,bert_328,bert_329,bert_330,bert_331,bert_332,bert_333,bert_334,bert_335,bert_336,bert_337,bert_338,bert_339,bert_340,bert_341,bert_342,bert_343,bert_344,bert_345,bert_346,bert_347,bert_348,bert_349,bert_350,bert_351,bert_352,bert_353,bert_354,bert_355,bert_356,bert_357,bert_358,bert_359,bert_360,bert_361,bert_362,bert_363,bert_364,bert_365,bert_366,bert_367,bert_368,bert_369,bert_370,bert_371,bert_372,bert_373,bert_374,bert_375,bert_376,bert_377,bert_378,bert_379,bert_380,bert_381,bert_382,bert_383,bert_384,bert_385,bert_386,bert_387,bert_388,bert_389,bert_390,bert_391,bert_392,bert_393,bert_394,bert_395,bert_396,bert_397,bert_398,bert_399,bert_400,bert_401,bert_402,bert_403,bert_404,bert_405,bert_406,bert_407,bert_408,bert_409,bert_410,bert_411,bert_412,bert_413,bert_414,bert_415,bert_416,bert_417,bert_418,bert_419,bert_420,bert_421,bert_422,bert_423,bert_424,bert_425,bert_426,bert_427,bert_428,bert_429,bert_430,bert_431,bert_432,bert_433,bert_434,bert_435,bert_436,bert_437,bert_438,bert_439,bert_440,bert_441,bert_442,bert_443,bert_444,bert_445,bert_446,bert_447,bert_448,bert_449,bert_450,bert_451,bert_452,bert_453,bert_454,bert_455,bert_456,bert_457,bert_458,bert_459,bert_460,bert_461,bert_462,bert_463,bert_464,bert_465,bert_466,bert_467,bert_468,bert_469,bert_470,bert_471,bert_472,bert_473,bert_474,bert_475,bert_476,bert_477,bert_478,bert_479,bert_480,bert_481,bert_482,bert_483,bert_484,bert_485,bert_486,bert_487,bert_488,bert_489,bert_490,bert_491,bert_492,bert_493,bert_494,bert_495,bert_496,bert_497,bert_498,bert_499,bert_500,bert_501,bert_502,bert_503,bert_504,bert_505,bert_506,bert_507,bert_508,bert_509,bert_510,bert_511,bert_512,bert_513,bert_514,bert_515,bert_516,bert_517,bert_518,bert_519,bert_520,bert_521,bert_522,bert_523,bert_524,bert_525,bert_526,bert_527,bert_528,bert_529,bert_530,bert_531,bert_532,bert_533,bert_534,bert_535,bert_536,bert_537,bert_538,bert_539,bert_540,bert_541,bert_542,bert_543,bert_544,bert_545,bert_546,bert_547,bert_548,bert_549,bert_550,bert_551,bert_552,bert_553,bert_554,bert_555,bert_556,bert_557,bert_558,bert_559,bert_560,bert_561,bert_562,bert_563,bert_564,bert_565,bert_566,bert_567,bert_568,bert_569,bert_570,bert_571,bert_572,bert_573,bert_574,bert_575,bert_576,bert_577,bert_578,bert_579,bert_580,bert_581,bert_582,bert_583,bert_584,bert_585,bert_586,bert_587,bert_588,bert_589,bert_590,bert_591,bert_592,bert_593,bert_594,bert_595,bert_596,bert_597,bert_598,bert_599,bert_600,bert_601,bert_602,bert_603,bert_604,bert_605,bert_606,bert_607,bert_608,bert_609,bert_610,bert_611,bert_612,bert_613,bert_614,bert_615,bert_616,bert_617,bert_618,bert_619,bert_620,bert_621,bert_622,bert_623,bert_624,bert_625,bert_626,bert_627,bert_628,bert_629,bert_630,bert_631,bert_632,bert_633,bert_634,bert_635,bert_636,bert_637,bert_638,bert_639,bert_640,bert_641,bert_642,bert_643,bert_644,bert_645,bert_646,bert_647,bert_648,bert_649,bert_650,bert_651,bert_652,bert_653,bert_654,bert_655,bert_656,bert_657,bert_658,bert_659,bert_660,bert_661,bert_662,bert_663,bert_664,bert_665,bert_666,bert_667,bert_668,bert_669,bert_670,bert_671,bert_672,bert_673,bert_674,bert_675,bert_676,bert_677,bert_678,bert_679,bert_680,bert_681,bert_682,bert_683,bert_684,bert_685,bert_686,bert_687,bert_688,bert_689,bert_690,bert_691,bert_692,bert_693,bert_694,bert_695,bert_696,bert_697,bert_698,bert_699,bert_700,bert_701,bert_702,bert_703,bert_704,bert_705,bert_706,bert_707,bert_708,bert_709,bert_710,bert_711,bert_712,bert_713,bert_714,bert_715,bert_716,bert_717,bert_718,bert_719,bert_720,bert_721,bert_722,bert_723,bert_724,bert_725,bert_726,bert_727,bert_728,bert_729,bert_730,bert_731,bert_732,bert_733,bert_734,bert_735,bert_736,bert_737,bert_738,bert_739,bert_740,bert_741,bert_742,bert_743,bert_744,bert_745,bert_746,bert_747,bert_748,bert_749,bert_750,bert_751,bert_752,bert_753,bert_754,bert_755,bert_756,bert_757,bert_758,bert_759,bert_760,bert_761,bert_762,bert_763,bert_764,bert_765,bert_766,bert_767,ret_1-day,ret_2-day,ret_3-day,ret_5-day,ret_10-day,ret_20-day,ret_30-day,1-day_alpha_raw,2-day_alpha_raw,3-day_alpha_raw,5-day_alpha_raw,10-day_alpha_raw,20-day_alpha_raw,30-day_alpha_raw,alpha_1-day,alpha_2-day,alpha_3-day,alpha_5-day,alpha_10-day,alpha_20-day,alpha_30-day
+2019-05-02,MMM,"Item 1.01. Entry into a Material Definitive Agreement
+ 
+On May 1, 2019, 3M Company, a Delaware corporation (the “Company”), entered into a Stock Purchase Agreement (the “Stock Purchase Agreement”) with Acelity L.P. Inc., a Guernsey limited partnership (“Seller”) and Acelity, Inc., a Delaware corporation and a wholly owned subsidiary of Seller (“Acelity”). The Stock Purchase Agreement provides that, upon the terms and subject to the conditions thereof, the Company will acquire all of the outstanding shares of the capital stock of Acelity for aggregate cash consideration of approximately $4.4452 billion, subject to certain adjustments, plus a daily ticking fee from December 31, 2018 until the date the acquisition is completed. Inclusive of the assumption of debt, the transaction contemplates an enterprise value of approximately $6.725 billion.
+ 
+Each party’s obligation to consummate the transactions contemplated by the Stock Purchase Agreement is subject to certain customary conditions, including (i) the expiration or termination of any applicable waiting period under the Hart-Scott-Rodino Antitrust Improvements Act of 1976, (ii) receipt of required approvals from governmental authorities or expiration of applicable waiting periods under antitrust laws outside of the United States, (iii) the absence of any order issued by any governmental authority enjoining or otherwise prohibiting the transactions contemplated by the Stock Purchase Agreement and (iv) the absence of any law or order prohibiting or making illegal the consummation of such transactions. The Company’s obligation to consummate the transactions contemplated by the Stock Purchase Agreement is also conditioned on, among other things, the absence of a Material Adverse Effect (as defined in the Stock Purchase Agreement).
+ 
+The Stock Purchase Agreement contains customary representations, warranties and covenants of the parties. Among other things, from the date of the Stock Purchase Agreement until the consummation of the transactions, Seller is required to cause Acelity and its subsidiaries to conduct their respective businesses in the ordinary course of business consistent with past practice and to comply with certain other covenants regarding the operation of their businesses. The Company and Seller have also agreed to use their respective reasonable best efforts to obtain all approvals from governmental authorities for the transaction, including all antitrust approvals, on the terms and subject to the conditions set forth in the Stock Purchase Agreement.
+ 
+The Stock Purchase Agreement also contains certain rights to terminate the agreement, including the right of either the Company or Seller to terminate the Stock Purchase Agreement (i) on or after February 1, 2020, if the transactions contemplated by the Stock Purchase Agreement have not been consummated by such date (which date the Company may elect to extend to a date no later than May 1, 2020 if all conditions other than those pertaining to approvals required under applicable antitrust laws have been satisfied or waived), (ii) if an order issued by a governmental authority enjoining or otherwise prohibiting the transactions contemplated by the Stock Purchase Agreement becomes final and non-appealable, (iii) if a law prohibiting or making illegal the consummation of the transactions contemplated by the Stock Purchase Agreement is enacted or (iv) in the event of certain uncured material breaches of the Stock Purchase Agreement by the other party or parties.
+ 
+The foregoing description of the Stock Purchase Agreement and the transactions contemplated thereby does not purport to be complete and is qualified in its entirety by reference to the full text of the Stock Purchase Agreement, which is attached hereto as Exhibit 2.1 and incorporated herein by reference.
+ 
+The Stock Purchase Agreement has been attached as an exhibit to this report in order to provide investors and security holders with information regarding its terms. It is not intended to provide any other factual information about the Company, Seller, Acelity, or their respective subsidiaries and affiliates. The representations, warranties and covenants contained in the Stock Purchase Agreement were made only for purposes of that agreement and as of specific dates as set forth therein; are solely for the benefit of the parties to the Stock Purchase Agreement; may be subject to limitations agreed upon by the parties, including being qualified by confidential disclosures exchanged between the parties in connection with the execution of the Stock Purchase Agreement; may have been made for the purposes of allocating contractual risk between the parties to the Stock Purchase Agreement instead of establishing these matters as facts; and may be subject to standards of materiality applicable to the parties that differ from those applicable to investors. Investors should not rely on the representations, warranties or covenants or any description thereof as characterizations of the actual state of facts or condition of the Company, Seller, Acelity, or their respective subsidiaries and affiliates. Moreover, information concerning the subject matter of the representations, warranties and covenants may change after the date of the Stock Purchase Agreement, which subsequent information may or may not be fully reflected in public disclosures by the Company.
+ 
+Item 7.01. Regulation FD Disclosure
+ 
+On May 2, 2018, the Company issued a press release announcing entry into the Stock Purchase Agreement with Seller and Acelity. A copy of that press release is being furnished herewith as Exhibit 99.1.
+ 
+This information is being furnished under Item 7.01 and shall not be deemed “filed” for purposes of Section 18 of the Securities Exchange Act of 1934, as amended (the “Exchange Act”), or otherwise subject to the liability of such section, nor shall this information be deemed incorporated in any filings made by the Company under the Securities Act of 1933, as amended (the “Securities Act”), or the Exchange Act, except as expressly set forth by specific reference in such a filing.
+ 
+2
+
+
+
+
+
+ 
+Forward-Looking Statements
+ 
+This Current Report contains forward-looking information about the Company’s financial results and estimates and business prospects that involve substantial risks and uncertainties. You can identify these statements by the use of words such as “anticipate,” “estimate,” “expect,” “aim,” “project,” “intend,” “plan,” “believe,” “will,” “should,” “could,” “target,” “forecast” and other words and terms of similar meaning in connection with any discussion of future operating or financial performance or business plans or prospects. Among the factors that could cause actual results to differ materially are the following: risks associated with the contemplated transactions generally, such as the inability to obtain, delays in obtaining, or the imposition of burdensome conditions imposed in connection with obtaining, required approvals under applicable antitrust legislation and other regulatory and third party consents and approvals; the occurrence of any event, change or other circumstances that could give rise to the termination of the Stock Purchase Agreement; the outcome of any legal proceedings that may be instituted following announcement of the contemplated transactions; potential severe volatility in the capital markets and the impact on the cost to the Company to obtain debt financing as may be necessary to consummate the transactions; failure to retain key management and employees of Acelity and its subsidiaries; issues or delays in the successful integration of Acelity’s operations with those of the Company, including incurring or experiencing unanticipated costs and/or delays or difficulties, which could result in additional demands on the Company’s resources, systems, procedures and controls, disruption of its ongoing business and diversion of management’s attention from other business concerns; difficulties or delays in the successful transition from the information technology systems of Acelity to those of the Company as well as risks associated with other integration or transition of the operations, systems and personnel of Acelity; failure or inability to implement growth strategies in a timely manner; unfavorable reactions to the contemplated transactions from customers, competitors, suppliers and employees; the possibility that certain assumptions with respect to Acelity’s business or the contemplated transactions could prove to be inaccurate; worldwide economic, political, regulatory, capital markets and other external conditions and other factors beyond the Company’s control, including natural and other disasters or climate change affecting the operations of the Company or its customers and suppliers; the Company’s credit ratings and its cost of capital; changes in tax and other laws, regulations, rates and policies; competitive conditions and customer preferences; foreign currency exchange rates and fluctuations in those rates; the timing and market acceptance of new product offerings; the availability and cost of purchased components, compounds, raw materials and energy (including oil and natural gas and their derivatives) due to shortages, increased demand or supply interruptions (including those caused by natural and other disasters and other events); the impact of acquisitions, strategic alliances, divestitures, and other unusual events resulting from portfolio management actions and other evolving business strategies, and possible organizational restructuring; operational execution, including scenarios where the Company generates fewer productivity improvements than estimated; unanticipated problems or delays with the phased implementation of a global enterprise resource planning (ERP) system, or security breaches and other disruptions to the Company’s information technology infrastructure; financial market risks that may affect the Company’s funding obligations under defined benefit pension and postretirement plans; and legal proceedings, including significant developments that could occur in the legal and regulatory proceedings described in the Company’s Annual Report on Form 10-K for the year ended Dec. 31, 2018, and any subsequent quarterly reports on Form 10-Q (the “Reports”). Changes in such assumptions or factors could produce significantly different results. A further description of these factors is located in the Reports under “Cautionary Note Concerning Factors That May Affect Future Results” and “Risk Factors” in Part I, Items 1 and 1A (Annual Report) and in Part I, Item 2 and Part II, Item 1A (Quarterly Reports). The information contained in this Current Report is as of the date indicated. The Company assumes no obligation to update any forward-looking statements contained in this Current Report as a result of new information or future events or developments.
+ 
+Item 9.01. Financial Statements and Exhibits.
+ 
+(d) Exhibits
+ 
+
+
+
+Exhibit No. 
+
+  
+
+Description  
+
+
+  
+
+  
+
+   
+
+
+2.1 
+
+  
+
+Stock Purchase Agreement, dated as of May 1, 2019, by and between 3M Company, Acelity L.P. Inc. and Acelity, Inc.*  
+
+
+99.1 
+
+  
+
+Press Release, dated May 2, 2019.   
+ 
+
+* Schedules or similar attachments have been omitted pursuant to Item 601(b)(2) of Regulation S-K. The Company will furnish copies of any such schedules or similar attachments to the U.S. Securities and Exchange Commission upon request.
+ 
+3
+
+
+
+
+
+ 
+",item entri materi definit agreement may compani delawar corpor compani enter stock purchas agreement stock purchas agreement acel l p inc guernsey limit partnership seller acel inc delawar corpor wholli own subsidiari seller acel stock purchas agreement provid upon term subject condit thereof compani acquir outstand share capit stock acel aggreg cash consider approxim billion subject certain adjust plu daili tick fee decemb date acquisit complet inclus assumpt debt transact contempl enterpris valu approxim billion parti oblig consumm transact contempl stock purchas agreement subject certain customari condit includ expir termin applic wait period hartscottrodino antitrust improv act ii receipt requir approv government author expir applic wait period antitrust law outsid unit state iii absenc order issu government author enjoin otherwis prohibit transact contempl stock purchas agreement iv absenc law order prohibit make illeg consumm transact compani oblig consumm transact contempl stock purchas agreement also condit among thing absenc materi advers effect defin stock purchas agreement stock purchas agreement contain customari represent warranti coven parti among thing date stock purchas agreement consumm transact seller requir caus acel subsidiari conduct respect busi ordinari cours busi consist past practic compli certain coven regard oper busi compani seller also agre use respect reason good effort obtain approv government author transact includ antitrust approv term subject condit set forth stock purchas agreement stock purchas agreement also contain certain right termin agreement includ right either compani seller termin stock purchas agreement februari transact contempl stock purchas agreement not consumm date date compani may elect extend date no later may condit pertain approv requir applic antitrust law satisfi waiv ii order issu government author enjoin otherwis prohibit transact contempl stock purchas agreement becom final nonappeal iii law prohibit make illeg consumm transact contempl stock purchas agreement enact iv event certain uncur materi breach stock purchas agreement parti parti forego descript stock purchas agreement transact contempl therebi not purport complet qualifi entireti refer full text stock purcha agreement attach hereto exhibit incorpor herein refer stock purchas agreement attach exhibit report order provid investor secur holder inform regard term not intend provid factual inform compani seller acel respect subsidiari affili represent warranti coven contain stock purchas agreement make purpos agreement specif date set forth therein sole benefit parti stock purchas agreement may subject limit agre upon parti includ qualifi confidenti disclosur exchang parti connect execut stock purchas agreement may make purpos alloc contractu risk parti stock purchas agreement instead establish matter fact may subject standard materi applic parti differ applic investor investor not reli represent warranti coven descript thereof character actual state fact condit compani seller acel respect subsidiari affili moreov inform concern subject matter represent warranti coven may chang date stock purchas agreement subsequ inform may may not fulli reflect public disclosur compani item regul fd disclosur may compani issu press releas announc entri stock purchas agreement seller acel copi press releas furnish herewith exhibit inform furnish item shall not deem file purpos section secur exchang act amend exchang act otherwis subject liabil section shall inform deem incorpor file make compani secur act amend secur act exchang act except expressli set forth specif refer file forwardlook statement current report contain forwardlook inform compani financi result estim busi prospect involv substanti risk uncertainti identifi statement use word anticip estim expect aim project intend plan believ could target forecast word term similar mean connect discuss futur oper financi perform busi plan prospect among factor could caus actual result differ materi follow risk associ contempl transact gener inabl obtain delay obtain imposit burdensom condit impos connect obtain requir approv applic antitrust legisl regulatori third parti consent approv occurr event chang circumst could give rise termin stock purchas agreement outcom legal proceed may institut follow announc contempl transact potenti sever volatil capit market impact cost compani obtain debt financ may necessari consumm transact failur retain key manag employe acel subsidiari issu delay success integr acel oper compani includ incur experienc unanticip cost andor delay difficulti could result addit demand compani resourc system procedur control disrupt ongo busi divers manag attent busi concern difficulti delay success transit inform technolog system acel compani well risk associ integr transit oper system personnel acel failur inabl implement growth strategi time manner unfavor reaction contempl transact custom competitor supplier employe possibl certain assumpt respect acel busi contempl transact could prove inaccur worldwid econom polit regulatori capit market extern condit factor beyond compani control includ natur disast climat chang affect oper compani custom supplier compani credit rate cost capit chang tax law regul rate polici competit condit custom prefer foreign currenc exchang rate fluctuat rate time market accept new product offer avail cost purchas compon compound raw materi energi includ oil natur ga deriv due shortag increas demand suppli interrupt includ caus natur disast event impact acquisit strateg allianc divestitur unusu event result portfolio manag action evolv busi strategi possibl organiz restructur oper execut includ scenario compani gener few product improv estim unanticip problem delay phase implement global enterpris resourc plan erp system secur breach disrupt compani inform technolog infrastructur financi market risk may affect compani fund oblig defin benefit pension postretir plan legal proceed includ signific develop could occur legal regulatori proceed describ compani annual report form k year end dec subsequ quarterli report form q report chang assumpt factor could produc significantli differ result descript factor locat report cautionari note concern factor may affect futur result risk factor part item annual report part item part ii item quarterli report inform contain current report date indic compani assum no oblig updat forwardlook statement contain current report result new inform futur event develop item financi statement exhibit exhibit exhibit no descript stock purchas agreement date may compani acel l p inc acel inc press releas date may schedul similar attach omit pursuant item b regul sk compani furnish copi schedul similar attach u secur exchang commiss upon request,-0.007094104369323674,0.002543978349120568,-0.00925575101488485,-0.030473612990527418,-0.0512584573748307,-0.07004059539918805,-0.12781126259841358,-0.08992087237890213,-1.7855,-0.1919681,-0.24043894,0.38424003,-0.052322194,0.40663475,-0.13792095,-0.2941152,0.107705556,0.116293676,0.20926388,-0.38756898,-0.06591937,0.12945026,0.42877653,-0.085563935,0.15271235,0.21525653,0.05641316,0.032374818,0.053052552,-0.0055579334,0.037370186,0.18559857,0.20118707,0.4608921,0.087342605,0.059367888,-0.18023543,-0.2775179,-0.107706875,0.413744,0.22414131,-0.23444898,-0.2539803,0.24133821,0.13483346,-0.20654611,-0.379709,-0.6405759,-0.12729707,-0.31572056,-0.05896996,-0.09381277,0.3843225,-0.2559918,-0.37695357,0.19122568,-0.279259,-0.04831336,0.09395058,-0.2266677,-0.0649135,-0.20194152,-0.03647465,-0.024259176,0.4116381,-0.024230968,-0.47820488,-0.21067989,-0.39530367,0.5023814,-0.21029952,0.30594492,-0.25292647,0.028423322,0.1400855,-0.09224749,0.35478446,-1.0311338,-0.05565703,-0.27294847,-0.12602021,-0.08072305,-0.088220656,0.007138031,-0.10380449,-0.2554446,0.26753253,-0.044001427,0.513013,0.07442557,0.559528,0.19038035,0.330866,-0.22774705,0.39219582,-0.11231876,0.05962068,-0.11441828,0.71519446,0.42682412,-0.06968893,0.18705863,-0.10366543,-0.10603294,-0.33815455,0.22958787,-0.2937977,-0.0015054604,0.25708574,-0.16292769,0.09582468,0.0005362494,0.06774539,-0.29174075,0.14283541,0.02127442,-0.2652411,-0.04514979,0.14070275,0.0081616305,-0.23604594,0.22258285,-0.050464578,-0.08972858,0.28543654,-0.09254997,0.02009835,-0.0749265,0.054555353,0.2765033,-0.058100495,-0.05207794,0.37971643,0.2699233,0.1357887,0.08012824,0.32687467,-0.079299055,-0.39616963,-0.022465492,-0.099010915,-0.0060938955,-0.08839755,-0.16418366,0.18146637,0.013413174,-0.15125015,0.030274376,0.07268325,-0.18034033,-0.11939491,-0.123652875,-0.16243249,0.13007385,-0.09522455,0.16046743,0.06748951,-0.28979748,0.23673156,-0.25439465,-0.07462153,0.011502523,-0.10339716,-0.17141382,-0.43222982,0.073941536,-0.02221168,0.13285376,0.2481299,0.32049698,-0.06904174,0.019203665,0.059276834,-0.14661044,0.2732585,-0.12321094,0.058909103,-0.11969407,-0.21567439,-0.30883828,-0.53244764,0.060876664,-0.3492463,0.22702979,0.20221545,-0.2753325,-0.11816226,0.13856237,0.12047857,-1.4150213,0.25462055,0.048790146,0.09635152,0.0012799941,-0.12520322,-0.03797308,0.07006194,0.45661113,-0.05331537,-0.3185233,-0.185556,-0.3611996,0.005898465,-0.20234661,-0.03754835,-0.39792147,-0.012760625,-0.08345576,-0.09887205,-0.068164855,-0.15330765,0.0686807,0.13064283,0.13711381,-0.0042097773,0.3633795,-0.16475998,0.14843346,0.15468411,-0.33165762,0.073461786,0.38982823,-0.119721614,0.34349766,-0.39932615,-0.077392355,-0.3152665,0.115962446,0.31046242,0.21755575,0.19329526,0.01218489,0.18360776,-0.13280256,0.55387515,-0.030934773,-0.32681128,0.23826729,0.23486081,0.046541326,-0.29678044,0.5566934,-0.11811649,0.3212118,0.099704795,-0.619528,-0.15836622,0.3061083,-0.013701214,0.1827339,0.23865093,0.19548517,-0.004319561,0.1469907,-0.024005456,0.12733969,0.23304425,0.015846645,-0.197815,-0.06647134,-0.559565,-0.1464497,-0.34074605,-0.1065269,-0.40198302,-0.029125813,-0.19638489,0.039848987,-0.19310127,0.018005706,-0.114164814,0.4038717,0.28525534,-0.22125682,-0.20705219,-0.07523893,0.014356285,0.06969849,0.2279517,0.42573845,-0.0572456,-0.15854296,0.21413508,-0.114495255,-0.08668369,0.43508118,0.1933612,-0.18769763,0.17254575,0.25236183,-0.018259445,-0.07441691,-0.25249946,-0.047431637,-0.27875403,0.08182786,0.13751893,-0.23649319,-0.16152522,0.07197348,0.2128666,-0.31423646,0.038302556,0.2763951,0.27747357,-0.32454133,0.39889023,-0.009852752,-0.054339953,-0.22856435,-0.22935428,0.13040358,-0.029412536,-0.28321654,-0.08329899,-0.020931382,-0.37223354,-3.9746985,-0.31059587,-0.17182338,-0.21135826,0.14339143,-0.22057296,-0.0033863452,0.1074733,-0.19644356,0.39136446,-0.07192213,-0.44961444,0.3386007,-0.05788668,0.18395193,0.073139906,0.1597567,-0.12960471,0.03373975,0.22947668,-0.29690844,-0.54161584,0.11447788,0.01238282,0.06272144,0.1474439,-0.019381057,-0.05903012,-0.13764662,-0.047034264,0.2272341,-0.30006963,0.14335577,-0.07182083,-0.14069383,-0.19379628,0.014783312,0.0816113,-0.04031467,-0.52361476,0.020998087,-0.15724507,0.05131194,-0.26896107,0.45606568,-0.22412136,-0.41460463,0.024872214,-0.08669695,0.4673891,0.31892574,0.1523449,-0.32432696,0.06805879,-0.4722027,0.07204892,0.09419693,-0.10097881,-0.4736862,0.33335355,0.25071785,-0.25789046,0.00039139562,-0.06587957,0.014619175,-0.40027434,-0.27699322,-0.1732289,0.33341306,-0.117265806,0.26153576,0.17104824,0.09401552,-0.55969775,-0.1924507,-0.5451878,0.39570135,-0.079211764,0.43867433,-0.023291465,0.10486564,-0.25571764,0.5154047,0.12696728,0.15909451,-0.12118183,0.021491533,-0.08006534,-0.05924861,-0.6650164,0.050727483,0.32291636,0.2735893,0.21506278,-0.45483068,-0.33607718,-0.38031617,0.15944083,-0.024485238,-0.1908341,0.44627574,0.15515737,0.3153975,-0.0948861,0.07375668,0.18538125,-0.41458017,-0.2095037,-0.11453864,-0.05290878,0.4306917,-0.20122854,0.45864993,-0.28775963,0.007692395,0.09828514,-0.031878486,0.6701836,0.08410395,-0.016809916,0.31302682,0.29387364,0.16677456,-0.36280438,-0.719626,-0.22521034,-0.30014026,0.089514345,0.13617346,0.047069807,-0.3098488,-0.0625896,0.060887482,-0.078882106,0.30499178,-0.14138283,-0.12482206,-0.13115674,0.14464854,0.023261443,0.20465943,0.4035404,-0.16544016,-0.10316967,0.029570304,0.1867813,0.3402126,0.14403135,-0.20110928,0.35706413,-0.12137552,-0.23134483,0.11011796,-0.10267397,-0.23914312,-0.3052889,0.20313226,0.19765304,-0.07763641,-0.2184579,-0.020801464,0.042691898,0.16973327,-0.32544225,-0.007182303,0.54436785,-0.045065522,0.1028191,-0.31492087,0.11159905,-0.05026558,-0.10565199,-0.17688406,-0.30020216,-0.09081369,0.27605528,0.14714423,-0.3591629,-0.07217256,0.35593,0.13855092,-0.19054161,-0.48225808,0.09168958,0.22403361,-0.43962675,0.3875426,-0.30662024,0.17397366,0.08935184,0.2225029,0.15250282,0.26173022,0.08693998,-0.20288773,-0.30342102,0.15144102,-0.28376806,-0.0074113426,0.12470965,0.120580725,0.07781192,-0.49970552,-0.024587749,0.052535124,-0.37099755,0.120987445,0.041670583,-0.10909922,-0.13100518,-0.10410441,-0.40288886,-0.25027794,0.11401868,0.050138585,-0.028131554,0.23643953,-0.25110805,-0.381862,0.018886732,0.1228356,-0.20645447,0.28490978,0.096694335,-0.2875317,0.5305618,0.026685907,0.024477547,-0.11725255,-0.026073445,0.22706243,-0.13871439,-0.096843354,-0.17070977,0.06615952,0.26863924,-0.67271197,-0.697638,-0.053611025,0.17585532,-0.38363814,-0.07771062,-0.11398565,-0.78341895,-0.0011389743,-0.10258237,0.12706539,0.31746712,-0.37769762,0.45402548,-0.09889141,-0.17247814,0.008211035,-0.12484032,0.39923805,-0.33814573,-0.004465971,0.021501714,-0.48440367,-0.08425244,-0.10309457,0.006467603,0.11829971,-0.0741575,0.30422837,0.13694143,-0.19066796,0.48181283,0.1030907,-0.19208768,0.08009431,-0.28786895,0.06488983,0.09222629,0.033399805,-0.06904905,0.23103523,-0.42902443,0.028532673,-0.2205769,-0.47371218,-0.13516946,0.0763913,0.26119447,0.48486316,-0.20272039,-0.32690766,0.05454767,-0.2721143,-0.18741709,0.029778017,-0.051655993,-0.3411847,0.050144725,-0.40220574,0.15257406,0.49124074,-0.18808608,0.14629482,0.34175602,0.089572184,0.49124762,0.38371587,-0.111684546,-0.18994899,0.24931046,-0.0061377524,-0.5672583,0.31148317,-0.035648797,0.34500945,-0.3289906,0.34791866,0.29521418,-0.12126766,-0.2519663,-0.14098026,-0.2236352,-0.14033788,-0.12834193,0.32798904,0.26352063,0.4670845,-0.09943068,0.2767185,0.2311943,-0.16611554,0.20721626,0.24583946,-0.13731228,0.14537519,0.18547703,-0.05683641,0.23841786,-0.026903328,-0.14411761,0.058487635,-0.17985713,0.15715827,0.5043189,0.10725447,0.13895676,0.21004547,0.06156144,0.056258973,0.38216826,0.20490894,0.0063988403,0.44180688,0.41897348,0.21422216,0.23274994,0.2818781,-0.016363893,0.14721982,0.4766653,0.07377027,0.17541474,0.081369035,0.44269943,0.10548895,0.16798083,0.6794767,-0.33766526,-0.12841085,-0.52655965,0.1302849,-0.28761992,0.10276852,0.21930943,0.26846024,0.099761754,-0.28384915,0.03450288,-0.060791302,0.3765593,0.07675463,0.2012159,-0.012010032,0.044609237,-0.034841895,-0.1892955,-0.327626,-0.2537845,-0.15323257,-0.43240848,-0.06370957,0.36470053,-0.0068879435,-0.17553437,0.034529813,-0.32966214,0.15931474,-0.08230521,0.06783544,-0.0679985,0.22330362,0.2870931,0.72050333,-0.049635142,0.20350705,-0.07982841,-0.09939328,0.05173991,0.36004975,0.08771669,-0.15490559,0.4342407,-0.48355606,-0.13066378,0.29452112,-0.093530096,-0.5574724,0.14022994,-0.13633399,0.103805594,-0.15926841,0.0597222,-0.095113724,-0.13391188,-0.17567313,-0.20054626,-0.09534714,-0.04716387,-0.46416786,0.57335234,-0.026721409,0.40658638,0.013465714,0.17359826,0.015860597,0.08036262,0.18976691,0.18186672,-0.09857426,-0.4354791,-0.48330057,0.14657496,-0.32853687,-0.07322994,0.05863547,0.2222187,0.33477497,-0.2580082,-0.18080385,-0.33628863,-0.122251354,-0.15301871,-0.12573169,-0.19947171,0.17006232,0.10250643,0.15525497,-0.47300193,0.11400997,-0.3641045,0.17474282,0.003431778,0.21207124,-0.03862002,1,1,0,0,0,0,0,-0.0053164514022592,-0.013778945678836772,-0.021509965028427183,-0.03879209159369478,-0.06044259696592389,-0.08393075826702565,-0.08462542496744586,1,0,0,0,0,0,0
+2019-05-15,MMM,"Item 5.07 Submission of Matters to a Vote of Security Holders
+ 
+At the 2019 Annual Meeting of Stockholders of the Company held on May 14, 2019, the votes cast with respect to each item of business properly presented at the meeting are as follows:
+ 
+Proposal No. 1 — The stockholders elected each of the twelve nominees to the Board of Directors for a one-year term by the vote of the majority of votes cast, in accordance with 3M’s Bylaws.
+ 
+
+
+
+  
+
+  
+
+FOR 
+
+  
+
+AGAINST 
+
+  
+
+ABSTAIN 
+
+  
+
+BROKER NON-VOTE 
+
+   
+
+
+Thomas “Tony” K. Brown 
+
+  
+
+389,073,221 
+
+  
+
+2,661,423 
+
+  
+
+1,279,528 
+
+  
+
+108,297,831 
+
+   
+
+
+Pamela J. Craig 
+
+  
+
+389,286,268 
+
+  
+
+2,631,750 
+
+  
+
+1,096,154 
+
+  
+
+108,297,831 
+
+   
+
+
+David B. Dillon 
+
+  
+
+388,439,098 
+
+  
+
+3,332,741 
+
+  
+
+1,242,333 
+
+  
+
+108,297,831 
+
+   
+
+
+Michael L. Eskew 
+
+  
+
+373,102,647 
+
+  
+
+18,577,921 
+
+  
+
+1,333,604 
+
+  
+
+108,297,831 
+
+   
+
+
+Herbert L. Henkel 
+
+  
+
+382,841,753 
+
+  
+
+8,987,986 
+
+  
+
+1,184,433 
+
+  
+
+108,297,831 
+
+   
+
+
+Amy E. Hood 
+
+  
+
+388,967,460 
+
+  
+
+2,998,775 
+
+  
+
+1,047,937 
+
+  
+
+108,297,831 
+
+   
+
+
+Muhtar Kent 
+
+  
+
+387,951,959 
+
+  
+
+3,756,137 
+
+  
+
+1,306,076 
+
+  
+
+108,297,831 
+
+   
+
+
+Edward M. Liddy 
+
+  
+
+379,580,350 
+
+  
+
+12,177,245 
+
+  
+
+1,256,577 
+
+  
+
+108,297,831 
+
+   
+
+
+Dambisa F. Moyo 
+
+  
+
+389,046,212 
+
+  
+
+2,824,332 
+
+  
+
+1,143,628 
+
+  
+
+108,297,831 
+
+   
+
+
+Gregory R. Page 
+
+  
+
+389,294,876 
+
+  
+
+2,524,116 
+
+  
+
+1,195,180 
+
+  
+
+108,297,831 
+
+   
+
+
+Michael F. Roman 
+
+  
+
+375,871,716 
+
+  
+
+14,867,560 
+
+  
+
+2,274,896 
+
+  
+
+108,297,831 
+
+   
+
+
+Patricia A. Woertz 
+
+  
+
+389,053,345 
+
+  
+
+2,926,175 
+
+  
+
+1,034,652 
+
+  
+
+108,297,831 
+
+    
+ 
+Proposal No. 2 — The stockholders ratified the appointment of PricewaterhouseCoopers LLP as 3M’s independent registered public accounting firm for 2019.
+ 
+
+
+
+FOR 
+
+  
+
+AGAINST 
+
+  
+
+ABSTAIN 
+
+  
+
+BROKER NON- VOTE 
+
+   
+
+
+483,323,579 
+
+  
+
+16,189,105 
+
+  
+
+1,799,319 
+
+  
+
+N/A 
+
+    
+ 
+Proposal No. 3 — The stockholders gave an advisory approval of the compensation of the Company’s Named Executive Officers as described in the Company’s 2019 Proxy Statement.
+ 
+
+
+
+FOR 
+
+  
+
+AGAINST 
+
+  
+
+ABSTAIN 
+
+  
+
+BROKER NON- VOTE 
+
+   
+
+
+369,206,304 
+
+  
+
+19,551,942 
+
+  
+
+4,255,926 
+
+  
+
+108,297,831 
+
+    
+ 
+Proposal No.4 — The stockholders did not approve the stockholder proposal on setting target amounts for CEO compensation.*
+ 
+
+
+
+FOR 
+
+  
+
+AGAINST 
+
+  
+
+ABSTAIN 
+
+  
+
+BROKER NON- VOTE 
+
+   
+
+
+38,494,266 
+
+  
+
+346,502,328 
+
+  
+
+8,017,578 
+
+  
+
+108,297,831 
+
+    
+ 
+2
+
+
+
+
+
+ 
+
+*Under the General Corporation Law of the State of Delaware, the affirmative “FOR” vote of a majority of those shares present in person or represented by proxy at the meeting and entitled to vote on the matter is required to approve the stockholder proposal. In tabulating the voting result, abstentions and, if applicable, broker non-votes are not counted as votes “FOR” or “AGAINST” the proposal. An abstention will, however, be counted as entitled to vote on a proposal and will, therefore, have the effect of a vote “AGAINST.” Applying this standard, the percentage in favor of the stockholder proposal is calculated by dividing the number of FOR votes by the sum of the number of FOR, AGAINST and ABSTAIN votes.
+ 
+",item submiss matter vote secur holder annual meet stockhold compani hold may vote cast respect item busi properli present meet follow propos no stockhold elect twelv nomine board director oneyear term vote major vote cast accord ms bylaw abstain broker nonvot thoma toni k brown pamela j craig david b dillon michael l eskew herbert l henkel ami e hood muhtar kent edward liddi dambisa f moyo gregori r page michael f roman patricia woertz propos no stockhold ratifi appoint pricewaterhousecoop llp ms independ regist public account firm abstain broker non vote na propos no stockhold give advisori approv compens compani name execut offic describ compani proxi statement abstain broker non vote propos no stockhold not approv stockhold propos set target amount ceo compens abstain broker non vote gener corpor law state delawar affirm vote major share present person repres proxi meet entitl vote matter requir approv stockhold propos tabul vote result abstent applic broker nonvot not count vote propos abstent howev count entitl vote propos therefor effect vote appli standard percentag favor stockhold propos calcul divid number vote sum number abstain vote,-0.00622110610125004,-0.013266712611991749,-0.028888123133471007,-0.045198713530898216,-0.02515506547208813,-0.0697560597408885,-0.021847743724305868,-0.006496227709319125,0.25,-0.40553573,-0.12908876,0.26550323,-0.03842535,0.27528793,-0.20690827,0.0039154245,0.15303124,-0.12955438,0.21257086,-0.07805406,-0.061677642,-0.032202855,0.22560483,-0.077373356,0.23148318,0.35331902,-0.06479623,-0.05483492,0.2020818,0.057733804,-0.16513684,0.19529572,0.4936535,0.33046928,0.37933293,0.12809944,0.28029343,-0.10593973,-0.026398715,0.6356867,0.13379012,-0.2841771,-0.45114744,0.08581708,0.053554747,0.08645114,-0.34364453,-0.33104715,0.11506239,-0.45650026,-0.014114403,0.21134646,-0.021187043,-0.13305165,-0.44935912,0.56041276,-0.21593343,-0.17827368,-0.076220535,-0.34050742,0.04538727,-0.29486185,-0.16980034,0.049942628,0.6525976,-0.3939742,-0.1357711,-0.7513411,-0.27287757,0.008880643,-0.22449084,0.35425976,-0.40258643,0.1499295,0.21562497,-0.04947799,0.65021825,-0.8438632,0.09287546,-0.48622656,0.038756784,-0.30368394,0.20030786,-0.1315898,0.12790307,-0.07482239,0.24022792,0.14376442,0.035547458,-0.15748692,0.60054445,0.13176186,0.49530348,0.17521931,-0.12827647,-0.041140273,-0.09600423,-0.29824522,1.0033865,-0.05827235,-0.16670963,-0.030753301,0.022775033,-0.21227942,-0.532631,0.2224142,-0.085510194,-0.1645905,0.31593606,0.14517133,0.0038250366,-0.010793945,0.17433362,-0.24414067,0.15678532,-0.012310198,-0.5112038,-0.08493484,0.44682708,0.10337868,-0.24684897,-0.1427989,-0.22592582,-0.32778046,0.28750193,-0.033643216,-0.28698885,-0.09966371,-0.14249125,0.2665061,-0.03716519,-0.08443476,0.18341851,-0.011946097,0.17582886,0.21132226,0.48431268,-0.32588363,-0.122589774,-0.078314826,-0.065128796,-0.004042934,-0.405752,-0.3692865,0.28672096,-0.2527261,-0.43631327,-0.25466025,0.22442175,-0.16742508,-0.3475418,0.3746522,-0.46681058,0.12564726,-0.10566328,0.15360473,-0.063237414,-0.44870445,0.1681889,0.16967574,-0.1340247,0.12986399,-0.27833757,-0.24122815,-0.4044851,-0.3717782,0.2538844,0.029918432,0.23524801,0.42681178,-0.04953488,-0.043453984,0.28301564,-0.08117644,0.4480087,-0.19955121,0.4179311,0.07023845,0.12221948,0.004432162,-0.3572472,0.15966442,-0.25764516,0.15671653,-0.1991331,-0.08001267,-0.11843014,0.1421987,-0.12273305,-1.0159227,0.22252999,0.23407705,0.56429577,0.22226793,-0.41855994,-0.10679393,-0.15853864,0.19990107,-0.17769511,-0.19073276,-0.2579373,-0.2587571,0.10828143,-0.024120504,-0.3392242,0.07359894,0.25882292,-0.43892592,-0.13299848,0.21775429,-0.17444256,0.3740015,0.10917559,-0.16224447,-0.09458214,0.15216047,-0.100930385,-0.021594286,0.20179325,-0.38793,0.2789983,0.16618754,-0.14121307,0.34613433,-0.35454836,-0.2761059,-0.1969465,-0.037877798,-0.16256745,0.32919973,0.2851735,-0.3350174,0.3683869,-0.04945551,0.60502446,-0.341996,-0.42130595,0.2420051,0.43159068,0.12437337,-0.4076526,0.6175189,-0.16240677,0.17540686,-0.01994576,-0.8555382,-0.11366585,0.14694189,-0.56221646,-0.02240967,0.36078343,0.050234947,-0.02562251,0.34985182,-0.11758388,0.08774678,0.4686758,0.0011511644,0.1840917,-0.09512699,-0.8520117,-0.09684204,-0.4981416,-0.25843215,-0.2451639,-0.018631399,-0.28106204,-0.030300472,-0.21660732,0.042115636,-0.2171014,0.42829844,0.088938296,-0.34446493,-0.61027277,0.38809446,0.014786075,-0.13797235,0.06481382,0.6191446,-0.22621976,0.05123946,0.49146414,-0.4623417,-0.39030418,0.3098561,0.021337254,-0.1435288,-0.054642458,0.4559595,0.10033075,-0.3021828,0.018371034,-0.1963876,-0.1458645,0.34516317,0.28948256,-0.28005266,-0.13073249,-0.11075701,0.22967348,-0.16795988,-0.19861874,0.2767641,-0.09746196,-0.14786507,0.39287603,0.3116394,-0.14493817,-0.16261707,-0.32042348,0.27336884,-0.0454643,-0.50161815,0.17920284,-0.1655075,-0.3566151,-3.2602246,-0.08728307,-0.34850693,-0.2960589,0.4016354,0.057307206,0.046641413,-0.11160131,-0.07890227,0.3403936,-0.27375424,-0.20803772,0.42009437,0.24688111,0.164588,-0.05173005,0.026291396,-0.42858776,0.26777416,0.3820157,-0.050466023,-0.92177325,-0.033461247,-0.12949136,0.27463317,0.86652434,-0.38209456,0.311267,-0.19822672,-0.023175957,0.34047872,-0.34227353,0.03653659,-0.080066964,0.048140742,-0.13530788,-0.034285814,-0.06286083,-0.3781696,-0.29340303,-0.056920975,-0.37529033,-0.124014385,-0.045757018,0.9532506,-0.27539977,-0.3240125,-0.13749163,-0.13077408,0.22034535,0.33358714,0.24090616,0.028118398,0.07913518,-0.24792024,0.17035148,0.17918591,0.07662812,-0.6499047,-0.101121634,0.15033208,-0.4638936,-0.22445935,0.19035888,-0.1763984,-0.808142,-0.50447935,0.109903805,-0.052839316,-0.1256114,0.32287112,0.3973902,-0.5528557,-0.4135899,-0.1521756,-0.5227386,0.3340637,0.16810659,0.28116524,-0.008926218,0.004227332,-0.24120419,-0.0007512485,0.18902226,0.056667298,-0.03837743,0.3198011,0.34675774,-0.6078266,-0.7565171,0.06253263,0.05925035,0.19082032,0.087959126,-0.060024243,-0.5534962,-0.042213578,-0.08743944,-0.09686633,-0.02756521,0.328557,0.013661565,0.42639738,-0.052720398,0.17157313,0.05036099,-0.46794128,-0.040040266,0.09461315,0.0029598451,0.31069702,-0.57762533,0.5538348,-0.033872683,0.22315128,0.20045315,-0.0508059,0.8076403,0.1752804,0.16673404,0.17362978,0.55498856,-0.17039295,-0.07739561,-0.8774783,-0.39242446,-0.23300794,0.011634029,0.17431612,0.065995604,-0.35337806,-0.014800364,-0.345829,0.0914307,0.10361683,-0.15173216,0.19504957,-0.49474475,0.04000118,0.09991196,-0.18946727,0.5034493,-0.24718258,-0.28341442,-0.10492452,0.48413998,0.28388196,0.5248225,-0.3326241,0.28721714,-0.29738712,-0.30452612,-0.04719372,-0.43137252,-0.29213768,0.19638862,0.42157966,0.14600572,0.42435044,-0.4439426,-0.091072455,0.32820565,0.23967375,-0.18089984,-0.20843974,0.39597544,-0.096528046,0.12456727,-0.2728163,-0.022674419,-0.3805339,0.04632538,0.15128648,-0.44923443,-0.035589222,-0.021031996,0.008869584,-0.068472035,-0.16703808,0.20597498,-0.022106754,-0.4673974,-0.5645638,0.13130212,0.21625714,-0.121442296,0.32730258,-0.11142148,0.19228421,0.09933148,-0.25242925,0.30420315,-0.0035957498,-0.30705658,-0.66436577,0.02823728,0.24761161,-0.36667818,-0.052616503,0.10133884,0.25415435,-0.109595865,-0.44297162,-0.11022578,0.31214973,-0.20977923,0.055418212,-0.027723057,-0.2522281,0.16190504,-0.2850714,-0.22487159,-0.12538521,-0.122362405,-0.033335708,-0.37384117,-0.19007419,-0.16963042,-0.24385835,-0.17857665,-0.29171193,-0.10283849,0.63734275,0.024701744,-0.32706612,-0.00092290505,0.30205837,0.18419331,-0.26787516,-0.37272292,-0.15207385,-0.3909737,0.070062764,-0.10538117,-0.40214333,0.035773464,-0.49451482,-0.48020434,0.24294274,0.48766407,-0.6815569,0.35182896,-0.072392866,-0.3764099,0.104957245,-0.14875636,0.19252013,0.477883,0.055238333,0.32719883,0.20796955,0.19642699,-0.566902,0.00029688666,0.19315448,-0.3441955,0.15234782,-0.09367157,-0.30151147,0.032276865,-0.16294682,-0.1717541,0.010266751,0.044203006,0.124857716,0.22055505,-0.024523076,0.14779994,0.27792084,-0.30122176,0.10873423,-0.15701489,0.09603563,-0.36959934,0.057132684,0.16611525,0.114869714,-0.53391814,0.21861194,-0.3938508,-0.6623293,-0.017593414,0.033400554,0.07511663,0.37740296,-0.33929813,-0.30724669,0.25413567,-0.49834496,-0.322533,0.30106494,-0.20891322,-0.16434224,0.23498651,-0.3725915,0.3237814,0.6735227,0.24341214,-0.05307651,0.58569074,-0.2621007,0.4969418,0.7228586,-0.07628991,-0.27225965,0.24950054,0.16561002,-0.47930846,0.074687436,0.043935146,0.09838274,-0.3115883,0.56151897,0.53952885,-0.34918723,-0.56809354,-0.12515685,-0.3551667,0.028370572,-0.094936,0.13829656,0.28361297,0.8847343,-0.031806216,0.3424518,0.505149,-0.25842652,-0.11258088,0.29578918,-0.04018772,0.04255212,0.6293418,-0.31445622,0.3426523,0.038819555,-0.2505362,0.10665745,-0.30952495,0.24164905,0.3610373,0.09773873,0.49232876,0.090744294,0.20844978,0.36278477,0.3349216,-0.032060567,0.18915111,0.59321076,0.42752606,0.081509866,0.042657986,0.15577789,-0.10060804,0.6195299,0.54227036,-0.02325835,0.44817248,0.11417026,0.6374417,0.12198794,0.33514407,0.6106191,-0.5794848,-0.2759299,-0.198272,0.13388957,-0.17761047,-0.0066358163,0.08421318,0.3951733,0.31903705,-0.3741075,-0.26270273,-0.08295262,0.5596918,0.088097505,0.20414338,0.114253215,0.5568252,-0.044754814,-0.3430827,-0.23422733,-0.43356845,-0.46767575,-0.33164358,0.18143587,0.26588598,0.29286823,-0.514285,0.114696436,-0.15845029,0.09940802,0.0056051104,0.21452886,0.023927853,0.2926757,0.10302879,0.69886523,0.1620861,0.012464889,-0.110891856,-0.101081975,0.18133001,0.37923038,0.14070559,-0.15216863,0.63540536,-0.5888743,-0.037051465,0.00651499,0.35542348,-0.4255663,-0.094855696,0.005296415,-0.15795,0.14756967,0.21435586,-0.08761422,-0.12232713,-0.13885339,-0.40635902,-0.23053011,0.30689356,-0.5024039,0.35229793,0.37929934,0.34816402,-0.12013856,0.18422984,0.0634032,0.051811136,0.11568449,0.01032169,-0.029729808,-0.18465082,-0.40968242,0.12594128,-0.2846761,0.37494487,0.38596845,0.10239422,0.20710279,-0.14395635,0.16970274,-0.3054205,-0.46778032,-0.26391202,-0.15148702,-0.41111678,0.100394815,0.031366635,0.16474016,-0.5344152,-0.082934946,-0.28804222,0.041802313,-0.068472,-0.0743077,0.28278807,0,0,0,0,0,0,1,-0.020704274945335888,-0.031085584731958882,-0.04207155664074181,-0.026760902794059984,-0.05276799122949938,-0.03458175196169834,-0.028638263590291885,0,0,0,0,0,0,0
+2019-05-30,MMM,"Item 2.02. Results of Operations and Financial Condition
+
+
+ 
+
+
+This Current Report on Form 8-K includes supplemental unaudited historical business segment net sales and operating income information in addition to net sales on a disaggregated basis that reflect the realignment of 3M’s business segments effective in the second quarter of 2019 from five segments to four. The Company did not operate under this segment structure for any of these prior periods and will begin to report comparative results under the new structure with the filing of its Quarterly Report on Form 10-Q for the quarter ending June 30, 2019. 
+
+
+ 
+
+
+This Current Report includes additional detail regarding this change along with supplemental unaudited historical information relative to business segment net sales and operating income on both an annual and quarterly basis for the years ended December 31, 2018, 2017 and 2016 and on a quarterly basis for the period ended March 31, 2019 in addition to net sales on a disaggregated basis on an annual basis for the years ended December 31, 2018, 2017, and 2016 and on a quarterly basis for the periods ended March 31, 2019 and March 31, 2018 (furnished hereunder as Exhibit 99 and incorporated herein by reference).
+
+
+ 
+
+
+The information contained in this Current Report shall not be deemed to be “filed” for the purposes of Section 18 of the Securities Exchange Act of 1934 (the “Exchange Act”) or otherwise subject to the liabilities of that section, nor shall it be incorporated by reference into a filing under the Securities Act of 1933, or the Exchange Act.
+
+
+ 
+
+
+Forward-Looking Statements
+
+
+This Current Report contains forward-looking information about 3M’s financial results and estimates and business prospects that involve substantial risks and uncertainties. You can identify these statements by the use of words such as “anticipate,” “estimate,” “expect,” “aim,” “project,” “intend,” “plan,” “believe,” “will,” “should,” “could,” “target,” “forecast” and other words and terms of similar meaning in connection with any discussion of future operating or financial performance or business plans or prospects. Among the factors that could cause actual results to differ materially are the following: (1) worldwide economic, political, regulatory, capital markets and other external conditions and other factors beyond the Company’s control, including natural and other disasters or climate change affecting the operations of the Company or its customers and suppliers; (2) the Company’s credit ratings and its cost of capital; (3) competitive conditions and customer preferences; (4) foreign currency exchange rates and fluctuations in those rates; (5) the timing and market acceptance of new product offerings; (6) the availability and cost of purchased components, compounds, raw materials and energy (including oil and natural gas and their derivatives) due to shortages, increased demand or supply interruptions (including those caused by natural and other disasters and other events); (7) the impact of acquisitions, strategic alliances, divestitures, and other unusual events resulting from portfolio management actions and other evolving business strategies, and possible organizational restructuring; (8) operational execution, including scenarios where the Company generates fewer productivity improvements than estimated; (9) unanticipated problems or delays with the phased implementation of a global enterprise resource planning (ERP) system, or security breaches and other disruptions to the Company’s information technology infrastructure; (10) financial market risks that may affect the Company’s funding obligations under defined benefit pension and postretirement plans; and (11) legal proceedings, including significant developments that could occur in the legal and regulatory proceedings described in the Company’s Annual Report on Form 10-K for the year ended Dec. 31, 2018, and any subsequent quarterly reports on Form 10-Q (the “Reports”). Changes in such assumptions or factors could produce significantly different results. A further description of these factors is located in the Reports under “Cautionary Note Concerning Factors That May Affect Future Results” and “Risk Factors” in Part I, Items 1 and 1A (Annual Report) and in Part I, Item 2 and Part II, Item 1A (Quarterly Reports). The information contained in this Current Report is as of the date indicated. The Company assumes no obligation to update any forward-looking statements contained in this Current Report as a result of new information or future events or developments.
+
+
+ 
+
+
+Item 9.01. Financial Statements and Exhibits
+
+
+ 
+
+
+(d) Exhibits
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+ 
+
+
+
+ 
+
+
+
+
+
+Exhibit Number
+
+
+
+ 
+
+
+
+Description
+
+
+
+
+
+ 
+
+
+
+ 
+
+
+
+ 
+
+
+
+
+
+99
+
+
+
+ 
+
+
+
+Supplemental unaudited historical information relative to business segment changes effected during the second quarter of 2019 (furnished pursuant to Item 2.02 hereof)
+
+
+
+
+ 
+
+
+ 
+
+
+ 
+
+
+
+
+
+
+ 
+
+2
+
+
+
+
+
+
+",item result oper financi condit current report form k includ supplement unaudit histor busi segment net sale oper incom inform addit net sale disaggreg basi reflect realign ms busi segment effect second quarter five segment four compani not oper segment structur prior period begin report compar result new structur file quarterli report form q quarter end june current report includ addit detail regard chang along supplement unaudit histor inform rel busi segment net sale oper incom annual quarterli basi year end decemb quarterli basi period end march addit net sale disaggreg basi annual basi year end decemb quarterli basi period end march march furnish hereund exhibit incorpor herein refer inform contain current report shall not deem file purpos section secur exchang act exchang act otherwis subject liabil section shall incorpor refer file secur act exchang act forwardlook statement current report contain forwardlook inform ms financi result estim busi prospect involv substanti risk uncertainti identifi statement use word anticip estim expect aim project intend plan believ could target forecast word term similar mean connect discuss futur oper financi perform busi plan prospect among factor could caus actual result differ materi follow worldwid econom polit regulatori capit market extern condit factor beyond compani control includ natur disast climat chang affect oper compani custom supplier compani credit rate cost capit competit condit custom prefer foreign currenc exchang rate fluctuat rate time market accept new product offer avail cost purchas compon compound raw materi energi includ oil natur ga deriv due shortag increas demand suppli interrupt includ caus natur disast event impact acquisit strateg allianc divestitur unusu event result portfolio manag action evolv busi strategi possibl organiz restructur oper execut includ scenario compani gener few product improv estim unanticip problem delay phase implement global enterpris resourc plan erp system secur breach disrupt compani inform technolog infrastructur financi market risk may affect compani fund oblig defin benefit pension postretir plan legal proceed includ signific develop could occur legal regulatori proceed describ compani annual report form k year end dec subsequ quarterli report form q report chang assumpt factor could produc significantli differ result descript factor locat report cautionari note concern factor may affect futur result risk factor part item annual report part item part ii item quarterli report inform contain current report date indic compani assum no oblig updat forwardlook statement contain current report result new inform futur event develop item financi statement exhibit exhibit exhibit number descript supplement unaudit histor inform rel busi segment chang effect second quarter furnish pursuant item hereof,-0.00508054522924406,-0.0051687632332793046,-0.003362809814422829,0.023103748910200173,0.0257815419105738,0.051500809565325545,0.06800348735832529,0.07946195042969184,0.0,-0.4567748,-0.16902436,0.4534891,0.15639327,0.5750433,-0.22335161,0.04468248,0.4477248,-0.0975127,-0.12670827,0.06634848,-0.105393395,0.11094899,0.29005244,-0.13214985,0.34206763,0.24761568,0.10291156,0.07488916,0.26800647,0.06573975,-0.20210905,0.018892244,0.4270568,0.53150237,0.07266052,0.047328517,-0.00037626247,-0.20838562,0.050690494,0.51814336,0.2096623,-0.28699538,-0.13406828,0.17276269,0.06172164,-0.5348851,-0.5893368,-0.1985778,-0.06343011,-0.3673339,-0.1985983,-0.26689884,0.029259602,-0.034613535,-0.35397983,0.30860656,-0.30865595,-0.22594555,0.3018593,-0.5390088,0.0017691021,-0.2776545,-0.20995446,-0.17334929,0.765535,-0.1742088,-0.67361236,-0.62694395,-0.086860806,0.7595465,-0.3457487,0.047516037,-0.35406435,0.3079959,0.00011372908,0.08575475,0.6933383,-0.81599486,-0.18246087,-0.58596385,0.21622281,-0.02833101,-0.059767723,-0.26696151,0.12796314,-0.3142798,0.0922948,-0.17787643,-0.23276012,-0.31817028,0.49650058,-0.2853453,0.08991742,-0.014511684,0.08368362,0.037344296,-0.38178748,-0.32721278,1.0336481,0.067811035,-0.1314391,0.19151439,0.11543786,-0.19880797,-0.21854076,0.12644267,-0.17641455,-0.2633596,0.2834326,0.16180378,0.17415208,0.32416412,0.12691501,-0.3049331,0.041921735,0.29123932,-0.1542107,0.029163864,0.332138,0.020955537,-0.23942587,-0.17167869,-0.29299626,-0.20423776,-0.09397261,-0.072175115,-0.09399728,-0.13306078,-0.20155282,0.23662305,0.027783902,0.3163619,0.3565458,-0.0005895795,0.19415765,0.08327644,0.34950012,0.11490991,-0.19960637,-0.12567553,-0.020784123,-0.13511951,-0.3413593,-0.40803885,0.21851563,-0.1872513,-0.35587972,-0.27040622,0.17674336,0.06099012,-0.37335816,0.3104454,-0.2955068,0.18357642,-0.18325153,0.10768621,0.0571165,-0.45106563,0.24594073,0.2033568,0.12353361,0.017893663,-0.22959676,-0.19073927,-0.27759412,-0.15220237,0.28784087,0.11153484,0.009599201,0.49921334,0.30640957,-0.38207513,0.23738046,-0.17989981,0.3911418,-0.08572845,0.12892108,-0.022402167,0.03595516,-0.16563989,-0.23727755,0.55467683,-0.09701064,0.19569601,0.17235753,0.045273967,0.08470935,0.07758526,-0.021595009,-0.9144392,0.15383235,0.18281703,0.035615288,0.29917148,-0.3422162,0.0944037,-0.0327216,0.38157138,-0.25837106,0.13810048,-0.60847235,-0.012794724,-0.12760413,-0.17745245,-0.25552765,0.056117285,0.22500798,-0.39486054,-0.3055013,0.11055215,0.15400304,0.31949,0.14213875,0.11622331,-0.41342267,0.055114005,-0.20867597,0.11427473,0.17944628,-0.33921188,0.22433951,0.2286172,-0.09686059,0.23849206,-0.3408447,-0.2423612,-0.4048477,-0.29810584,0.022028934,0.08957276,0.25184312,-0.32583028,0.28622195,-0.26090613,0.6451704,-0.09161497,-0.42668813,0.19005226,0.5611885,0.11313347,-0.2761397,0.39345688,-0.0941977,0.010980485,0.24361797,-0.58103794,-0.22591043,0.111702465,-0.25377458,-0.03414987,0.19823845,0.49853355,-0.19691809,0.24375696,-0.11023011,0.30037805,0.45067912,-0.10268401,-0.25491902,-0.19648637,-0.50975615,0.110162556,-0.573953,-0.18725438,-0.0754482,-0.008371781,-0.28621522,-0.082851835,-0.2229182,0.43828228,-0.15918525,0.2221508,0.035826914,-0.055372894,-0.68330026,0.16444397,0.24220824,-0.11105165,0.30832458,-0.041283194,-0.24808629,0.004584459,0.47825283,-0.19162096,-0.082710885,0.5236933,0.021107368,-0.12546077,-0.06904799,0.32265183,0.2613944,-0.29705495,-0.100379825,-0.18478599,-0.2665543,0.66169345,0.34303957,-0.010532065,-0.14792857,-0.32418674,-0.07647252,-0.5006957,-0.12440102,0.35427356,0.3179223,-0.3490798,0.43021923,-0.05141025,0.014095148,-0.24658951,-0.52177143,0.4478268,0.16457534,-0.91849446,0.15911555,-0.070649765,-0.4635019,-3.5680695,-0.023098746,-0.30584636,-0.35668218,-0.01842369,-0.25827083,-0.36195663,0.056593288,-0.22650772,0.094457984,0.0015609178,-0.31405517,0.33887732,0.271516,0.21319818,0.2204392,0.36982104,-0.17002517,0.19545215,0.54295516,-0.083086535,-0.650058,-0.16873224,-0.22235708,0.33234626,1.0012842,-0.3784322,0.19341214,-0.33819044,-0.14598131,0.3809972,-0.1962227,0.121848084,-0.16698721,0.0734585,-0.17622872,-0.121508084,0.019417971,-0.07361525,-0.35136333,-0.11057483,-0.36933315,-0.40884402,0.012656116,0.9827707,0.16964984,-0.16254994,-0.2994286,-0.0047741374,0.30437243,0.08956937,-0.14389023,-0.18992552,0.08201214,-0.21843243,-0.1458169,0.27396685,-0.03654646,-0.5338419,0.121321276,0.33847228,-0.21328764,-0.31240648,0.096435055,-0.19375338,-0.40149537,-0.5493155,-0.1436106,0.013816617,0.13973208,0.21443634,0.42095625,-0.15987653,-0.7033519,-0.26616028,-0.5476793,0.3339455,0.15292713,0.20128833,-0.06009153,-0.27172664,-0.36519176,0.060396157,-0.04981736,-0.12615252,-0.09092419,0.13400503,0.08651816,-0.32919708,-0.85484254,0.0006043995,-0.113073155,0.44310188,0.11942934,-0.3814661,-0.25431928,0.19685,-0.029099848,-0.020273974,-0.0760195,0.30364287,0.15560886,0.6279495,-0.08792776,0.17409952,0.047087014,-0.50381434,-0.08725522,-0.016083008,-0.27948257,0.43666086,-0.3812766,0.33058807,-0.18237068,-0.025484508,0.26625454,0.075373165,0.7308477,-0.12479738,0.040001158,0.24456978,0.2020385,-0.15573981,-0.17081739,-0.7739378,-0.36151534,-0.3096388,0.16235137,0.22420564,-0.083560534,-0.06671745,-0.09261524,-0.002659265,0.110933445,0.12897353,-0.060418792,0.15678623,-0.41204485,-0.017817913,-0.0084058875,0.1381484,0.43140733,-0.20080128,-0.1299567,-0.29100543,0.5207786,0.23006164,0.10487477,-0.12829234,0.11052061,-0.3741598,-0.532932,-0.12132473,-0.42242622,-0.2145044,0.33336496,0.40040004,-0.059943676,-0.12602599,-0.35611677,-0.072320476,0.35696167,0.45070323,-0.13192034,-0.20565738,0.5930632,0.012891908,-0.19991851,-0.29268646,0.37606522,-0.5053662,-0.3807273,0.20178306,-0.47247496,0.15694693,0.05457476,0.25991514,-0.46457106,0.06756681,0.5266706,-0.10367177,-0.42874372,-0.38639408,0.15665047,0.36223042,0.12094245,0.01025056,-0.15879618,0.37867022,-0.0046267333,-0.03951169,0.06430123,0.09274189,0.011083623,-0.19364028,-0.21896584,0.44479448,0.11774469,0.05263642,0.08979561,0.6338616,0.05342817,-0.097689815,-0.19699836,-0.011313647,-0.17592838,0.2162997,0.3537727,-0.2976407,-0.0030786565,-0.115613535,-0.12026303,-0.3034992,-0.061133843,0.2741238,-0.060488444,-0.011143939,-0.1626011,-0.35174066,-0.0251309,-0.0005759613,-0.097815916,0.4518744,0.048297573,-0.19096056,-0.29215917,0.054214194,-0.025766104,-0.16288576,-0.19636047,0.0792378,-0.38308674,-0.120475575,-0.122671165,0.078936376,0.2168194,-0.5593576,-0.46101117,0.20602521,0.0017591554,-0.5727181,0.09443116,0.01987439,-0.2629858,0.06938682,-0.099326804,-0.029330214,0.12430447,-0.05257521,0.6967549,-0.10441573,0.021434266,-0.11163902,0.028780898,0.5489605,-0.49671146,-0.23992868,-0.1102356,-0.55981463,0.052211676,-0.21726647,-0.2295753,0.17858288,0.14293078,0.45851982,0.33616725,0.03936452,0.17401601,0.10285315,-0.62894857,0.13256355,0.004301784,0.0033031905,-0.26912814,0.2354505,-0.1493504,0.22636656,-0.7131807,-0.063595265,-0.2328201,-0.50285625,-0.0930119,0.15395579,0.25737777,0.72051424,-0.06805227,-0.23586944,0.21652399,-0.28439713,-0.12926355,0.22004654,0.04953011,-0.27095544,0.12593843,-0.5188583,0.2251182,0.6600536,0.1569725,0.29863715,0.4275827,0.028033521,0.37661546,0.35583594,0.03323394,-0.3544409,0.29136425,-0.053643357,-0.2947124,0.14979346,0.21700196,0.15197769,-0.25439996,0.5324472,0.65145373,-0.22049968,-0.18575178,-0.4630877,-0.05303596,0.17012902,-0.13591819,0.15886417,0.40360817,0.37388584,0.042644702,0.0042937323,0.3548429,-0.1650813,-0.02287153,0.24448076,0.15391986,0.032835405,0.118465744,-0.1411302,0.35957474,-0.24231696,-0.35031983,0.067676306,0.005455025,0.42820573,0.40907457,-0.1231474,0.37821713,0.39756823,0.48581582,0.24654393,0.19554448,0.07732298,-0.007938852,0.3816427,0.29403356,-0.020046264,0.0034112995,-0.06655418,-0.10340516,0.27533525,0.2575753,0.14589763,0.5022024,0.11097461,0.30317414,-0.043808416,0.06785318,0.4849355,-0.6123426,-0.21672718,-0.5463244,-0.101406924,-0.09477064,-0.022225458,0.11510425,-0.0635875,0.5693754,-0.3258847,-0.46729222,-0.20479895,0.5298701,-0.027505023,-0.061974782,0.08983653,0.5564855,-0.0754297,-0.17969166,-0.21569154,-0.36223283,-0.42871657,0.0016448799,0.18584132,0.53265566,0.2431973,-0.31234935,0.18392171,-0.5811324,0.364168,-0.06098257,0.13359223,0.05329378,0.34710842,0.2944359,0.74010617,-0.19258459,0.08324603,-0.16720785,-0.21317665,0.15284686,0.38105172,0.09824626,-0.04932195,0.4758909,-0.69596803,-0.20389482,-0.012378074,0.34967104,-0.6916058,0.26240742,0.26859483,-0.04768377,-0.101853155,0.054315813,-0.25540864,-0.12622137,-0.1462482,-0.33945793,0.074053265,0.22458768,-0.62032115,0.66849554,0.036330704,0.27543983,0.19210057,0.049835242,0.08635108,-0.009832467,0.10382407,0.0001942307,0.056249414,-0.49171153,-0.5520718,0.0974756,0.02535749,0.2757512,-0.044945966,0.14766262,0.14596798,0.026622944,0.23051164,-0.07413184,-0.2864441,-0.27912804,-0.022322861,-0.14768946,0.20441115,0.13245396,0.005541332,-0.29594222,-0.17185216,-0.39344814,0.14447236,-0.15624538,0.18058133,-0.11639307,1,1,2,2,2,2,2,0.00565304710545128,0.009473699257581878,0.018786537338898113,0.009174668066298245,0.021136421513834127,0.02802775873385202,0.013022995939591081,1,1,2,1,2,2,2
+2019-06-11,MMM,"Item 7.01. Regulation FD
+ 
+As previously disclosed in our SEC filings, 3M continually reviews factors and changes that could lead to a deconsolidation of its Venezuelan subsidiary, such as the ability to access various exchange mechanisms, the impact of government regulations on our ability to manage our subsidiary’s capital structure, purchasing, product pricing, and labor relations, and the current political and economic situation within the country.
+ 
+In light of continuing challenging circumstances in Venezuela, including its unstable environment and heightened unrest that have led to a sustained lack of demand, and our expectation that these circumstances will continue for the foreseeable future, 3M has concluded that it no longer meets the criteria of control to continue consolidating its Venezuelan operations, and therefore deconsolidated its Venezuelan subsidiary as of May 31, 2019. 3M notified relevant employees today that it has suspended local operations of this subsidiary for the foreseeable future.
+ 
+The deconsolidation results in a pre-tax charge of approximately $160 million, or $0.27 per diluted share, in the second quarter of 2019. This charge was not part of the “2019 Updated Outlook” for full-year earnings expectations projected in the Company’s first quarter earnings release dated April 25, 2019. While reporting GAAP-basis results, 3M also expects to provide certain non-GAAP income and earnings per share measures that will exclude the charge associated with this deconsolidation.
+ 
+There is no economic impact to 3M from the deconsolidation of the subsidiary. The operations were immaterial to 3M’s overall operations. The charge is non-cash and primarily relates to foreign currency translation losses previously included in accumulated other comprehensive losses associated with foreign currency movements before Venezuela was accounted for as a highly inflationary economy.
+ 
+Forward-Looking Statements
+This Current Report contains forward-looking information about 3M’s financial results and estimates and business prospects that involve substantial risks and uncertainties. You can identify these statements by the use of words such as “anticipate,” “estimate,” “expect,” “aim,” “project,” “intend,” “plan,” “believe,” “will,” “should,” “could,” “target,” “forecast” and other words and terms of similar meaning in connection with any discussion of future operating or financial performance or business plans or prospects. Among the factors that could cause actual results to differ materially are the following: (1) worldwide economic, political, regulatory, capital markets and other external conditions and other factors beyond the Company’s control, including natural and other disasters or climate change affecting the operations of the Company or its customers and suppliers; (2) the Company’s credit ratings and its cost of capital; (3) competitive conditions and customer preferences; (4) foreign currency exchange rates and fluctuations in those rates; (5) the timing and market acceptance of new product offerings; (6) the availability and cost of purchased components, compounds, raw materials and energy (including oil and natural gas and their derivatives) due to shortages, increased demand or supply interruptions (including those caused by natural and other disasters and other events); (7) the impact of acquisitions, strategic alliances, divestitures, and other unusual events resulting from portfolio management actions and other evolving business strategies, and possible organizational restructuring; (8) operational execution, including scenarios where the Company generates fewer productivity improvements than estimated; (9) unanticipated problems or delays with the phased implementation of a global enterprise resource planning (ERP) system, or security breaches and other disruptions to the Company’s information technology infrastructure; (10) financial market risks that may affect the Company’s funding obligations under defined benefit pension and postretirement plans; and (11) legal proceedings, including significant developments that could occur in the legal and regulatory proceedings described in the Company’s Annual Report on Form 10-K for the year ended Dec. 31, 2018, and any subsequent quarterly reports on Form 10-Q (the “Reports”). Changes in such assumptions or factors could produce significantly different results. A further description of these factors is located in the Reports under “Cautionary Note Concerning Factors That May Affect Future Results” and “Risk Factors” in Part I, Items 1 and 1A (Annual Report) and in Part I, Item 2 and Part II, Item 1A (Quarterly Reports). The information contained in this Current Report is as of the date indicated. The Company assumes no obligation to update any forward-looking statements contained in this Current Report as a result of new information or future events or developments.
+ 
+
+
+
+
+
+ 
+",item regul fd previous disclos sec file continu review factor chang could lead deconsolid venezuelan subsidiari abil access variou exchang mechan impact govern regul abil manag subsidiari capit structur purchas product price labor relat current polit econom situat within countri light continu challeng circumst venezuela includ unstabl environ heighten unrest lead sustain lack demand expect circumst continu forese futur conclud no longer meet criterion control continu consolid venezuelan oper therefor deconsolid venezuelan subsidiari may notifi relev employe today suspend local oper subsidiari forese futur deconsolid result pretax charg approxim million per dilut share second quarter charg not part updat outlook fullyear earn expect project compani first quarter earn releas date april report gaapbasi result also expect provid certain nongaap incom earn per share measur exclud charg associ deconsolid no econom impact deconsolid subsidiari oper immateri ms overal oper charg noncash primarili relat foreign currenc translat loss previous includ accumul comprehens loss associ foreign currenc movement venezuela account highli inflationari economi forwardlook statement current report contain forwardlook inform ms financi result estim busi prospect involv substanti risk uncertainti identifi statement use word anticip estim expect aim project intend plan believ could target forecast word term similar mean connect discuss futur oper financi perform busi plan prospect among factor could caus actual result differ materi follow worldwid econom polit regulatori capit market extern condit factor beyond compani control includ natur disast climat chang affect oper compani custom supplier compani credit rate cost capit competit condit custom prefer foreign currenc exchang rate fluctuat rate time market accept new product offer avail cost purchas compon compound raw materi energi includ oil natur ga deriv due shortag increas demand suppli interrupt includ caus natur disast event impact acquisit strateg allianc divestitur unusu event result portfolio manag action evolv busi strategi possibl organiz restructur oper execut includ scenario compani gener few product improv estim unanticip problem delay phase implement global enterpris resourc plan erp system secur breach disrupt compani inform technolog infrastructur financi market risk may affect compani fund oblig defin benefit pension postretir plan legal proceed includ signific develop could occur legal regulatori proceed describ compani annual report form k year end dec subsequ quarterli report form q report chang assumpt factor could produc significantli differ result descript factor locat report cautionari note concern factor may affect futur result risk factor part item annual report part item part ii item quarterli report inform contain current report date indic compani assum no oblig updat forwardlook statement contain current report result new inform futur event develop,0.0036841167033094813,0.0005920312592504473,-0.00035521875555000193,-0.01314309395536073,0.017464922147889528,0.018471375288614755,-0.0190042034219412,0.0622224853472253,-0.5,-0.1040459,-0.042537525,0.06655135,0.12269053,0.4730481,-0.2602962,-0.116279885,0.3882392,-0.12538852,-0.004597128,0.0050403625,0.053038165,0.18649936,0.4643122,-0.16418256,0.54491806,0.39084098,0.12024277,0.42799473,0.24182878,-0.11347079,-0.08521343,0.13905157,0.3608081,0.6168485,-0.076244034,-0.10852523,0.048840787,-0.42401263,-0.052805647,0.41597864,0.09350327,-0.57707715,-0.043388978,0.16599356,0.25617665,-0.42870423,-0.32975492,-0.44004735,-0.11968232,-0.50111943,-0.037966534,-0.24341716,0.25348762,-0.06628928,-0.46010056,0.41618282,-0.038978193,0.01951711,0.20333256,-0.39762926,-0.046162106,-0.23380186,-0.32064596,0.15563498,0.3503692,-0.15352467,-0.6256667,-0.2435711,-0.4311181,0.32604894,-0.18963696,0.3163495,-0.45075512,0.32132176,0.10592177,0.18490332,0.29971752,-0.7355352,-0.29411575,-0.52259386,-0.047096368,-0.27124906,-0.07607914,-0.21204472,0.025371414,-0.43124902,0.11023929,-0.27098364,0.2914147,0.115835875,0.6660445,-0.04193085,0.030819533,-0.12478247,0.08990576,0.23363556,0.19046158,-0.15027303,0.74591154,0.18737178,0.016690264,0.17770013,0.26355255,-0.23559265,-0.15208559,0.46323842,-0.30821493,-0.30472207,0.58475065,0.033942487,-0.06393147,0.0748733,0.27847242,-0.31482938,-0.11383266,0.23547198,-0.2052795,-0.082071275,0.19331087,0.31059176,-0.03723764,-0.09139406,-0.23597,-0.22609358,0.11031463,0.010050074,-0.053892795,0.02648244,0.21419977,0.6160745,-0.12233975,0.045432802,0.27313966,0.27603927,-0.007996601,0.10519967,0.1461996,0.11050164,-0.48935926,0.061836876,0.2617454,0.18042016,-0.26630527,-0.35548612,0.29645053,0.018791104,-0.1055932,-0.017157441,0.07463439,0.16702794,-0.4350426,0.09026628,-0.35695532,0.041518155,-0.123376675,0.2402711,0.05772965,-0.16754836,0.0487254,0.21052098,0.03880719,-0.035778042,-0.16963409,-0.21544962,-0.4151717,0.0018397014,0.09593093,-0.0923115,0.14640673,0.29339096,-0.21349822,-0.351917,0.15822181,-0.064244665,0.2599381,0.0033499645,0.5436901,0.054023087,0.018472223,-0.25419453,-0.0018798058,0.43599084,-0.40156165,0.2175908,0.18355082,-0.14343031,0.06717782,0.23025718,0.22825454,-1.3066945,-0.06281494,0.088640854,0.17037474,0.19425665,-0.1571908,0.32308337,-0.066101976,0.2729605,-0.30582082,-0.26856673,-0.45190617,-0.15419614,-0.045096323,-0.20748378,-0.31262967,-0.0844529,0.42182115,-0.16751854,-0.45824784,-0.067851625,0.13617466,0.30678606,-0.007869133,0.0640685,-0.2848454,0.06891253,-0.29354155,0.062099267,0.22056684,-0.30856097,-0.029684164,0.099235706,-0.26593906,0.1302651,-0.3915864,-0.27340767,-0.35337016,-0.33138862,0.24251242,0.2313297,0.1518105,-0.043524,0.26886588,-0.14926565,0.3189251,-0.093938656,-0.043673746,0.117016196,0.32868195,0.13565277,-0.5916899,0.56251806,-0.28784952,0.09055985,0.086554125,-0.79597527,-0.10878126,0.044471685,-0.26865408,-0.27076787,0.17587565,0.041012947,0.054539308,0.023093127,-0.19184121,0.13294347,0.30275384,-0.16203241,0.006356776,-0.3723963,-0.44980457,0.101194054,-0.31089595,-0.11561434,-0.22521423,0.05964849,0.10152232,-0.012152428,-0.38756254,0.33321476,-0.02656849,0.12157557,0.19256566,-0.19122773,-0.5346031,0.0146082435,0.10548868,-0.118527465,0.19347759,0.46785524,-0.38892457,0.09611831,0.5191776,-0.110541016,-0.049992178,0.29631114,0.23888698,-0.16467713,0.026580902,0.3498539,0.22895716,-0.41310614,-0.26177,-0.300166,-0.022217639,0.3202361,-0.22684313,-0.12529229,0.013921928,-0.032606825,-0.23398028,-0.41240785,-0.045453206,0.07956339,0.14310163,-0.19267878,0.55756915,0.42052925,0.072253995,-0.23613714,-0.6161721,0.06070125,0.153058,-0.53810453,0.14081965,-0.03600295,-0.33291522,-3.7873545,0.030419784,-0.06521966,-0.25299522,0.12715356,0.14004058,0.06204575,-0.08747529,-0.19663353,0.05340817,-0.060548916,-0.21817976,0.23402117,0.09185171,-0.21062665,0.05410202,0.31262258,-0.32394326,0.016468389,0.5476154,-0.0152255865,-0.68616784,0.00014605644,-0.090522416,0.32082483,0.4163163,-0.16603653,-0.2602649,-0.26305604,-0.34280208,0.08206309,-0.34473646,0.091060326,-0.3646288,-0.011990639,-0.0635683,-0.067978725,0.042112157,-0.060871396,-0.2999814,-0.106048055,-0.22425714,0.12634982,0.007926624,0.741559,-0.091439374,-0.21574254,-0.11570523,-0.16293675,0.38866293,0.38760707,0.015712582,-0.17858411,-0.016617231,-0.29824543,0.16681834,0.38005698,-0.20876028,-0.48878726,0.100678235,0.36979654,-0.36004224,-0.32872766,0.14300147,-0.06715088,-0.3765236,-0.58305675,-0.17847313,0.10847971,-0.001035244,0.18869981,0.55089515,-0.2580339,-0.6066924,-0.2606477,-0.5201866,0.41149873,-0.1533181,0.21947965,-0.40252903,-0.29602513,-0.092385285,0.043864608,-0.047161426,-0.023591153,-0.20893377,0.15374063,0.2832851,-0.31321266,-0.45069602,0.2594395,0.1306319,0.41101035,0.025303304,-0.32966724,-0.37096846,0.035209365,0.2635479,-0.055051383,0.011071569,0.083408475,-0.012650334,0.38064635,-0.09397562,0.15069517,0.35598776,-0.27292192,-0.08410781,0.10210977,-0.3828698,0.3738345,-0.21876125,0.32771894,-0.20752087,0.08590945,0.24893075,0.25141814,0.63485116,0.15350324,-0.07396021,0.21519841,0.40687683,-0.032619555,0.16501735,-0.51179147,-0.13127552,-0.18711248,0.27782762,-0.14173737,-0.34925753,-0.15272789,-0.21018752,0.007702348,0.04224933,0.3756668,0.21847482,0.119441226,-0.37160674,-0.027933544,0.24809252,0.30785742,0.45064732,-0.12787944,-0.30500826,-0.0060077384,0.24914378,0.09665103,0.33354163,-0.17268366,0.25992313,-0.30983493,-0.44107008,-0.13238679,-0.10461457,-0.15424255,0.16393717,0.36718333,0.021995641,0.07625871,-0.4923233,-0.008961304,0.1983551,-0.080877416,-0.09444055,-0.16409864,0.57752347,0.023834068,-0.1564032,-0.30745846,0.49531594,-0.311171,-0.040842008,0.14658083,-0.51271206,0.08337609,-0.085545786,0.075350516,-0.3283087,0.05656031,0.39989212,-0.048249867,-0.2858232,-0.37082568,-0.115250655,0.008829588,-0.28373277,0.21817042,-0.10004402,0.058766212,-0.035398293,0.10577278,0.02200181,0.0465829,0.1129046,-0.045839287,-0.1261055,0.13448147,-0.27256182,-0.049917225,0.2958964,0.38019755,0.040886786,-0.26402077,-0.06483379,-0.20208293,-0.021892319,-0.029555552,0.35352623,-0.2667957,0.075023964,-0.3352517,-0.11110116,-0.5469151,0.211143,0.25288698,-0.33825865,0.06595125,-0.20536588,-0.50681794,0.086801216,0.075281374,-0.22418426,0.52698094,0.2946912,-0.21777469,-0.04855956,-0.21678196,0.07850557,-0.21906762,0.0029163538,-0.25735098,-0.39780027,0.02230656,-0.1257532,-0.09798021,0.059232846,-0.5045438,-0.4951949,0.28432325,0.18628608,-0.3482095,0.19796562,-0.190416,-0.35096753,0.15465714,-0.035254367,0.066293254,0.34310496,-0.23609486,0.3297423,-0.38324243,0.01625126,-0.09050006,-0.032569006,0.27803206,-0.27508047,-0.21876138,-0.09694039,-0.53042763,0.076227,-0.34922484,-0.24296273,0.17656074,-0.112704165,0.6091693,0.05928149,0.02822599,0.38516778,0.27044606,-0.6063729,-0.09766403,-0.17651965,0.14128773,-0.2721393,0.11561868,-0.0645782,0.39264184,-0.42042395,0.21234068,-0.45808622,-0.43089172,-0.18900691,0.17462489,-0.057358563,0.38313073,-0.19782953,-0.29456964,0.35604534,-0.37665623,-0.37378362,0.0021044388,-0.058858704,-0.15933923,0.18995552,-0.52741075,0.14543678,0.7466101,0.036749825,-0.046172347,0.31577963,-0.29072648,0.25097921,0.5273165,0.124517396,-0.0344668,0.08956799,0.142147,-0.2899052,-0.046601757,0.20786105,0.05237162,-0.27432176,0.48654488,0.30075943,-0.09175129,-0.08994936,-0.08557382,-0.3265653,0.068599984,0.030508997,0.17650774,0.04944645,0.37254512,-0.005820105,0.16740388,0.39349654,-0.23097573,0.11023127,0.10960734,0.097917885,-0.045824207,0.2893845,-0.044464562,0.18748885,-0.053665135,-0.15603812,-0.00080180244,-0.09942877,-0.06154448,0.35362172,0.14011478,0.28079787,0.22093229,0.25970042,0.017965438,0.16210037,0.11884919,0.08032531,0.15560316,0.41236925,0.26452455,-0.031770993,0.06704605,0.055260126,0.26894468,0.24397968,0.1453406,0.27821803,-0.2876596,0.5765877,-0.10395558,0.19840741,0.55406386,-0.66918635,-0.050686833,-0.0072122235,0.03000006,-0.30947304,0.42311612,-0.042602915,0.16900536,0.122044474,-0.44683066,-0.27825168,0.22111271,0.42358163,-0.0008691395,0.027980937,-0.00035047194,0.3802738,-0.055744365,0.043242767,-0.17002535,-0.41334888,-0.39631397,0.09324715,0.0780643,0.00048185626,0.102473944,-0.07405644,0.11814633,-0.45980826,0.23942338,0.28929105,0.08701741,0.054684028,0.37162998,0.36703968,0.57802826,-0.14797455,0.24015431,-0.18171825,-0.2318788,0.18959728,0.23102394,-0.08962187,0.03442483,0.44043636,-0.5720225,-0.452598,0.096358515,-0.025777034,-0.60687023,0.18027619,-0.13848084,0.013364238,-0.02336533,0.08185262,-0.05724043,-0.14880903,-0.068958916,-0.36895564,-0.02389453,0.15838562,-0.25357863,0.7153864,0.2725467,0.4059206,-0.09239319,0.3976641,-0.104259804,0.07115514,0.14033788,0.00015343285,-0.104583174,-0.27996886,-0.28147978,0.36942026,-0.13939315,-0.07340707,0.13862246,0.3715923,0.31744412,-0.31648687,0.525583,-0.15212555,-0.3143213,-0.09268704,-0.08433589,-0.033945583,0.08021956,0.15922321,0.1872691,-0.3765674,-0.09779103,-0.64319855,0.53914744,-0.19209561,-0.025066888,-0.067033276,1,1,0,2,2,0,2,0.002009735396362727,-0.002245490938366434,-0.01414382628744008,0.007735580030451963,0.00936520258284555,-0.05003815805512573,0.02328335582810616,1,1,0,1,1,0,2
+2019-07-25,MMM,"Item 2.02. Results of Operations and Financial Condition
+ 
+On July 25, 2019, 3M Company issued a press release reporting second-quarter 2019 financial results (attached hereunder as Exhibit 99 and incorporated herein by reference).
+ 
+Item 9.01. Financial Statements and Exhibits
+ 
+(d) Exhibits
+ 
+
+
+
+Exhibit Number 
+
+  
+
+Description  
+
+
+  
+
+  
+
+   
+
+
+99 
+
+  
+
+Press Release, dated as of July 25, 2019, of 3M Company (furnished pursuant to Item 2.02 hereof)   
+ 
+",item result oper financi condit juli compani issu press releas report secondquart financi result attach hereund exhibit incorpor herein refer item financi statement exhibit exhibit exhibit number descript press releas date juli compani furnish pursuant item hereof,-0.007189833909262755,-0.02329759164655043,-0.007691012182114099,-0.002806938752596744,-0.02677819569976992,-0.07808903609723239,-0.080254953366374,-0.06276104584089602,-0.833,-0.33897397,-0.13578837,0.357133,0.041926306,0.35413232,-0.31985006,-0.011508168,0.3644025,-0.035759605,-0.026049668,-0.33577654,-0.12870698,0.28651142,0.4251995,-0.33968446,0.28458652,0.17711136,0.17745279,0.11839968,0.14042778,0.1628569,-0.1909577,0.036813576,0.17840059,0.4043262,0.20480137,0.052627806,-0.21754473,-0.39612982,0.12818387,0.54058325,0.1756366,-0.35594028,-0.19653367,0.32996824,-0.10708157,-0.40637717,-0.32705432,-0.3001387,0.07866969,-0.13818912,-0.13569362,-0.11827437,0.1635031,-0.09047989,-0.20087981,0.29315624,-0.32629582,-0.25430614,0.424224,-0.37347376,-0.059600547,-0.12300577,-0.17943394,-0.34324723,0.82183355,-0.24182153,-0.53144956,-0.5738811,-0.048867226,0.80524504,-0.25179434,0.3069557,-0.368441,0.31012484,0.25195247,0.105259605,0.45274287,-0.7506206,-0.05297519,-0.42627907,0.13329855,0.02040266,-0.025891582,-0.037272245,0.08107981,-0.3163533,0.27317002,-0.19707525,-0.015028354,-0.04044636,0.5631268,0.08788534,0.2940237,0.021630205,0.33210728,0.15467283,-0.33170092,-0.5043063,1.0164162,0.20129584,0.12106084,0.096199505,0.22786677,-0.0903683,-0.41492805,-0.20415592,-0.2265028,-0.28610742,0.2613047,0.014593871,-0.0940528,0.31718633,0.18996118,-0.1996926,0.123863295,0.015835064,-0.3474656,-0.020048384,0.2072192,0.3040136,-0.19726206,-0.0130541455,-0.1742984,-0.25224018,0.32828704,0.040594812,-0.3418018,0.1362934,0.18031396,0.26655665,-0.1461669,0.20959036,0.24442856,0.17114355,0.31182873,0.14548945,0.40689108,0.16114517,-0.0812063,-0.27400237,0.09576776,-0.0771952,-0.37190714,-0.053784832,0.43395904,0.102991104,-0.54996395,-0.37438232,0.25177956,0.111319564,-0.21729545,0.21174411,-0.4000773,0.13491136,-0.08257259,0.18028711,-0.03187423,-0.37982443,0.18723238,0.16526182,-0.30706474,0.08966929,-0.37324396,-0.31797984,-0.40450388,-0.22354901,0.38091338,0.05895238,0.0741543,0.46046,0.1161954,-0.28371555,0.15044603,-0.21220106,0.3749593,-0.013388642,-0.018559292,-0.1288202,0.060066555,-0.43099383,-0.22019632,0.32425684,-0.17710355,0.09969877,0.19639166,0.13890874,0.05953999,0.20432371,-0.18985623,-1.3900079,0.08049737,0.21448001,-0.1673098,0.39116544,-0.38845032,0.13428247,-0.09772818,0.36321002,0.047842786,0.05740012,-0.41177726,-0.09126465,-0.20966153,-0.14808968,-0.12313194,0.06583839,-0.06764955,-0.43096444,-0.12472592,0.21150002,0.05980179,0.42574954,0.14623702,-0.047283933,-0.1655425,0.14072259,0.10012836,0.26708123,0.21652377,-0.26858637,0.37128496,0.48358068,-0.22873485,0.3415471,-0.4318551,0.112467796,-0.30478117,-0.16112132,-0.12682274,0.07760827,0.24270998,-0.17955293,0.43756574,-0.07330999,0.55635446,-0.14135197,-0.3135908,0.2663833,0.39340276,0.09435915,-0.41007805,0.52817464,0.023972612,0.0035324434,0.2101576,-0.64927095,-0.099279284,-0.030187434,-0.25957277,0.112616226,0.113703534,0.25400943,-0.11922325,0.14878401,-0.2840259,0.26371017,0.4936951,-0.06152517,-0.14821845,-0.12547839,-0.6555778,0.18243112,-0.50756407,-0.4305715,-0.1323583,-0.009611199,-0.12548251,0.051358573,-0.13351832,0.4637471,-0.23790367,0.26422018,0.095784985,-0.34137863,-0.37973404,0.23206808,0.29553226,-0.0910235,0.37230605,0.13431045,-0.25924808,-0.2998783,0.38456675,-0.05656838,-0.12074436,0.57267183,0.06945155,-0.10307094,0.24147747,0.31130025,0.18950589,-0.14475773,-0.13175121,-0.04475967,-0.39210254,0.26698396,0.17597274,-0.12304958,-0.16683322,-0.34680185,0.036709838,-0.30141976,0.06659832,0.4051354,0.33858553,-0.3187181,0.27248985,0.0027445348,-0.07309074,-0.21221575,-0.4917478,0.39928344,-0.08715093,-0.7751387,0.06638906,-0.009495137,-0.50534546,-3.4825654,-0.19378611,-0.26079172,-0.34332272,0.09487781,-0.124820225,-0.170389,-0.048866935,-0.24804094,0.17589195,0.0033882777,-0.3991355,0.4036497,0.2893761,0.33672386,0.13434613,0.15337083,-0.13735871,0.20365691,0.39442408,-0.19168982,-0.5556313,-0.14872704,-0.36106303,0.37908515,0.59245074,-0.47094965,0.23663965,-0.4221905,-0.20732048,0.32499984,-0.19694239,0.16273402,-0.3238974,-0.045962006,-0.24489664,0.055631768,-0.07547257,0.14058942,-0.3676045,-0.08093357,-0.4440094,-0.2989883,-0.17596549,0.8984437,0.081743434,-0.15099695,-0.046216585,0.05420479,0.4590019,0.13468908,-0.22018832,0.007076839,0.06115996,-0.27485663,-0.009492129,0.18559678,0.05669158,-0.58571786,0.112203896,0.29321128,-0.28081015,-0.1375841,0.064429864,-0.24297899,-0.41634345,-0.3990463,-0.077485286,-0.0070875725,-0.040236223,0.17114444,0.2930039,-0.35718757,-0.68268746,-0.17702255,-0.54992867,0.1838833,0.045842838,0.3347679,-0.03946297,-0.21382368,-0.44939223,-0.06337636,0.43544155,0.12323208,0.029266747,0.11986037,-0.23401135,-0.42377597,-0.9180715,0.03778385,0.11344913,0.35803533,0.042522028,-0.42696115,-0.34913826,0.19032101,-0.04391564,0.034718912,-0.22303185,0.28526044,0.07563779,0.72458804,-0.06918658,0.06710301,0.15264127,-0.5419611,-0.13307895,0.03247526,-0.22930138,0.51195145,-0.5071047,0.36212656,-0.13573788,0.0997187,0.38244817,0.18996361,0.65964633,0.08558153,0.023402302,0.23808092,0.12560369,-0.3190134,-0.17408735,-0.6879885,-0.24133979,-0.29686838,0.12024438,0.17267734,-0.160761,-0.2943033,0.04147182,0.05140389,0.03773321,0.2785091,-0.24303065,0.17751838,-0.4256288,0.18183789,-0.16113801,0.2987975,0.38935766,-0.299715,-0.10801507,-0.046426333,0.50658166,0.28670543,0.091055684,-0.091825746,0.19902638,-0.12818335,-0.62820446,-0.25528523,-0.20328535,-0.51059836,0.065500505,0.5076353,0.16894214,-0.18821856,-0.1875921,-0.16014668,0.2765512,0.32617164,-0.17606422,-0.28349492,0.52945733,0.12925997,-0.14999565,-0.36054716,0.18547764,-0.17732066,0.015448507,0.14687628,-0.4165712,0.052632812,0.22435546,0.24194813,-0.5188616,0.15794732,0.62017995,-0.12891771,-0.51236236,-0.17910492,0.20462063,0.2521779,-0.04904828,0.17536494,-0.081259064,0.20792848,0.074156195,0.18633199,0.08860541,-0.13984048,-0.10770175,-0.31966105,-0.3348593,0.54887754,-0.21056569,0.09133577,0.04791308,0.47404975,0.26749557,-0.21198882,-0.23929569,0.22244455,-0.21425357,0.2581927,0.30049178,-0.020225016,-0.12898697,-0.036244437,-0.24830317,-0.31815723,-0.100908525,0.059907135,-0.080511935,-0.014731093,-0.018159868,-0.5596892,0.012883237,-0.0036190103,-0.044100836,0.37918997,-0.059959963,-0.24990064,-0.15490453,-0.030786302,-0.113591254,-0.19442452,-0.17059077,-0.018145107,-0.23285635,0.11504274,-0.05081932,0.08994414,-0.12552613,-0.6506634,-0.22815168,0.11228496,-0.06215041,-0.76821357,-0.1372849,0.05160023,-0.43729454,-0.24965338,-0.09558493,0.1827262,0.26637965,-0.13962467,0.6838312,0.06967376,-0.12253259,-0.32598197,-0.06797645,0.31512696,-0.552865,-0.17412044,0.15486887,-0.5165543,0.056793466,-0.21880654,0.1560607,0.072784245,0.24697995,0.24848339,0.35766408,0.006819296,0.100532494,0.17408945,-0.5344956,0.20454329,0.09919666,0.055581618,-0.21761914,0.25841933,-0.07556526,0.100228466,-0.62608397,-0.097745575,-0.17580114,-0.5531491,-0.09705109,0.13187337,0.3076558,0.6047362,-0.30678082,-0.50074685,0.14335789,-0.2532188,-0.06029537,0.21444672,0.06519312,-0.40080884,0.32077456,-0.36639354,0.14620852,0.4324759,0.11260617,0.21696547,0.496804,-0.06621994,0.6815667,0.49633467,-0.063681945,-0.10429021,0.38608792,-0.045309193,-0.43422726,0.16706973,0.35575143,0.059679233,-0.2901757,0.41589054,0.7534106,-0.3353503,-0.40353775,-0.28787294,-0.14559753,-0.12013565,-0.1407052,0.14685044,0.14276971,0.5773236,-0.14827567,0.0812214,0.32899335,-0.21642487,0.0982994,0.42323384,0.022624834,0.17761129,0.2670605,-0.27729493,0.34056553,-0.17814621,-0.21899848,-0.018096182,0.11354118,0.4584722,0.4398122,-0.20494206,0.33009174,0.19708729,0.23554543,0.20742834,0.21643697,0.030163307,0.30384713,0.37410402,0.23208433,-0.050284803,0.030595575,0.10596259,-0.122441806,0.39154425,0.17129122,-0.14160873,0.30144462,-0.08794228,0.4758293,-0.02054813,0.35290694,0.440242,-0.48018888,-0.2420747,-0.54088634,-0.19141345,-0.10220977,0.08955625,0.15853462,0.22398321,0.50854933,-0.36166546,-0.26685596,-0.1512423,0.3950729,0.19245073,0.112613484,-0.12281818,0.2955088,-0.16708386,-0.32417098,-0.43148363,-0.6126404,-0.25415087,-0.41729698,0.2275437,0.51708496,0.023805032,-0.38224423,0.1327915,-0.39373568,0.07796565,-0.31360483,0.116072886,-0.059104647,0.2588992,0.4845574,0.61348766,-0.057488654,0.07598177,-0.2730539,-0.1866145,0.07097684,0.26663455,0.008656154,-0.15197581,0.5668117,-0.55083036,-0.2429081,-0.008358536,0.23496473,-0.6881312,0.35189644,0.13012378,-0.1378144,-0.15930334,-0.049142823,-0.15333822,-0.025077637,-0.3532291,-0.24881384,0.015779307,0.53722894,-0.4963407,0.49073717,0.20629293,0.3301549,0.13518943,-0.16468772,0.30816126,-0.057793766,0.17379104,0.09590619,0.018493433,-0.5585731,-0.432124,0.16120155,-0.27731556,0.11711333,-0.06355724,0.29946923,0.227823,-0.047747374,-0.11902882,-0.16383372,-0.24313614,-0.2800683,-0.10796201,-0.15849446,0.28004646,0.2248222,0.039239418,-0.50568575,-0.21501122,-0.20171702,0.13466266,-0.2841282,0.103491485,-0.2073321,0,1,1,0,0,0,0,-0.028678279213057635,-0.011599372305049649,-0.004734349224181224,-0.012965087320079102,-0.06101003775180111,-0.05980298669566962,-0.05754097581368725,0,0,1,0,0,0,0
