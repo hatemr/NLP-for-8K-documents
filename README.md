@@ -11,11 +11,7 @@ We try a few models/combinations:
 4. Classifier: logistic regression vs. random forests
 
 rem_col|vect|dim_red|clf|split0_test_score
----||||
-|---|||
-||---||
-|||---|
-||||---
+---|---|---|---|---
 drop_column|CountVectorizer|LatentDirichletAllocation|RandomForestClassifier|0.383
 drop_column|CountVectorizer|LatentDirichletAllocation|SGDClassifier|0.416
 drop_column|CountVectorizer|TruncatedSVD|RandomForestClassifier|0.383
@@ -32,7 +28,6 @@ use_text_col|TfidfVectorizer|LatentDirichletAllocation|RandomForestClassifier|0.
 use_text_col|TfidfVectorizer|LatentDirichletAllocation|SGDClassifier|0.438
 use_text_col|TfidfVectorizer|TruncatedSVD|RandomForestClassifier|0.429
 use_text_col|TfidfVectorizer|TruncatedSVD|SGDClassifier|0.47
-
 
 
 
