@@ -4,6 +4,38 @@ Predicting returns from 8K documents using text analysis and natural language pr
 ![strategy](images/strategy_overview.png)
 
 ## Results
+We try a few models/combinations:
+1. input variables: sentiment score (Quandl) vs. sentiment + 8K text
+2. document-term matrix: CountVectorizer (bag-of-words) vs. Tf-idf
+3. dimensionality reduction: PCA vs. LDA
+4. Classifier: logistic regression vs. random forests
+
+rem_col|vect|dim_red|clf|split0_test_score
+---||||
+|---|||
+||---||
+|||---|
+||||---
+drop_column|CountVectorizer|LatentDirichletAllocation|RandomForestClassifier|0.383
+drop_column|CountVectorizer|LatentDirichletAllocation|SGDClassifier|0.416
+drop_column|CountVectorizer|TruncatedSVD|RandomForestClassifier|0.383
+drop_column|CountVectorizer|TruncatedSVD|SGDClassifier|0.408
+drop_column|TfidfVectorizer|LatentDirichletAllocation|RandomForestClassifier|0.383
+drop_column|TfidfVectorizer|LatentDirichletAllocation|SGDClassifier|0.411
+drop_column|TfidfVectorizer|TruncatedSVD|RandomForestClassifier|0.383
+drop_column|TfidfVectorizer|TruncatedSVD|SGDClassifier|0.41
+use_text_col|CountVectorizer|LatentDirichletAllocation|RandomForestClassifier|0.412
+use_text_col|CountVectorizer|LatentDirichletAllocation|SGDClassifier|0.418
+use_text_col|CountVectorizer|TruncatedSVD|RandomForestClassifier|0.424
+use_text_col|CountVectorizer|TruncatedSVD|SGDClassifier|0.479
+use_text_col|TfidfVectorizer|LatentDirichletAllocation|RandomForestClassifier|0.42
+use_text_col|TfidfVectorizer|LatentDirichletAllocation|SGDClassifier|0.438
+use_text_col|TfidfVectorizer|TruncatedSVD|RandomForestClassifier|0.429
+use_text_col|TfidfVectorizer|TruncatedSVD|SGDClassifier|0.47
+
+
+
+
 Let's show the most interesting part first, the results. These are run on raw
 returns (not alphas), using 
 
@@ -13,15 +45,6 @@ returns (not alphas), using
 |                              | SGDClassifier          | 0.404128    |
 | TruncatedSVD                 | RandomForestClassifier | 0.333562    |
 |                              | SGDClassifier          | 0.405563    |
-
-We try a few models:
-1. document-term matrix: CountVectorizer (bag-of-words) vs. Tf-idf
-2. dimensionality reduction: PCA vs. LDA
-3. input variables: sentiment score (Quandl) vs. sentiment + 8K text
-4. Classifier: logistic regression vs. random forests
-
-Let's just over to the results.
-
 
 ## Setup
 This setup assumes you already have `conda` and `git` installed.

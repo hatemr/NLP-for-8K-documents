@@ -199,15 +199,6 @@ def bert_segment(tokenized_text):
     segment2 = index_sep*[0] + len(segment1[index_sep:])*[1]
     assert len(tokenized_text) == len(segment2)
     return segment2
-#%%
-raw_text = """Item 1.01 Entry into a Material Definitive Agreement. Update on ACA Health Insurer Fee On December 30, 2014, the Company's subsidiary, Superior HealthPlan Inc., signed an agreement with the Texas Health and Human Services Commission providing for reimbursement of the Affordable Care Act (ACA) annual Health Insurer Fee (HIF) and related tax gross-up. Reimbursement for the full amount of the applicable 2014 HIF related to our Texas operations will be recorded in the fourth quarter of 2014."""
-output = bert_preprocessed(raw_text)
-tokenized_text = tokenizer.tokenize(output)
-segments = bert_segment(tokenized_text)
-
-#%%
-for tup in zip(tokenized_text, segments):
-  print (tup)
 
 #%%
 def create_bert_features(raw_text):
@@ -243,7 +234,7 @@ def create_bert_features(raw_text):
     # Predict hidden states features for each layer
     with torch.no_grad():
         # See the models docstrings for the detail of the inputs # outputs
-        encoded_layers, _ = model(tokens_tensor, token_type_ids=segments_tensors)
+        outputs = model(tokens_tensor, token_type_ids=segments_tensors)
 
     # Transformers models always output tuples.
     # See the models docstrings for the detail of all the outputs
@@ -259,12 +250,6 @@ def create_bert_features(raw_text):
     return sentence_embedding
 
 #%%
-raw_text = """Item 1.01 Entry into a Material Definitive Agreement. Update on ACA Health Insurer Fee On December 30, 2014, the Company's subsidiary, Superior HealthPlan Inc., signed an agreement with the Texas Health and Human Services Commission providing for reimbursement of the Affordable Care Act (ACA) annual Health Insurer Fee (HIF) and related tax gross-up. Reimbursement for the full amount of the applicable 2014 HIF related to our Texas operations will be recorded in the fourth quarter of 2014."""
-
-sentence_embedding = create_bert_features(raw_text)
-
-
-#%%
 def _count_words(corpus):
     '''
     Makes document-term matrix
@@ -273,8 +258,6 @@ def _count_words(corpus):
     
     reference: https://scikit-learn.org/stable/modules/feature_extraction.html#customizing-the-vectorizer-classes
     '''
-    
-    
     
     if type(corpus) != list:
         raise TypeError('corpus should be list or nltk corpus')
@@ -379,19 +362,5 @@ if __name__ == "__main__":
     print('Saved {}'.format(filename))
 
 #%%
-
-
-
-
-#%%
-# testing Spacy's sentence tokenizer
-# https://stackoverflow.com/questions/46290313/how-to-break-up-document-by-sentences-with-with-spacy
-
-raw_text = 'Hello, world. Here are two sentences.'
-raw_text = """Item 1.01 Entry into a Material Definitive Agreement. Update on ACA Health Insurer Fee On December 30, 2014, the Company's subsidiary, Superior HealthPlan Inc., signed an agreement with the Texas Health and Human Services Commission providing for reimbursement of the Affordable Care Act (ACA) annual Health Insurer Fee (HIF) and related tax gross-up. Reimbursement for the full amount of the applicable 2014 HIF related to our Texas operations will be recorded in the fourth quarter of 2014."""
-nlp = English()
-nlp.add_pipe(nlp.create_pipe('sentencizer')) # updated
-doc = nlp(raw_text)
-sentences = [sent.string.strip() for sent in doc.sents]
-sentences[0] = "[CLS] " + sentences[0] + " [SEP]"
-sentences[1] = sentences[1] + " [SEP]"
+    
+    

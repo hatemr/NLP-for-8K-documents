@@ -43,13 +43,14 @@ pickle_in = open("models/grid_search_ret_1-day_v2.pickle","rb")
 grid_search = pickle.load(pickle_in)
 pickle_in.close()
 
+# clean data for nice results
 d = grid_search.cv_results_
 results = pd.DataFrame(data=d)
 results = results.drop(columns=['mean_fit_time', 'std_fit_time', 'mean_score_time', 'std_score_time', 'params', 'mean_test_score', 'std_test_score'])
 
-d = grid_search.cv_results_
-results = pd.DataFrame(data=d)
-results = results.drop(columns=['mean_fit_time', 'std_fit_time', 'mean_score_time', 'std_score_time', 'params', 'mean_test_score', 'std_test_score'])
+#d = grid_search.cv_results_
+#results = pd.DataFrame(data=d)
+#results = results.drop(columns=['mean_fit_time', 'std_fit_time', 'mean_score_time', 'std_score_time', 'params', 'mean_test_score', 'std_test_score'])
 
 # for groupby later
 dim_red_name = [r.__class__.__name__ for r in  grid_search.cv_results_['param_preprocessor__text__dim_red']]
@@ -59,7 +60,6 @@ vect = [r.__class__.__name__ for r in  grid_search.cv_results_['param_preprocess
 clf_name = ['SGDClassifier' if r.__class__.__name__=='MaskedConstant' else r.__class__.__name__ for r in  grid_search.cv_results_['param_clf']]
 
 results['dim_red'] = dim_red_name
-#results['norm'] = norm_name
 results['rem_col'] = rem_col_name
 results['vect'] = vect
 results['clf'] = clf_name
@@ -67,22 +67,17 @@ results['clf'] = clf_name
 results1 = results.loc[:,['rank_test_score',
        'dim_red', 'rem_col', 'vect', 'clf','split0_test_score']]
 
+res1 = results1\
+    .groupby(['rem_col', 'vect','dim_red','clf']).max().iloc[:,[-1]]\
+    .round(3)\
+    .reset_index()
 
-#%%
-# adding 8Ks helps!
-dim_red = ['TruncatedSVD', 'LatentDirichletAllocation'][0]
-rem_col = ['drop_column', 'use_text_col'][0]
-vect = ['CountVectorizer', 'TfidfVectorizer'][1]
-clf = ['SGDClassifier', 'RandomForestClassifier'][1]
+df_lines = df2 = pd.DataFrame([{col: '---'} for col in res1.columns]) 
 
-group_by = ['dim_red', 'rem_col', 'vect','clf'][1]
+df3 = pd.concat([df_lines, res1])
 
-# 2-by-2
-results1.loc[(results1.vect==vect)]\
-             .groupby(['rem_col', 'dim_red','clf']).max().iloc[:,[-1]]
-
-results1\
-             .groupby(['rem_col', 'vect','dim_red','clf']).max().iloc[:,[-1]]
+# save as markdown
+df3.to_csv("res1.md", sep="|", index=False)
 
 #%%
 results[['param_preprocessor__text__dim_red__n_components', 'split0_test_score']] == 0.469760 
