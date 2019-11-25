@@ -14,20 +14,20 @@ rem_col|vect|dim_red|clf|split0_test_score
 ---|---|---|---|---
 drop_column|CountVectorizer|LatentDirichletAllocation|RandomForestClassifier|0.383
 ||CountVectorizer|LatentDirichletAllocation|SGDClassifier|0.416
-drop_column|CountVectorizer|TruncatedSVD|RandomForestClassifier|0.383
-drop_column|CountVectorizer|TruncatedSVD|SGDClassifier|0.408
-drop_column|TfidfVectorizer|LatentDirichletAllocation|RandomForestClassifier|0.383
-drop_column|TfidfVectorizer|LatentDirichletAllocation|SGDClassifier|0.411
-drop_column|TfidfVectorizer|TruncatedSVD|RandomForestClassifier|0.383
-drop_column|TfidfVectorizer|TruncatedSVD|SGDClassifier|0.41
+||CountVectorizer|TruncatedSVD|RandomForestClassifier|0.383
+||CountVectorizer|TruncatedSVD|SGDClassifier|0.408
+||TfidfVectorizer|LatentDirichletAllocation|RandomForestClassifier|0.383
+||TfidfVectorizer|LatentDirichletAllocation|SGDClassifier|0.411
+||TfidfVectorizer|TruncatedSVD|RandomForestClassifier|0.383
+||TfidfVectorizer|TruncatedSVD|SGDClassifier|0.41
 use_text_col|CountVectorizer|LatentDirichletAllocation|RandomForestClassifier|0.412
-use_text_col|CountVectorizer|LatentDirichletAllocation|SGDClassifier|0.418
-use_text_col|CountVectorizer|TruncatedSVD|RandomForestClassifier|0.424
-use_text_col|CountVectorizer|TruncatedSVD|SGDClassifier|0.479
-use_text_col|TfidfVectorizer|LatentDirichletAllocation|RandomForestClassifier|0.42
-use_text_col|TfidfVectorizer|LatentDirichletAllocation|SGDClassifier|0.438
-use_text_col|TfidfVectorizer|TruncatedSVD|RandomForestClassifier|0.429
-use_text_col|TfidfVectorizer|TruncatedSVD|SGDClassifier|0.47
+||CountVectorizer|LatentDirichletAllocation|SGDClassifier|0.418
+||CountVectorizer|TruncatedSVD|RandomForestClassifier|0.424
+||CountVectorizer|TruncatedSVD|SGDClassifier|0.479
+||TfidfVectorizer|LatentDirichletAllocation|RandomForestClassifier|0.42
+||TfidfVectorizer|LatentDirichletAllocation|SGDClassifier|0.438
+||TfidfVectorizer|TruncatedSVD|RandomForestClassifier|0.429
+||TfidfVectorizer|TruncatedSVD|SGDClassifier|0.47
 
 
 
