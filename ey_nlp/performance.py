@@ -5,7 +5,6 @@ import numpy as np
 import numpy.random
 import pandas as pd
 import matplotlib.pyplot as plt
-from IPython import embed
 
 import scipy
 #import imp
@@ -230,3 +229,7 @@ y_test['y_pred_2'] = y_pred[:,2]
 
 #%%
 y_test.to_csv('data/y_pred_oos.csv', index=False)
+
+#%% 11/23/19
+data = pd.read_csv('data/train.csv', parse_dates=['Date'])
+embed()

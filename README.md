@@ -49,7 +49,7 @@ classification problem: less than -0.01 is 0, -0.01 to 0.01 is 1, and greater
 than 0.01 is 2. 
 
 We also tried this approach applied to raw returns, instead of alpha. However,
-swithced to alpha so our strategy would be independent of the overall market
+we switched to alpha so our strategy would be independent of the overall market
 performance.
 
 We also tried using a binary classification where we split returns at 0, but we

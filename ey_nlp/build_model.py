@@ -218,7 +218,7 @@ def make_results_dataframe(grid_search):
 
 #%%
 def get_lda_topics():
-    '''Creates files in /topics folder for Chelsea (11/5/19)
+    '''Creates files in /topics folder for Chelsea (11/5/19, 11/14/19)
     '''
     
     data = pd.read_csv('data/train.csv', parse_dates=['Date'])
@@ -240,8 +240,7 @@ def get_lda_topics():
     df['vocab'] = vocab
     
     df.to_csv('topics/topic_vectors.csv', index=False)
-
-    data2 = data.loc[:,['Date', 'Ticker', 'Content', 'Content_clean']]
+    data2 = data.loc[:,['Date', 'Ticker', 'Content', 'Content_clean','sentiment','alpha_1-day']]
     
     data3 = data2.join(pd.DataFrame(
         {
@@ -258,3 +257,5 @@ def get_lda_topics():
         }, index=data2.index
     ))
     data3.to_csv('topics/topics.csv', index=False)
+    
+#%%

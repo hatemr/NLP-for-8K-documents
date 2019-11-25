@@ -3,9 +3,11 @@
 # Taken largely from this website
 # https://www.kdnuggets.com/2018/08/practitioners-guide-processing-understanding-text-2.html
 
+from __future__ import unicode_literals, print_function
 import pandas as pd
 import spacy
 import nltk
+import torch
 from nltk.tokenize.toktok import ToktokTokenizer
 import re
 from bs4 import BeautifulSoup
@@ -17,6 +19,8 @@ from IPython import embed
 #import ipdb
 import time
 import pickle
+from spacy.lang.en import English # updated
+from transformers import BertTokenizer, BertModel, BertForMaskedLM
 
 #%%
 nlp = spacy.load('en_core_web_md', parse = True, tag=True, entity=True)
@@ -165,6 +169,102 @@ def clean_text(doc):
     return doc_as_string
 
 #%%
+def bert_preprocess(raw_text):
+    """"
+    Preprocess text for BERT embedding
+    
+    raw_text: string (clean text from one 8K) 
+    """
+    nlp = English()
+    nlp.add_pipe(nlp.create_pipe('sentencizer')) # updated
+    doc = nlp(raw_text)
+    sentences = [sent.string.strip() for sent in doc.sents][0:2]  
+    new_sentences = []
+    for i, sentence in enumerate(sentences):
+        if i==0:
+            new_sentences.append("[CLS] " + sentence + " [SEP]")
+        else:
+            new_sentences.append(sentence + " [SEP]")
+            
+    return ' '.join(new_sentences)
+#%%
+def bert_segment(tokenized_text):
+    """
+    Get list of 0 & 1's to define the segments
+    
+    tokenized_text: list of tokens from tokenizer.tokenize(text)
+    """
+    segment1 = [1 if token=="[SEP]" else 0 for token in tokenized_text]
+    index_sep = segment1.index(1)
+    segment2 = index_sep*[0] + len(segment1[index_sep:])*[1]
+    assert len(tokenized_text) == len(segment2)
+    return segment2
+#%%
+raw_text = """Item 1.01 Entry into a Material Definitive Agreement. Update on ACA Health Insurer Fee On December 30, 2014, the Company's subsidiary, Superior HealthPlan Inc., signed an agreement with the Texas Health and Human Services Commission providing for reimbursement of the Affordable Care Act (ACA) annual Health Insurer Fee (HIF) and related tax gross-up. Reimbursement for the full amount of the applicable 2014 HIF related to our Texas operations will be recorded in the fourth quarter of 2014."""
+output = bert_preprocessed(raw_text)
+tokenized_text = tokenizer.tokenize(output)
+segments = bert_segment(tokenized_text)
+
+#%%
+for tup in zip(tokenized_text, segments):
+  print (tup)
+
+#%%
+def create_bert_features(raw_text):
+    """
+    Creates BERT features for one 8K
+    
+    raw_text: string
+    """
+    # Load pre-trained model tokenizer (vocabulary)
+    text_preprocessed = bert_preprocess(raw_text)
+    
+    # tokenize
+    tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
+    tokenized_text = tokenizer.tokenize(text_preprocessed)
+    
+    # Convert token to vocabulary indices
+    indexed_tokens = tokenizer.convert_tokens_to_ids(tokenized_text)
+
+    # segments
+    segments_ids = bert_segment(tokenized_text)
+
+    # Convert inputs to PyTorch tensors
+    tokens_tensor = torch.tensor([indexed_tokens])
+    segments_tensors = torch.tensor([segments_ids])
+    
+    # Load pre-trained model (weights)
+    model = BertModel.from_pretrained('bert-base-uncased')
+    
+    # Set the model in evaluation mode to deactivate the DropOut modules
+    # This is IMPORTANT to have reproducible results during evaluation!
+    model.eval()
+
+    # Predict hidden states features for each layer
+    with torch.no_grad():
+        # See the models docstrings for the detail of the inputs # outputs
+        encoded_layers, _ = model(tokens_tensor, token_type_ids=segments_tensors)
+
+    # Transformers models always output tuples.
+    # See the models docstrings for the detail of all the outputs
+    # In our case, the first element is the hidden state of the last layer of the Bert model
+    encoded_layers = outputs[0]
+
+    # We have encoded our input sequence in a FloatTensor of shape (batch size, sequence length, model hidden dimension)
+    assert tuple(encoded_layers.shape) == (1, len(indexed_tokens), model.config.hidden_size)
+    
+    # take average over words
+    sentence_embedding = torch.mean(encoded_layers,[0,1]).data.numpy()
+    
+    return sentence_embedding
+
+#%%
+raw_text = """Item 1.01 Entry into a Material Definitive Agreement. Update on ACA Health Insurer Fee On December 30, 2014, the Company's subsidiary, Superior HealthPlan Inc., signed an agreement with the Texas Health and Human Services Commission providing for reimbursement of the Affordable Care Act (ACA) annual Health Insurer Fee (HIF) and related tax gross-up. Reimbursement for the full amount of the applicable 2014 HIF related to our Texas operations will be recorded in the fourth quarter of 2014."""
+
+sentence_embedding = create_bert_features(raw_text)
+
+
+#%%
 def _count_words(corpus):
     '''
     Makes document-term matrix
@@ -229,7 +329,8 @@ if __name__ == "__main__":
     print('Cleaning text... \nThis could take 30 minutes')
     
     t0 = time.time()
-    corpus_cleaned = [clean_text(doc) for doc in corpus] #clean_text(doc)
+    #corpus_cleaned = [clean_text(doc) for doc in corpus] #clean_text(doc)
+    corpus_cleaned = [bert_clean_text(doc) for doc in corpus] #clean_text(doc)
     print('Done in {:.0f} minutes'.format((time.time() - t0)/60))
     
     df.loc[:,'Content_clean'] = corpus_cleaned
@@ -276,3 +377,21 @@ if __name__ == "__main__":
     filename = 'data/test.csv'
     test.to_csv(filename, index=False)
     print('Saved {}'.format(filename))
+
+#%%
+
+
+
+
+#%%
+# testing Spacy's sentence tokenizer
+# https://stackoverflow.com/questions/46290313/how-to-break-up-document-by-sentences-with-with-spacy
+
+raw_text = 'Hello, world. Here are two sentences.'
+raw_text = """Item 1.01 Entry into a Material Definitive Agreement. Update on ACA Health Insurer Fee On December 30, 2014, the Company's subsidiary, Superior HealthPlan Inc., signed an agreement with the Texas Health and Human Services Commission providing for reimbursement of the Affordable Care Act (ACA) annual Health Insurer Fee (HIF) and related tax gross-up. Reimbursement for the full amount of the applicable 2014 HIF related to our Texas operations will be recorded in the fourth quarter of 2014."""
+nlp = English()
+nlp.add_pipe(nlp.create_pipe('sentencizer')) # updated
+doc = nlp(raw_text)
+sentences = [sent.string.strip() for sent in doc.sents]
+sentences[0] = "[CLS] " + sentences[0] + " [SEP]"
+sentences[1] = sentences[1] + " [SEP]"
