@@ -36,8 +36,14 @@ be found [here](ey_nlp/build_model_ml_models.py). This table can be found in
 `python ey_nlp/performance_ml_models.py`.
 
 Some patterns emerge:
-1. Logistic regression clearly outperforms random forests.
-2. 
+1. Using the text column (i.e. the 8K text) as input features clearly improves
+performance over using the FinSent sentiment score only.
+2. Logistic regression clearly outperforms random forests.
+3. CounterVectorizer and TfidfVectorier are mixed; neither consistently
+outperforms the other.
+4. PCA outperforms LDA when the text data is used, which is the important case.
+
+
 
 Let's show the most interesting part first, the results. These are run on raw
 returns (not alphas), using 
