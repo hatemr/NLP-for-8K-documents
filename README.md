@@ -44,8 +44,9 @@ outperforms the other.
 4. PCA outperforms LDA when the text data is used, which is the important case 
 (LDA is obviously not performed when there is no text input).
 
-Next, we simplify the model bases on the best-performing choices from above,
-and add in a new set of features that are the non-fine-tuned BERT embeddings.
+Next, we simplify the model based on the best-performing choices from above,
+and add in a new set of features that are the last hidden layer of the 
+non-fine-tuned BERT embeddings.
 
 
 
