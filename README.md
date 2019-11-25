@@ -5,10 +5,10 @@ Predicting returns from 8K documents using text analysis and natural language pr
 
 ## Results
 We try a few models/combinations:
-1. input variables: sentiment score (Quandl) vs. sentiment + 8K text
-2. document-term matrix: CountVectorizer (bag-of-words) vs. Tf-idf
-3. dimensionality reduction: PCA vs. LDA
-4. Classifier: logistic regression vs. random forests
+1. __input variables__ (remove column): sentiment score (Quandl) vs. sentiment + 8K text
+2. __document-term matrix__(vectorizer): CountVectorizer (bag-of-words) vs. Tf-idf
+3. __dimensionality reduction__: PCA (Truncated SVD) vs. LDA
+4. __Classifier__: logistic regression (SGDClassifier) vs. random forests
 
 rem_col|vect|dim_red|clf|split0_test_score
 ---|---|---|---|---
