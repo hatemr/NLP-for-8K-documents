@@ -14,7 +14,7 @@ rem_col|vect|dim_red|clf|split0_test_score
 ---|---|---|---|---
 drop_column|CountVectorizer|LatentDirichletAllocation|RandomForestClassifier|0.383
 ||CountVectorizer|LatentDirichletAllocation|SGDClassifier|0.416
-||CountVectorizer|TruncatedSVD|RandomForestClassifier|0.383
+|||TruncatedSVD|RandomForestClassifier|0.383
 ||CountVectorizer|TruncatedSVD|SGDClassifier|0.408
 ||TfidfVectorizer|LatentDirichletAllocation|RandomForestClassifier|0.383
 ||TfidfVectorizer|LatentDirichletAllocation|SGDClassifier|0.411
