@@ -72,7 +72,7 @@ res1 = results1\
     .round(3)\
     .reset_index()
 
-df_lines = df2 = pd.DataFrame([{col: '---'} for col in res1.columns]) 
+df_lines = df2 = pd.DataFrame([['---',]*len(res1.columns)], columns=res1.columns) 
 
 df3 = pd.concat([df_lines, res1])
 
