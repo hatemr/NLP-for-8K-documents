@@ -72,12 +72,12 @@ res1 = results1\
     .round(3)\
     .reset_index()
 
-df_lines = df2 = pd.DataFrame([['---',]*len(res1.columns)], columns=res1.columns) 
+df_lines = pd.DataFrame([['---',]*len(res1.columns)], columns=res1.columns) 
 
 df3 = pd.concat([df_lines, res1])
-
+embed()
 # save as markdown
-df3.to_csv("res_ml_models.md", sep="|", index=False)
+#df3.to_csv("res_ml_models.md", sep="|", index=False)
 
 #%%
 results[['param_preprocessor__text__dim_red__n_components', 'split0_test_score']] == 0.469760 
