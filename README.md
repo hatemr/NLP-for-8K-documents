@@ -63,8 +63,8 @@ both BOW and BERT features is higher than using neither but lower than adding
 BOW alone. These results show that BOW features outperform the BERT features.
 
 The result that using both BOW and BERT features performs worse than only BOW
-is a base of overfitting. Using too many input variables can cause overfitting
-and you can regularize by removing variables.
+is a case of overfitting. Using too many input variables can cause overfitting
+and removing variables is a type of regularization.
 
 ## Setup
 This setup assumes you already have `conda` and `git` installed.
