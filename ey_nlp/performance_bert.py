@@ -65,8 +65,8 @@ results1 = results.loc[:,['rank_test_score',
 
 res1 = results1\
     .groupby(['text_rem_col', 'num_rem_col']).max().iloc[:,[-1]]\
-    .round(3)#\
-    #.reset_index()
+    .round(3)\
+    .reset_index()
 
 df_lines = pd.DataFrame([['---',]*len(res1.columns)], columns=res1.columns) 
 
