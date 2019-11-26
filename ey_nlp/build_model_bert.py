@@ -70,8 +70,9 @@ def drop_BOW_feat(X):
     ones = np.ones(X.shape[0])
     return ones[:, np.newaxis]
 
-def drop_bert_feat(X):
-    return X.loc[:,['sentiment']]
+def drop_BERT_feat(X):
+    """ Assumes sentiment is first column """
+    return X[:,[0]] #.loc[:,['sentiment']]
 
 def remove_extra_newlines(text):
     return re.sub(r'[\r|\n|\r\n]+', ' ', text)
@@ -81,18 +82,16 @@ def make_all_models(target='ret_1-day'):
     """Perform grid search on all combinations
     """
     
-    data = pd.read_csv('data/train.csv', parse_dates=['Date'])
+    data = pd.read_csv('data/train_bert.csv', parse_dates=['Date'])
     data['Content_clean'] = data['Content_clean'].fillna('')
-    #data['sentiment'] = data['sentiment'].fillna(0)
+    data['sentiment_x'] = data['sentiment_x'].fillna(0)
     data[target] = data[target].fillna(1)
     
-    cols = ['Date','Ticker','Content_clean','sentiment'] + ['bert_' + str(i) for i in range(767)]
+    cols = ['Date','Ticker','Content_clean','sentiment_x'] + ['bert_' + str(i) for i in range(767)]
     X = data.loc[:,cols]
     #X = data['Content_clean'].fillna('').values
     #y = data['ret_1-day'].fillna(1).values
     y = data[target]
-    
-    # user defined functions
     
     
 #    text_features = ['Content_clean']
@@ -105,12 +104,12 @@ def make_all_models(target='ret_1-day'):
                      ])
 
 
-    numeric_features = ['sentiment'] + ['bert_' + str(i) for i in range(767)]
+    numeric_features = ['sentiment_x'] + ['bert_' + str(i) for i in range(767)]
     numeric_transformer = Pipeline(
             steps=[('rem_col', FunctionTransformer(func=None, validate=True, accept_sparse=True)),
                    ('num_imp', SimpleImputer(strategy='constant', fill_value=0.)),
                    ('scaler', StandardScaler())])
-    
+
     # combine features preprocessing
     preprocessor = ColumnTransformer(
             transformers=[('text', text_transformer, 'Content_clean'),
@@ -122,14 +121,14 @@ def make_all_models(target='ret_1-day'):
     
     parameters = [
         {
-            'preprocessor__text__rem_col__func': [drop_BOW_feat, None, drop_bert_feat],
+            'preprocessor__text__rem_col__func': [drop_BOW_feat, None],
             'preprocessor__text__vec': [CountVectorizer()],
-            'preprocessor__text__vec__min_df': [0., 0.01],
+            'preprocessor__text__vec__min_df': [0., 0.01, 0.02],
             'preprocessor__text__dim_red': [TruncatedSVD()],
-            'preprocessor__text__dim_red__n_components': [50, 100],
+            'preprocessor__text__dim_red__n_components': [100, 200],
             'preprocessor__text__norm': [Normalizer(copy=False)],
-            'preprocessor__num__rem_col__func': [None, drop_bert_feat],
-            'clf__alpha': [0.00001, 0.000001]
+            'preprocessor__num__rem_col__func': [None, drop_BERT_feat],
+            'clf__alpha': [0.00005, 0.000001, 0.000005]
         }
     ]
 
