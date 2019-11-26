@@ -66,7 +66,7 @@ def dense_identity(X):
     except:
         return X
 
-def drop_text_feat(X):
+def drop_BOW_feat(X):
     ones = np.ones(X.shape[0])
     return ones[:, np.newaxis]
 
@@ -105,9 +105,10 @@ def make_all_models(target='ret_1-day'):
                      ])
 
 
-    numeric_features = ['sentiment'] #['mkt_ret']
+    numeric_features = ['sentiment'] + ['bert_' + str(i) for i in range(767)]
     numeric_transformer = Pipeline(
-            steps=[('num_imp', SimpleImputer(strategy='constant', fill_value=0.)),
+            steps=[('rem_col', FunctionTransformer(func=None, validate=True, accept_sparse=True)),
+                   ('num_imp', SimpleImputer(strategy='constant', fill_value=0.)),
                    ('scaler', StandardScaler())])
     
     # combine features preprocessing
@@ -121,12 +122,13 @@ def make_all_models(target='ret_1-day'):
     
     parameters = [
         {
-            'preprocessor__text__rem_col__func': [drop_text_feat, None, drop_bert_feat],
+            'preprocessor__text__rem_col__func': [drop_BOW_feat, None, drop_bert_feat],
             'preprocessor__text__vec': [CountVectorizer()],
             'preprocessor__text__vec__min_df': [0., 0.01],
             'preprocessor__text__dim_red': [TruncatedSVD()],
-            'preprocessor__text__dim_red__n_components': [100],
+            'preprocessor__text__dim_red__n_components': [50, 100],
             'preprocessor__text__norm': [Normalizer(copy=False)],
+            'preprocessor__num__rem_col__func': [None, drop_bert_feat],
             'clf__alpha': [0.00001, 0.000001]
         }
     ]
@@ -141,7 +143,7 @@ def make_all_models(target='ret_1-day'):
                                scoring = 'f1_weighted',
                                cv = ps,
                                verbose=2,
-                               n_jobs=-1)
+                               n_jobs=1)
     
     t0 = time.time()
     print("Performing grid search. This could take a while")
@@ -158,12 +160,7 @@ def make_all_models(target='ret_1-day'):
 
 #%%
 if __name__ == "__main__":
-    
-    data = pd.read_csv('data/train.csv', parse_dates=['Date'])
-    data['Content_clean'] = data['Content_clean'].fillna('')
-    
-    add_bert_features(X)
-    
+            
     for h in ['1-day']:#, '2-day', '3-day', '5-day', '10-day', '20-day', '30-day']:
         horizon = 'ret_' + h
         print('starting', horizon)
