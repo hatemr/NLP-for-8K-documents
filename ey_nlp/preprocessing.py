@@ -187,7 +187,14 @@ def bert_preprocess(raw_text):
         else:
             new_sentences.append(sentence + " [SEP]")
             
-    return ' '.join(new_sentences)
+    preprocessed_text = ' '.join(new_sentences)
+    
+    if "[CLS]" not in preprocessed_text:
+        raise Exception("[CLS] not found in preprocessed text")
+    if "[SEP]" not in preprocessed_text:
+        raise Exception("[SEP] not found in preprocessed text")
+            
+    return 
 #%%
 def bert_segment(tokenized_text):
     """
@@ -196,7 +203,12 @@ def bert_segment(tokenized_text):
     tokenized_text: list of tokens from tokenizer.tokenize(text)
     """
     segment1 = [1 if token=="[SEP]" else 0 for token in tokenized_text]
-    index_sep = segment1.index(1)
+    
+    try:
+        index_sep = segment1.index(1)
+    except:
+        index_sep = len(segment1)-1
+    
     segment2 = index_sep*[0] + len(segment1[index_sep:])*[1]
     assert len(tokenized_text) == len(segment2)
     return segment2
@@ -217,6 +229,8 @@ def create_bert_features(raw_text, tokenizer, model):
     # tokenize
     #tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
     tokenized_text = tokenizer.tokenize(text_preprocessed)[:512]
+    
+    # need to fill in [SEP] here?
     
     # Convert token to vocabulary indices
     indexed_tokens = tokenizer.convert_tokens_to_ids(tokenized_text)
@@ -357,7 +371,7 @@ if __name__ == "__main__":
     df.loc[:,'Content_clean'] = df.loc[:,'Content_clean'].fillna('')
 
     # to put cleaned content next to original. Use only 1-day to simplify.
-    cols = ['Ticker', 'Date', 'Content', 'Content_clean', 'Close', '1-day'] #, '2-day', '3-day', '5-day', '10-day', '20-day', '30-day', 'sentiment']
+    cols = ['Ticker', 'Date', 'Content', 'Content_clean', 'sentiment', 'Close', '1-day'] #, '2-day', '3-day', '5-day', '10-day', '20-day', '30-day', 'sentiment']
     df = df[cols]
    
     # add bert features
