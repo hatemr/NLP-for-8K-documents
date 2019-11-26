@@ -55,6 +55,12 @@ drop_BOW_feat|drop_BERT_feat|0.439
 use_BOW_feat|drop_BERT_feat|0.481
 ||use_BERT_feat|0.462
 
+The sentiment feature serves as our baseline and is present in all four models.
+In the first row, the model uses neither BOW nor BERT, only the sentiment 
+feature. Adding BERT features increases the score (second row). Next, adding
+the BOW features only increases the score even more (third row). Finally, using
+both BOW and BERT features is higher than using neither but lower than adding
+BOW alone. These results show that BOW features outperform the BERT features.
 
 ## Setup
 This setup assumes you already have `conda` and `git` installed.
