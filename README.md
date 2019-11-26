@@ -62,6 +62,10 @@ the BOW features only increases the score even more (third row). Finally, using
 both BOW and BERT features is higher than using neither but lower than adding
 BOW alone. These results show that BOW features outperform the BERT features.
 
+The result that using both BOW and BERT features performs worse than only BOW
+is a base of overfitting. Using too many input variables can cause overfitting
+and you can regularize by removing variables.
+
 ## Setup
 This setup assumes you already have `conda` and `git` installed.
 1. Clone this repo at your terminal: `git clone https://github.com/hatemr/NLP-for-8K-documents.git`
