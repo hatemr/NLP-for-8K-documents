@@ -218,6 +218,10 @@ def create_bert_features(raw_text, tokenizer, model):
     """
     Creates BERT features for one 8K
     
+    See:
+        https://huggingface.co/transformers/quickstart.html
+        https://mccormickml.com/2019/05/14/BERT-word-embeddings-tutorial/
+    
     raw_text: string
     tokenizer: BertTokenizer.from_pretrained('bert-base-uncased')
     model: BertModel.from_pretrained('bert-base-uncased')

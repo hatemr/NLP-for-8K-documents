@@ -73,6 +73,27 @@ df_lines = pd.DataFrame([['---',]*len(res1.columns)], columns=res1.columns)
 df3 = pd.concat([df_lines, res1])
 
 # save as markdown
-df3.to_csv("data/res_bert_models.md", sep="|", index=False)
+#df3.to_csv("data/res_bert_models.md", sep="|", index=False)
+df3
+#%%
+# test for Max
+pickle_in = open("models/grid_search_ret_1-day_bert_v1.pickle","rb")
+grid_search = pickle.load(pickle_in)
+pickle_in.close()
+
+target = 'ret_1-day'
+data = pd.read_csv('data/test_bert.csv', parse_dates=['Date'])
+#data['Content_clean'] = data['Content_clean'].fillna('')
+data['sentiment_x'] = data['sentiment_x'].fillna(0)
+#data[target] = data[target].fillna(1)
+    
+cols = ['Date','Ticker','Content_clean','sentiment_x'] + ['bert_' + str(i) for i in range(767)]
+X = data.loc[:,cols]
+
+y_pred = grid_search.predict_proba(X)
+print(y_pred.shape)
 
 #%%
+data = pd.read_csv('data/test_bert.csv', parse_dates=['Date'])
+with open('data/test_bert.pickle', 'wb') as handle:
+    pickle.dump(data, handle)

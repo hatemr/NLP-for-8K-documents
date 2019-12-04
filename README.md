@@ -10,6 +10,8 @@ We try a few models/combinations:
 3. __dimensionality reduction__: PCA (Truncated SVD) vs. LDA
 4. __Classifier__: logistic regression (SGDClassifier) vs. random forests
 
+![results](images/strategy_overview.png)
+
 rem_col|vect|dim_red|clf|split0_test_score
 ---|---|---|---|---
 drop_column|CountVectorizer|LatentDirichletAllocation|RandomForestClassifier|0.383
@@ -64,7 +66,10 @@ BOW alone. These results show that BOW features outperform the BERT features.
 
 The result that using both BOW and BERT features performs worse than only BOW
 is a case of overfitting. Using too many input variables can cause overfitting
-and removing variables is a type of regularization.
+and removing variables is a type of regularization. Note that these are _machine
+learning_ performance measures, not _investment strategy_ performance measures.
+A model with poor prediction could actually make moeny; a well-predicting model
+could lose money. The two measures generally go together but not always.
 
 ## Setup
 This setup assumes you already have `conda` and `git` installed.
@@ -84,7 +89,11 @@ the 8K text needs preprocessing:
 
 Now the text is ready to be turned into the document-term matrix.
 
-For BERT 
+For BERT, we extract sentence embeddings , obtained using the library `transformers` \
+from [Hugging Face](https://github.com/huggingface/transformers). The embeddings
+are the last layer of the non-fine-tuned BERT neural network. Instructions
+on extracting embeddings can be found [here](https://huggingface.co/transformers/quickstart.html)
+ and [here](https://mccormickml.com/2019/05/14/BERT-word-embeddings-tutorial/).
 
 
 Now the text is ready to 

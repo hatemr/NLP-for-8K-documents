@@ -121,13 +121,13 @@ def make_all_models(target='ret_1-day'):
     
     parameters = [
         {
-            'preprocessor__text__rem_col__func': [drop_BOW_feat, None],
+            'preprocessor__text__rem_col__func': [drop_BOW_feat], #None, drop_BOW_feat
             'preprocessor__text__vec': [CountVectorizer()],
             'preprocessor__text__vec__min_df': [0., 0.01, 0.02],
             'preprocessor__text__dim_red': [TruncatedSVD()],
-            'preprocessor__text__dim_red__n_components': [100, 200],
+            'preprocessor__text__dim_red__n_components': [100, 200], #100
             'preprocessor__text__norm': [Normalizer(copy=False)],
-            'preprocessor__num__rem_col__func': [None, drop_BERT_feat],
+            'preprocessor__num__rem_col__func': [None], #None, drop_BERT_feat
             'clf__alpha': [0.00005, 0.000001, 0.000005]
         }
     ]
@@ -150,7 +150,7 @@ def make_all_models(target='ret_1-day'):
     print('Done fitting in {:.2f} minutes'.format((time.time()-t0)/60))
     
     # save model. Use pickle + dictionaries
-    model_name = 'grid_search_' + horizon + '_bert_v1'
+    model_name = 'grid_search_' + horizon + '_bert_v7'
     
     filename = "models/" + model_name + ".pickle"
     save_model(model = grid_search, filename = filename)
