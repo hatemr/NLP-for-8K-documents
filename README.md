@@ -4,13 +4,74 @@ Predicting returns from 8K documents using text analysis and natural language pr
 ![strategy](images/strategy_overview.png)
 
 ## Results
-We try a few models/combinations:
+We try model with BERT features vs. BoW features (CountVectorizer).
+
+We also try a few models/combinations:
 1. __input variables__ (remove column): sentiment score (Quandl) vs. sentiment + 8K text
 2. __document-term matrix__(vectorizer): CountVectorizer (bag-of-words) vs. Tf-idf
 3. __dimensionality reduction__: PCA (Truncated SVD) vs. LDA
 4. __Classifier__: logistic regression (SGDClassifier) vs. random forests
 
-![results](images/strategy_overview.png)
+First, we show the out-of-sample PnLs for these models.
+
+![BERTvBAG](images/BertvsBag.png)
+
+
+
+
+
+Below are plots comparing SVD(PCA) to LDA using different levels of discretization for training.
+
+The left two columns show the models trained and tested on the full returns.  20% means the returns were categorized into 80th percentile (for buys) and 20th percentile (for sells).  Likewise, 30% means 70th and 30th percentiles, etc.
+
+The right two columns are the same models, but trained on only the alphas of the returns; The SP500 beta was subtracted from each return before training, and the PnL's show what would happen if the market beta was hedged out for each trade.
+
+![pnlplots](images/pnlplots.png)
+
+
+
+
+The following plots are of various binary comparisons:
+
+![CountvTFIDF1](images/CountvsTFIDF1.png)
+
+
+
+
+![CountvTFIDF2](images/CountvsTFIDF2.png)
+
+
+
+
+![LDAvSVD](images/LDAvsSVD.png)
+
+
+
+
+![LDA5v35](images/LDAwith5vs35feat.png)
+
+
+
+
+![LDA33v35](images/LDAwith33vs35feat.png)
+
+
+
+
+![LOGvRF1](images/LogisticvsRandomForest1.png)
+
+
+
+
+![LOGvRF2](images/LogisticvsRandomForest2.png)
+
+
+
+
+![LOGvRF3](images/LogisticvsRandomForest3.png)
+
+
+Next, we show the performance of the ML-classifiers which form this strategy.
 
 rem_col|vect|dim_red|clf|split0_test_score
 ---|---|---|---|---
