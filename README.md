@@ -111,6 +111,37 @@ learning_ performance measures, not _investment strategy_ performance measures.
 A model with poor prediction could actually make moeny; a well-predicting model
 could lose money. The two measures generally go together but not always.
 
+### Correlation Between Topics and Sentiment/Alpha Scores
+Ticker’s topic is the topic with weight higher than 0.8. Sentiment Score has the range from 5 to -5. Here we define large positive sentiment score to be scores larger than 3, and small negative sentiment score to be scores smaller than -3. Recall that Alpha score 0 represents large downside movement, 1 represents no significant movement and 2 represents large upside movement. 
+
+Correlation between topics and sentiment score
+![TopicsSentiment](images/percentage.png)
+
+1. From the graph we can see Topic 5, "board of director member change" and Topic 7, "amendment of agreement(all different agreement", usually associate with extreme sentiment scores. Among which "board of director member change" has a preference for positive sentiment score and "amendment of agreement" has a preference for negative sentiment score. 
+2. In the graph Topic 4 and Topic 6 have zero frequency, so we guess that "recent earnings of the company and acquisition/ collaboration agenda" and "vote for shareholders and appointment of public audit company" might be sentimental-neutral. 
+3. Since we are particularly interested in positive sentiment score, we take a closer look over which topics have a preference for positive sentiment score. Topic 0 which is "structuring change in the company’s management level: appointment of new CEO/ change in the committee" and Topic 3 which is "expectations about earnings in the upcoming quarters" have preferences for positive sentiment score but they have small shares so the result may not be statistically significant. 
+4. From the graph we have the following hypothesis that when there is a structural change in a company, investors tends to lift their expectation for its future performance and the sentiment score is positive.
+
+Correlation between topics and alpha score
+![TopicsAlpha](images/alpha.png)
+
+1. We noticed that "board change" and "amendment of agreement", the two topics associated with extreme sentiment score, tends to lead to big movements, regardless of the direction. "amendment of agreement" has a slight preference to big downside movement" and "board change" topic has a slight preference to big upside movement. 
+2. Topic 0, 3, 8 do not lead to extreme movements, as investors we are not interested in them, the corresponding topics are "structuring change in the company’s management level", "expectations about earnings in the upcoming quarters" and "realease Results of Operations and Financial Condition". 
+4. From this graph we can also see that Topic 4 and Topic 6 may not be sentimental-neutral, their zero frequency may due to lack of data. 
+
+So far the observation explains each other: large positive sentiment score leads to big upside movement and small negative sentiment score leads to big downside movement. 
+
+Closer look at Topic 5 and Topic 7
+![Topic5/7Sentiment](images/topic5_topic7.png)
+
+Though Topic 5 has a preference for positive sentiment score when comparing with other topics, it has more negative sentiments when comparing to itself. Topic 7 still has a strong preference over negative sentiment. 
+
+![Topic5/7Alpha](images/alpha_5_7.png)
+
+Topic 5 distributed evenly between big down movement and big up movement. Topic 7 slightly prefer down movement. 
+
+Generally speaking the small movements still has the largest proportion among the three categories but we can say that "amendment of agreements" has some negative effects on the stock price and "change of board composition" has some positive effect, which make sense intuitionly.
+
 ## Setup
 This setup assumes you already have `conda` and `git` installed.
 1. Clone this repo at your terminal: `git clone https://github.com/hatemr/NLP-for-8K-documents.git`
