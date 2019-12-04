@@ -33,42 +33,22 @@ The right two columns are the same models, but trained on only the alphas of the
 
 The following plots are of various binary comparisons:
 
+Using PCA for dimensionality reduction (CountVectorizer uses 60d, TFIDF uses 50d):
 ![CountvTFIDF1](images/CountvsTFIDF1.png)
 
 
-
-
+Using LDA for dimensionality reduction (CountVectorizer uses 35d, TFIDF uses 33d)
 ![CountvTFIDF2](images/CountvsTFIDF2.png)
-
-
 
 
 ![LDAvSVD](images/LDAvsSVD.png)
 
 
-
-
 ![LDA5v35](images/LDAwith5vs35feat.png)
-
-
-
-
-![LDA33v35](images/LDAwith33vs35feat.png)
-
-
-
-
-![LOGvRF1](images/LogisticvsRandomForest1.png)
-
-
 
 
 ![LOGvRF2](images/LogisticvsRandomForest2.png)
 
-
-
-
-![LOGvRF3](images/LogisticvsRandomForest3.png)
 
 
 Next, we show the performance of the ML-classifiers which form this strategy.
