@@ -16,8 +16,7 @@ First, we show the out-of-sample PnLs for these models.
 
 ![BERTvBAG](images/BertvsBag.png)
 
-
-
+BERT features give a less volatile strategy.
 
 
 Below are plots comparing SVD(PCA) to LDA using different levels of discretization for training.
@@ -31,25 +30,25 @@ The right two columns are the same models, but trained on only the alphas of the
 
 
 
-The following plots are of various binary comparisons:
+The following plots are of various binary comparisons.
 
-Using PCA for dimensionality reduction (CountVectorizer uses 60d, TFIDF uses 50d):
 ![CountvTFIDF1](images/CountvsTFIDF1.png)
 
-
-Using LDA for dimensionality reduction (CountVectorizer uses 35d, TFIDF uses 33d)
-![CountvTFIDF2](images/CountvsTFIDF2.png)
-
+CountVectorizer performs slightly better than Tf-idf.
 
 ![LDAvSVD](images/LDAvsSVD.png)
 
+LDA performs better than SVD (PCA), contrary to the f1_weighted scores, which
+will be shown below.
 
 ![LDA5v35](images/LDAwith5vs35feat.png)
 
+Here, more features performs better, indicating that overfitting did not occur.
 
 ![LOGvRF2](images/LogisticvsRandomForest2.png)
 
-
+Logistic regression clearly beats random forests by PnL, which will be 
+supported again below with the ML-performance scores (f1_weighted).
 
 Next, we show the performance of the ML-classifiers which form this strategy.
 
