@@ -34,9 +34,10 @@ the 8K text needs preprocessing:
 
 Now the text is ready to be turned into the document-term matrix.
 
-For BERT, we extract sentence embeddings , obtained using the library `transformers` \
+### BERT (Bidirectional encoder representations from Transformers)
+For BERT, we extract sentence embeddings, obtained using the library `transformers` \
 from [Hugging Face](https://github.com/huggingface/transformers). The embeddings
-are the last layer of the non-fine-tuned BERT neural network. Instructions
+are the last layer of the non-fine-tuned BERT neural network in the original BERT paper architecture. Instructions
 on extracting embeddings can be found [here](https://huggingface.co/transformers/quickstart.html)
  and [here](https://mccormickml.com/2019/05/14/BERT-word-embeddings-tutorial/).
 
@@ -229,18 +230,6 @@ Topic 5 distributed evenly between big down movement and big up movement. Topic 
 
 Generally speaking the small movements still has the largest proportion among the three categories but we can say that "amendment of agreements" has some negative effects on the stock price and "change of board composition" has some positive effect, which make sense intuitionly.
 
-
-### Appendix: LDA for Topic Modeling
-Latent Dirichlet Allocation (LDA) aims to model documents as arising from multiple topics, where a _topic_ is defined to be a distribution over a fixed vocabulary of terms. Each document exhibits these topics with different proportions. The K topics and their relative weights are treated as hidden variables. Given a collection of documents, the _posterior distribution_ of the hidden variables given the observed documents determines a hidden topical decomposition of the collection.
-
-![latent dirichlet allocation](images/lda.png)
-
-Resources on LDA:
-* LDA in sklearn: [here](https://scikit-learn.org/stable/modules/decomposition.html#latent-dirichlet-allocation-lda)
-
-* [Topic Models (Blei and Lafferty)](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.186.4283&rep=rep1&type=pdf)
-
-
 ## LDA Topic Explanation
 * __Topic 1__: structuring change in the company’s management level: appointment of new CEO/ change in the committee
 * __Topic 2__: new financial statement: assessment about tax/new acquisition
@@ -255,3 +244,13 @@ Resources on LDA:
 
 We classified all documents into different topics based on its highest probability across all topics. And by the similarity of its different text informatio, we extracted and summarized above as the explanation for each topic. 
 (All topics are sentimental-neutral)
+
+### Appendix: LDA for Topic Modeling
+Latent Dirichlet Allocation (LDA) aims to model documents as arising from multiple topics, where a _topic_ is defined to be a distribution over a fixed vocabulary of terms. Each document exhibits these topics with different proportions. The K topics and their relative weights are treated as hidden variables. Given a collection of documents, the _posterior distribution_ of the hidden variables given the observed documents determines a hidden topical decomposition of the collection.
+
+![latent dirichlet allocation](images/lda.png)
+
+Resources on LDA:
+* LDA in sklearn: [here](https://scikit-learn.org/stable/modules/decomposition.html#latent-dirichlet-allocation-lda)
+
+* [Topic Models (Blei and Lafferty)](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.186.4283&rep=rep1&type=pdf)
